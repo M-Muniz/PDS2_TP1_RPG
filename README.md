@@ -3,8 +3,11 @@ Tema trabalho PDS2
 Integrantes: 
 
 José Lucas Lacerda Campos - 2023039295
+
 Isabella de Paula Amaral - 2023039023
+
 Luiz Fernando Verteiro Evaristo - 2023038760
+
 Matheus Muniz Soares - 2023038892
 
 Jogo de RPG em turnos:
