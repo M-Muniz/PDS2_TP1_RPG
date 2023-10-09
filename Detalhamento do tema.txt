@@ -1,0 +1,5 @@
+Tema trabalho PDS2
+Jogo de RPG em turnos 
+Objetivo: criar um jogo de turnos em uma dungeon pré definida , na qual o usuario
+podera escolher suas açoes e moldar seu personagem enquanto enfrenta inimigos cada vez mais fortes 
+O Personagem jogavel  estara representado atraves de Class na qual suas açoes seriam definidas atraves de funçoes .
