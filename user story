@@ -1,0 +1,7 @@
+User Story :RPG em turnos C++
+Como usuario desejo jogar um jogo simples de combate em turnos.
+---criterios de aceitaçao---
+.Desejo ser capaz de ter uma pequena variedade de açoes durante meus turnos.
+.Ser capaz de alterar entre classes ou habilidades entre jogatinas , para que cada jogo seja unico.
+.Quero que o jogo possua uma interface grafica para q eu seja capaz de enxergar os combates .
+.quero interagir atraves da interface grafica com uso de botoes ou comandos
