@@ -38,7 +38,8 @@ public:
     int Atk();
 
     /**
-     * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do Player.
+     * @brief Recebe o valor de ataque do atacante e subtrai da vida com base 
+     * na defesa e esquiva do Player.
      * @param Atk_enemy Valor de ataque do inimigo.
      */
     void Def(int Atk_enemy);
