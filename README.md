@@ -1,6 +1,6 @@
 # Tema trabalho PDS2
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 ## Integrantes: 
 
 José Lucas Lacerda Campos - 2023039295
@@ -11,17 +11,17 @@ Luiz Fernando Verteiro Evaristo - 2023038760
 
 Matheus Muniz Soares - 2023038892
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 # Jogo de RPG em turnos:
 
 Objetivo: criar um jogo de turnos em uma dungeon pré definida, na qual o usuário poderá escolher suas ações e moldar seu personagem enquanto enfrenta inimigos cada vez mais fortes. O Personagem jogável e os inimigos estarão representados através de Class na qual suas ações seriam definidas atraves de funções.
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 OBS: Escolhemos utilizar o manual de estillo da Google.
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 # User Story: 
 
 ##    RPG em turnos C++
@@ -34,7 +34,7 @@ OBS: Escolhemos utilizar o manual de estillo da Google.
     . Quero que o jogo possua uma interface grafica para q eu seja capaz de enxergar os combates.
     . Quero interagir atraves da interface grafica com uso de botoes ou comandos.
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 # CRC's:
 
@@ -65,7 +65,7 @@ OBS: Escolhemos utilizar o manual de estillo da Google.
         String Name; // Nome do Player
         Sprite img_Player; // Imagem do Player para a interface gráfica
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
     
 ##    Class:
 
@@ -80,7 +80,7 @@ OBS: Escolhemos utilizar o manual de estillo da Google.
     
 ##    Colaborators:
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 ##    Class: 
 
@@ -98,7 +98,7 @@ OBS: Escolhemos utilizar o manual de estillo da Google.
         Rpg(); // Construtor da classe
         Run(); // Inicia o jogo
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 ##    Class: 
     
@@ -108,7 +108,7 @@ OBS: Escolhemos utilizar o manual de estillo da Google.
     
 ##    Colaborators:
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 ##    Class: 
 
@@ -135,7 +135,7 @@ OBS: Escolhemos utilizar o manual de estillo da Google.
         String Name; // Nome do Boss
         Sprite img_Boss; // Imagem do Boss para a interface gráfica
 
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------
 
 ##    Class: 
         
