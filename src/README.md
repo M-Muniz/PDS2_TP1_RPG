@@ -88,8 +88,16 @@ CRC's:
         Rpg;
     
     Responsabilitys:
+
+        moveEnemys(); // Move os inimigos
+        Setanime(Vários)(); // Anima os objetos do jogo        
+        events(); // Eventos do jogo que acontecem na interface grafica 
+        draw(); // Anima a janela 
     
     Colaborators:
+        
+        Rpg(); // Construtor da classe
+        Run(); // Inicia o jogo
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
