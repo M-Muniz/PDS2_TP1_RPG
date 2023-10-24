@@ -58,7 +58,7 @@ CRC's:
         Struct Status{
             int Hp; // Vida do Player 
             int Atk; // Valor de ataque do Player
-            int Dfs; // Valor de defesa do Player
+            int Def; // Valor de defesa do Player
             int Mp; // Valor de energia no Player
             int Xp; // Valor de experiência do Player
             int Agi; // Valor de possível esquiva do Player
@@ -129,7 +129,7 @@ CRC's:
         Struct{
             int Hp; // Vida do Boss
             int Atk; // Valor de ataque do Boss
-            int Dfs; // Valor de defesa do Boss
+            int Def; // Valor de defesa do Boss
             int Xp; // Valor de experiência passado ao Player
             int Agi; // Valor de possível esquiva do Boss
         }
@@ -152,7 +152,7 @@ CRC's:
         Struct Status{
             int Hp; // Vida  
             int Atk; // Valor de ataque 
-            int Dfs; // Valor de defesa
+            int Def; // Valor de defesa
             int Mp; // Valor de energia
             int Xp; // Valor de experiência 
             int Agi; // Valor de possível esquiva 
