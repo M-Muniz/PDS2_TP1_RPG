@@ -7,6 +7,18 @@
 #include <Skill.h>
 
 /**
+ * @brief Struct para representar os status de um jogador no jogo.
+ */
+struct Status {
+        int Hp; /**< Vida do Player */
+        int Atk; /**< Valor de ataque do Player */
+        int Def; /**< Valor de defesa do Player */
+        int Mp; /**< Valor de energia no Player */
+        int Xp; /**< Valor de experiência do Player */
+        int Agi; /**< Valor de possível esquiva do Player */
+    };
+
+/**
  * @brief Classe para representar um jogador no jogo.
  */
 class Player {
@@ -48,16 +60,9 @@ public:
     Skill userSkills(int Index);
 
 private:
-    std::vector<Skill> Skills[3]; /**< Vetor de habilidades do Player */
-    struct Status {
-        int Hp; /**< Vida do Player */
-        int Atk; /**< Valor de ataque do Player */
-        int Def; /**< Valor de defesa do Player */
-        int Mp; /**< Valor de energia no Player */
-        int Xp; /**< Valor de experiência do Player */
-        int Agi; /**< Valor de possível esquiva do Player */
-    };
     std::string Name; /**< Nome do Player */
+    Status Stats; /**< Status do Player*/
+    std::vector<Skill> Skills[3]; /**< Vetor de habilidades do Player */
     sf::Sprite img_Player; /**< Imagem do Player para a interface gráfica */
 };
 
