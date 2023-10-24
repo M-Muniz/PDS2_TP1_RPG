@@ -4,19 +4,22 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include <Skill.h>
 
 /**
  * @brief Struct para representar os status de um jogador no jogo.
  */
 struct Status {
-        int Hp; /**< Vida do Player */
-        int Atk; /**< Valor de ataque do Player */
-        int Def; /**< Valor de defesa do Player */
-        int Mp; /**< Valor de energia no Player */
-        int Xp; /**< Valor de experiência do Player */
-        int Agi; /**< Valor de possível esquiva do Player */
-    };
+    int Hp; /**< Vida do Player */
+    int Atk; /**< Valor de ataque do Player */
+    int Def; /**< Valor de defesa do Player */
+    int Mp; /**< Valor de energia no Player */
+    int Xp; /**< Valor de experiência do Player */
+    int Agi; /**< Valor de possível esquiva do Player */
+};
 
 /**
  * @brief Classe para representar um jogador no jogo.
