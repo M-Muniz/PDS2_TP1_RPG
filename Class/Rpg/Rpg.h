@@ -7,7 +7,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include <Skill.h>
+#include "../Skill/Skill.h"
 
 /**
  * @brief Struct para representar os status de um jogador no jogo.
