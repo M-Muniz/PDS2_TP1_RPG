@@ -1,7 +1,7 @@
 Release: main
 
-Build/main.o: main.cpp Class/Rpg/Rpg.cpp
-	c++ main.o -o main -lsfml-graphics -lsfml-window -lsfml-system
+Build/main.o: src/main.cpp Class/Rpg/Rpg.h
+	c++ -c src/main.cpp -I Class/ -lsfml-graphics -lsfml-window -lsfml-system -o Build/main.o
 
 
 Build/Rpg.o: Class/Rpg/Rpg.h Class/Rpg/Rpg.cpp
