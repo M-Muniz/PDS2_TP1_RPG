@@ -15,7 +15,7 @@
  */
 class Rpg {
 public:
-    std::shared_ptr<sf::RenderWindow> Window;
+    std::shared_ptr<sf::RenderWindow> window;
     sf::Texture bg;
     std::shared_ptr<sf::Sprite> background;
 
@@ -33,22 +33,22 @@ public:
     /**
      * @brief Move os inimigos no jogo.
      */
-    void moveEnemys();
+    void MoveEnemys();
 
     /**
      * @brief Anima os objetos do jogo.
      */
-    void Setanime();
+    void SetAnime();
 
     /**
      * @brief Gerencia eventos do jogo que acontecem na interface gráfica.
      */
-    void events();
+    void Events();
 
     /**
      * @brief Anima a janela do jogo.
      */
-    void draw();
+    void Draw();
 
 
 };

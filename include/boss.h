@@ -1,5 +1,5 @@
-#ifndef BOSS_H
-#define BOSS_H
+#ifndef BOSS_H_
+#define BOSS_H_
 
 #include <vector>
 #include <string>
@@ -7,14 +7,14 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "../Skill/Skill.h"
+#include "skill.h"
 
 struct Status {
-    int Hp;   /**< Vida do chefe (boss). */
-    int Atk;  /**< Valor de ataque do chefe (boss). */
-    int Def;  /**< Valor de defesa do chefe (boss). */
-    int Xp;   /**< Valor de experiência passado ao jogador. */
-    int Agi;  /**< Valor de possível esquiva do chefe (boss). */
+    int hp;   /**< Vida do chefe (boss). */
+    int atk;  /**< Valor de ataque do chefe (boss). */
+    int def;  /**< Valor de defesa do chefe (boss). */
+    int xp;   /**< Valor de experiência passado ao jogador. */
+    int agi;  /**< Valor de possível esquiva do chefe (boss). */
 };
 /**
  * @brief Classe que representa um chefe (boss) no jogo.
@@ -42,24 +42,24 @@ public:
      * @brief Retorna a struct de dados do chefe (boss).
      * @return A struct de dados do chefe (boss).
      */
-    Status returnStatus();
+    Status ReturnStatus();
 
     /**
      * @brief Retorna uma das habilidades do chefe (boss) com base no índice.
      * @param Index O índice da habilidade desejada.
      * @return A habilidade do chefe (boss) correspondente ao índice.
      */
-    Skill bossSkills(int Index);
+    Skill BossSkills(int Index);
 
 private:
     /**
      * @brief Estrutura de dados que armazena os status do chefe (boss).
      */
-    struct Status;
+    Status stats_;
 
-    std::string Name; /**< Nome do chefe (boss). */
-    sf::Sprite img_Boss; /**< Imagem do chefe (boss) para a interface gráfica. */
-    Skill Skills; /**< Habilidades do chefe (boss). */
+    std::string name_; /**< Nome do chefe (boss). */
+    sf::Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
+    Skill skills_; /**< Habilidades do chefe (boss). */
 };
 
-#endif // BOSS_H
+#endif

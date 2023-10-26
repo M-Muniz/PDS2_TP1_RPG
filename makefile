@@ -4,17 +4,17 @@ INC_DIRS = -I Class/
 LIB_DIRS = -L/usr/lib/x86_64-linux-gnu/
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-OBJS = build/main.o build/Rpg.o
+OBJS = build/main.o build/rpg.o
 
 main: $(OBJS)
-	$(CXX) $(OBJS) -o Game.app $(LIB_DIRS) $(LIBS)
+	$(CXX) $(OBJS) -o game.app $(LIB_DIRS) $(LIBS)
 
-build/Rpg.o: Class/Rpg/Rpg.cpp
+build/rpg.o: src/entities/rpg.cc
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
 
-build/main.o: src/main.cpp
+build/main.o: src/main.cc
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
 
 .PHONY: clean
 clean:
-	rm -f $(OBJS) Game.app
+	rm -f $(OBJS) game.app

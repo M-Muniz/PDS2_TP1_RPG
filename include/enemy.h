@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef ENEMY_H_
+#define ENEMY_H_
 
 #include <vector>
 #include <string>
@@ -7,13 +7,13 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "../Skill/Skill.h"
+#include "skill.h"
 
 struct Status {
-    int Hp;   /**< Vida do inimigo. */
-    int Atk;  /**< Valor de ataque do inimigo. */
-    int Def;  /**< Valor de defesa do inimigo. */
-    int Agi;  /**< Valor de possível esquiva do inimigo. */
+    int hp;   /**< Vida do inimigo. */
+    int atk;  /**< Valor de ataque do inimigo. */
+    int def;  /**< Valor de defesa do inimigo. */
+    int agi;  /**< Valor de possível esquiva do inimigo. */
 };
 
 /**
@@ -42,15 +42,12 @@ public:
      * @brief Retorna a struct de dados do inimigo.
      * @return A struct de dados do inimigo.
      */
-    Status returnStatus();
+    Status ReturnStatus();
 
 private:
-    /**
-     * @brief Estrutura de dados que armazena os status do inimigo.
-     */
-    struct Status;
+    Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */
 
-    std::string Name; /**< Nome do inimigo. */
+    std::string name_; /**< Nome do inimigo. */
 };
 
-#endif // ENEMY_H
+#endif

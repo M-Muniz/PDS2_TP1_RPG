@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLAYER_H_
+#define PLAYER_H_
 
 #include <vector>
 #include <string>
@@ -7,18 +7,18 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "../Skill/Skill.h"
+#include "skill.h"
 
 /**
  * @brief Struct para representar os status de um jogador no jogo.
  */
 struct Status {
-    int Hp; /**< Vida do Player */
-    int Atk; /**< Valor de ataque do Player */
-    int Def; /**< Valor de defesa do Player */
-    int Mp; /**< Valor de energia no Player */
-    int Xp; /**< Valor de experiência do Player */
-    int Agi; /**< Valor de possível esquiva do Player */
+    int hp; /**< Vida do Player */
+    int atk; /**< Valor de ataque do Player */
+    int def; /**< Valor de defesa do Player */
+    int mp; /**< Valor de energia no Player */
+    int xp; /**< Valor de experiência do Player */
+    int agi; /**< Valor de possível esquiva do Player */
 };
 
 /**
@@ -53,20 +53,20 @@ public:
      * @brief Retorna a struct de dados do Player.
      * @return Struct contendo os status do Player.
      */
-    Status returnStatus();
+    Status ReturnStatus();
 
     /**
      * @brief Retorna uma das skills do Player com base no índice.
      * @param Index Índice da habilidade desejada.
      * @return Objeto Skill representando a habilidade.
      */
-    Skill userSkills(int Index);
+    Skill UserSkills(int Index);
 
 private:
-    std::string Name; /**< Nome do Player */
-    Status Stats; /**< Status do Player*/
-    std::vector<Skill> Skills[3]; /**< Vetor de habilidades do Player */
-    sf::Sprite img_Player; /**< Imagem do Player para a interface gráfica */
+    std::string name; /**< Nome do Player */
+    Status ntats_; /**< Status do Player*/
+    std::vector<Skill> skills[3]; /**< Vetor de habilidades do Player */
+    sf::Sprite img_player; /**< Imagem do Player para a interface gráfica */
 };
 
-#endif // PLAYER_H
+#endif 
