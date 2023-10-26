@@ -139,8 +139,14 @@ estarão representados através de Class na qual suas ações seriam definidas a
         Skill;
     
 ##    Responsabilitys:
-    
+
+        skill(int classe); // Construtor da class skill baseado na Classe(RPG) selecionada. 
+        
 ##    Colaborators:
+
+        int class_; // Armazena o valor da classe do Player ou do Boss.
+        Attributes attributes_; // Estrutura de dados com os atributos da Skill.
+        Sprite img_skill_; // Imagem da Skill para a interface grafica. 
 
 # ----------------------------------------------------------------
 
