@@ -3,11 +3,12 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include <memory>
+
 
 /**
  * @brief Classe principal para o jogo de RPG.
