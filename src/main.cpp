@@ -1,4 +1,5 @@
 #include "../Class/Rpg/Rpg.h"
+#include<memory>
 #include <SFML/Graphics.hpp>
 
 int main(){
