@@ -11,7 +11,7 @@ Rpg::Rpg(){
     Window->setFramerateLimit(100);
     bg.loadFromFile("Resources/BG_temp.jpg");
 
-    background =std::make_shared<sf::Sprite>();
+    background = std::make_shared<sf::Sprite>();
     background->setTexture(bg);
 }
 
