@@ -1,5 +1,5 @@
-#ifndef RPG_H
-#define RPG_H
+#ifndef RPG_H_
+#define RPG_H_
 
 #include <vector>
 #include <string>
@@ -52,4 +52,4 @@ public:
 
 
 };
-#endif // RPG_H
+#endif
