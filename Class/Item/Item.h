@@ -7,7 +7,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include <Skill.h>
+#include "../Skill/Skill.h"
+#include "../Player/Player.h"
 
 /**
  * @brief Classe que representa um item no jogo.

@@ -7,8 +7,15 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include <Skill.h>
+#include "../Skill/Skill.h"
 
+struct Status {
+    int Hp;   /**< Vida do chefe (boss). */
+    int Atk;  /**< Valor de ataque do chefe (boss). */
+    int Def;  /**< Valor de defesa do chefe (boss). */
+    int Xp;   /**< Valor de experiência passado ao jogador. */
+    int Agi;  /**< Valor de possível esquiva do chefe (boss). */
+};
 /**
  * @brief Classe que representa um chefe (boss) no jogo.
  */
@@ -48,13 +55,7 @@ private:
     /**
      * @brief Estrutura de dados que armazena os status do chefe (boss).
      */
-    struct Status {
-        int Hp;   /**< Vida do chefe (boss). */
-        int Atk;  /**< Valor de ataque do chefe (boss). */
-        int Def;  /**< Valor de defesa do chefe (boss). */
-        int Xp;   /**< Valor de experiência passado ao jogador. */
-        int Agi;  /**< Valor de possível esquiva do chefe (boss). */
-    };
+    struct Status;
 
     std::string Name; /**< Nome do chefe (boss). */
     sf::Sprite img_Boss; /**< Imagem do chefe (boss) para a interface gráfica. */
