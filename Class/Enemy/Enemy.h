@@ -7,7 +7,14 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include <Skill.h>
+#include "../Skill/Skill.h"
+
+struct Status {
+    int Hp;   /**< Vida do inimigo. */
+    int Atk;  /**< Valor de ataque do inimigo. */
+    int Def;  /**< Valor de defesa do inimigo. */
+    int Agi;  /**< Valor de possível esquiva do inimigo. */
+};
 
 /**
  * @brief Classe que representa um inimigo no jogo.
@@ -41,12 +48,7 @@ private:
     /**
      * @brief Estrutura de dados que armazena os status do inimigo.
      */
-    struct Status {
-        int Hp;   /**< Vida do inimigo. */
-        int Atk;  /**< Valor de ataque do inimigo. */
-        int Def;  /**< Valor de defesa do inimigo. */
-        int Agi;  /**< Valor de possível esquiva do inimigo. */
-    };
+    struct Status;
 
     std::string Name; /**< Nome do inimigo. */
 };
