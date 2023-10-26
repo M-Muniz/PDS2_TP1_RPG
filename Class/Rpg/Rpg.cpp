@@ -9,7 +9,7 @@ Rpg::Rpg(){
     );
     Window->setPosition(sf::Vector2i(0,0));
     Window->setFramerateLimit(100);
-    bg.loadFromFile("../../Resources/BG_temp.jpg");
+    bg.loadFromFile("Resources/BG_temp.jpg");
 
     background =std::make_shared<sf::Sprite>();
     background->setTexture(bg);

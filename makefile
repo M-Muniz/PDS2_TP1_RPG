@@ -1,11 +1,20 @@
-Release: main
+CXX = g++
+CXXFLAGS = -g -Wall -O3 -std=c++11
+INC_DIRS = -I Class/
+LIB_DIRS = -L/usr/lib/x86_64-linux-gnu/
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-Build/main.o: src/main.cpp Class/Rpg/Rpg.h
-	c++ -c src/main.cpp -I Class/ -L/usr/lib/x86_64-linux-gnu/ -lsfml-graphics -lsfml-window -lsfml-system -o Build/main.o
+OBJS = build/main.o build/Rpg.o
 
+main: $(OBJS)
+	$(CXX) $(OBJS) -o Game.app $(LIB_DIRS) $(LIBS)
 
-Build/Rpg.o: Class/Rpg/Rpg.h Class/Rpg/Rpg.cpp
-	c++ -c Class/Rpg/Rpg.cpp -I Class/ -o Build/Rpg.o
+build/Rpg.o: Class/Rpg/Rpg.cpp
+	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
 
-main: Build/Rpg.o Build/main.o  
-	c++ Build/Rpg.o Build/main.o -o Jogo
+build/main.o: src/main.cpp
+	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
+
+.PHONY: clean
+clean:
+	rm -f $(OBJS) Game.app
