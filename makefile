@@ -1,9 +1,11 @@
-Build/main.o: main.cpp 
-	g++ main.o -o main -lsfml-graphics -lsfml-window -lsfml-system
+Release: main
 
-main.cpp: src/main.o  
-	g++ -c src/main.cpp
+Build/main.o: main.cpp Class/Rpg/Rpg.cpp
+	c++ main.o -o main -lsfml-graphics -lsfml-window -lsfml-system
 
 
-Class/Rpg/Rpg.o:Class/Rpg/Rpg.h Class/Rpg/Rpg.cpp
-	g++ -c Class/Rpg/Rpg.cpp
+Build/Rpg.o: Class/Rpg/Rpg.h Class/Rpg/Rpg.cpp
+	c++ -c Class/Rpg/Rpg.cpp -I Class/ -o Build/Rpg.o
+
+main: Build/Rpg.o Build/main.o  
+	c++ Build/Rpg.o Build/main.o -o Jogo 
