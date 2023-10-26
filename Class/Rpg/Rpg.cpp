@@ -1,4 +1,5 @@
 #include "Rpg.h"
+#include <SFML/Graphics.hpp>
 
 Rpg::Rpg(){
     Window=std::make_shared<sf::RenderWindow>(
