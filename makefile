@@ -1,5 +1,9 @@
-main.exe: main.cpp main.o 
+Build/main.o: main.cpp 
 	g++ main.o -o main -lsfml-graphics -lsfml-window -lsfml-system
 
-main.o: main.cpp
-	g++ -c main.cpp
+main.cpp: src/main.o  
+	g++ -c src/main.cpp
+
+
+Class/Rpg/Rpg.o:Class/Rpg/Rpg.h Class/Rpg/Rpg.cpp
+	g++ -c Class/Rpg/Rpg.cpp
