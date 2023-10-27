@@ -54,33 +54,27 @@ void Menu::LoopEvents(){
     }
 
     if(Keyboard::isKeyPressed(Keyboard::Down) && !pressed_){
-      pos_++;
-      if(pos_ > 4){
-        pos_ = 2;
-        texts_[3].setOutlineThickness(0);
-        texts_[4].setOutlineThickness(0);
+      if(pos_ < 4){
+        ++pos_;
+        pressed_ = true;
+        texts_[pos_].setOutlineThickness(4);
+        texts_[pos_ + 1].setOutlineThickness(0);
+        texts_[pos_ - 1].setOutlineThickness(0);
+        pressed_ = false;
+        theselect_ = false;
       }
-      pressed_ = true;
-      texts_[pos_].setOutlineThickness(4);
-      texts_[pos_ + 1].setOutlineThickness(0);
-      texts_[pos_ - 1].setOutlineThickness(0);
-      pressed_ = false;
-      theselect_ = false;
     }
 
     if(Keyboard::isKeyPressed(Keyboard::Up) && !pressed_){
-      pos_--;
-      if(pos_ < 2){
-        pos_ = 4;
-        texts_[3].setOutlineThickness(0);
-        texts_[2].setOutlineThickness(0);
+      if(pos_ > 2){
+        --pos_;
+        pressed_ = true;
+        texts_[pos_].setOutlineThickness(4);
+        texts_[pos_ + 1].setOutlineThickness(0);
+        texts_[pos_ - 1].setOutlineThickness(0);
+        pressed_ = false;
+        theselect_ = false;
       }
-      pressed_ = true;
-      texts_[pos_].setOutlineThickness(4);
-      texts_[pos_ + 1].setOutlineThickness(0);
-      texts_[pos_ - 1].setOutlineThickness(0);
-      pressed_ = false;
-      theselect_ = false;
     }
 
     if(Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_){
@@ -129,8 +123,8 @@ void Menu::ReceiveName(){
           if(!player_name_.empty()){
             player_name_.pop_back(); // Remove o último caractere da string
           }
-        }else if(event.text.unicode < 128){
-          player_name_ += static_cast<char>(event.text.unicode); // Adicione o caractere à string
+        }else if(event.text.unicode < 128 && player_name_.size() <= 10){ // Limite de 10 caracteres para o nome
+          player_name_ += static_cast<char>(event.text.unicode); // Adicione o caractere à string caso 
         }
 
         input_text.setString(player_name_);
@@ -159,6 +153,6 @@ void Menu::RunMenu(){
     DrawAll();
   }
   ReceiveName();
-  cout << options_[pos_] << " " << player_name_ << endl;
+  cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
 }
 
