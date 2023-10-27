@@ -47,7 +47,7 @@ em "https://www.sfml-dev.org/index.php".
 
 OBS: É possível utilizar a biblioteca em Windows também, porém o uso é bem menos complexo ao se utilizar 
 Linux/WSL, além de ser possível utilizar ferramentas como o Make, que é essencial nesse tipo de aplicação tendo 
-em vista a quantidade de dependências neecssárias. Dessa forma, gostaria de salientar que o arquivo Makefile 
+em vista a quantidade de dependências necessárias. Dessa forma, gostaria de salientar que o arquivo Makefile 
 dessa aplicação ainda não foi concluído e, atualmente trabalha com a inclusão da biblioteca levando em 
 consideração que esta se encontra instalada no diretório padrão de instalação do Linux (-L/usr/lib/x86_64-
 linux-gnu/). É possível que haja alguma convergência em outras máquinas e pretendemos resolver essa questão o 
