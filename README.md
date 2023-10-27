@@ -65,12 +65,12 @@ Como usuario desejo jogar um jogo simples de RPG com o combate em turnos.
 
 . Desejo ser capaz de ter uma pequena variedade de açoes durante meus turnos, como atacar e usar skills.
 
-. Ser capaz de alterar entre classes ou habilidades entre partidas, e que haja uma , para que cada jogo 
-seja unico.
+. Ser capaz de alterar entre classes ou habilidades entre partidas, e que haja uma certa variedade de 
+inimigos, como inimigos normais e um boss, para que cada jogo seja unico.
 
-. Quero que o jogo possua uma interface grafica para q eu seja capaz de enxergar os combates.
+. Quero que o jogo possua uma interface grafica para que eu seja capaz de enxergar os combates.
 
-. Quero interagir atraves da interface grafica com uso de botoes ou comandos.
+. Quero interagir atraves da interface grafica com uso de botoes, mouse e/ou comandos.
 
 
 # ----------------------------------------------------------------
