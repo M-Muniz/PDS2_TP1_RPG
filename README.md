@@ -45,13 +45,6 @@ Para baixar a biblioteca, basta usar o comando "sudo apt-get install libsfml-dev
 de outra forma ou acompanhar um tutorial mais completo, basta acessar o site oficial da biblioteca, disponível 
 em "https://www.sfml-dev.org/index.php".
 
-OBS: É possível utilizar a biblioteca em Windows também, porém o uso é bem menos complexo ao se utilizar 
-Linux/WSL, além de ser possível utilizar ferramentas como o Make, que é essencial nesse tipo de aplicação tendo 
-em vista a quantidade de dependências neecssárias. Dessa forma, gostaria de salientar que o arquivo Makefile 
-dessa aplicação ainda não foi concluído e, atualmente trabalha com a inclusão da biblioteca levando em 
-consideração que esta se encontra instalada no diretório padrão de instalação do Linux (-L/usr/lib/x86_64-
-linux-gnu/). É possível que haja alguma convergência em outras máquinas e pretendemos resolver essa questão o 
-mais rápido possível, para tornar a aplicação mais abrangente.
 
 # ----------------------------------------------------------------
 
@@ -250,6 +243,8 @@ void ReceiveName(); // Função para receber uma string (nome do player) atravé
 
 void DrawAll(); // Função para desenhar as coisas na janela da interface gráfica.
 
+void RunMenu(); // Coloca o Menu para funcionar.
+
 ##    Colaborators:
 
 int pos_; //  Armazena a posição de seleção do Menu.
@@ -266,6 +261,8 @@ Texture *image_; // Armazena a imagem para importar para o background.
 
 Sprite *bg_; // Background do Menu para a interface gráfica.
 
+string player_name_; // Armazena o nome que o usuário inserir.
+
 vector<string> options_; // Vetor de opções do Menu.
 
 vector<Vector2f> coords_; // Vetor de posições das opções do Menu.
@@ -274,6 +271,20 @@ vector<Text> texts_; // Vetor de textos para as opções do Menu.
 
 vector<size_t> sizes_; // Tamanho das fontes para as opções do Menu.
 
-void RunMenu(); // Coloca o Menu para funcionar.
-
 # ----------------------------------------------------------------
+
+# Como utilizar o nosso jogo
+
+## Compilação e execução
+
+Para compilar o nosso programa, basta rodar o comando make no terminal e, após isso,
+execute o arquivo game.app.
+
+## game.app
+
+Após executar o game.app, um menu de seleção de classe irá abrir. Para navegar pelo menu basta 
+utilizar as setas (cima e baixo), e para selecionar utilize o botão "enter". Após selecionar a 
+sua classe, o menu irá se fechar e uma input irá aparecer para que você insira o nome do seu 
+personagem. Inicialmente, essas informações ficam salvas nas variáveis Menu::pos_ e 
+Menu::player_name_. Por enquanto, é possível verificar se as informações foram salvas corretamente
+por um cout no terminal apenas para este fim.
