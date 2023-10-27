@@ -240,14 +240,44 @@ Menu;
 
 Menu(); // Construtor.
 
-~Menu(); // Destrutor.
+~Menu(); // Destrutor. 
+
+void SetValues(); // Função para definir os valores para cada um dos objetos da Classe.
+
+void LoopEvents(); // Função para armazenar os eventos que ocorrem no Menu (interações como mouse e teclado).
+
+void DrawAll(); // Função para desenhar as coisas na janela da interface gráfica.
 
 ##    Colaborators:
 
-int pos_; // Armazena a posição de seleção do menu.
+int pos_; //  Armazena a posição de seleção do Menu.
 
-bool selected_; // Armazena se alguma opção foi selecionada.
+bool pressed_; //  Armazena se uma tecla está pressionada.
 
-bool enter_select_; // Identifica se a tecla enter foi pressionada (seleção)
+bool theselect_; //  Armazena se houve uma seleção de uma opção do Menu.
+
+RenderWindow *window_; // Janela do Menu.
+
+RectangleShape *winclose_; // Shape para fechar a janela, se pressionado.
+
+Font *font_; // Armazena a fonte a ser usada no Menu.
+
+Texture *image_; // Armazena a imagem para importar para o background.
+
+Sprite *bg_; // Background do Menu para a interface gráfica.
+
+Vector2i pos_mouse_; // Armazena a posição do mouse na tela.
+
+Vector2f mouse_coord_; // Armazena a coordenada do mouse na tela.
+
+vector<string> options_; // Vetor de opções do Menu.
+
+vector<Vector2f> coords_; // Vetor de posições das opções do Menu.
+
+vector<Text> texts_; // Vetor de textos para as opções do Menu.
+
+vector<size_t> sizes_; // Tamanho das fontes para as opções do Menu.
+
+void RunMenu(); // Coloca o Menu para funcionar.
 
 # ----------------------------------------------------------------
