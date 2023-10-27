@@ -157,6 +157,7 @@ void Menu::RunMenu(){
   while(window_->isOpen()){
     LoopEvents();
     DrawAll();
+    
   }
   ReceiveName();
   cout << options_[pos_] << " " << player_name_ << endl;
