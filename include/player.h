@@ -16,6 +16,7 @@ using namespace sf;
  * @brief Struct para representar os status de um jogador no jogo.
  */
 struct Status {
+    int hp_max; /**< Vada máxima do Player*/
     int hp; /**< Vida do Player */
     int atk; /**< Valor de ataque do Player */
     int def; /**< Valor de defesa do Player */
@@ -43,7 +44,7 @@ public:
     int Atk();
 
     /**
-     * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do Player, retorna 0 se o Player desviou do ataque e 1 c.c.
+     * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do Player, retorna 0 se o Player esquivou e 1 não se esquivou.
      * @param atk_enemy Valor de ataque do inimigo.
      */
     bool Def(int atk_enemy);
@@ -72,7 +73,8 @@ private:
     string name_; /**< Nome do Player */
     Status stats_; /**< Status do Player*/
     vector<Skill> skills_; /**< Vetor de habilidades do Player*/
-    Sprite img_player; /**< Imagem do Player para a interface gráfica*/
+    Texture img_player_texture_; /**< Textura para importar para o Sprite*/
+    Sprite img_player_; /**< Imagem do Player para a interface gráfica*/
 };
 
 #endif 
