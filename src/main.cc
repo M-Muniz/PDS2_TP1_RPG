@@ -1,4 +1,4 @@
-#include "../Class/Rpg/Rpg.h"
+#include "../include/rpg.h"
 #include<memory>
 #include <SFML/Graphics.hpp>
 
