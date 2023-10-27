@@ -10,7 +10,7 @@ Player::Player(string nome, int classe){
         stats_.hp = stats_.hp_max;
         stats_.atk = 20;
         stats_.def = 30;
-        stats_.agi = 20;
+        stats_.agi = 15;
         stats_.mp = 20;
         img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
         img_player_.setTexture(img_player_texture_);
@@ -19,7 +19,7 @@ Player::Player(string nome, int classe){
         stats_.hp = stats_.hp_max;
         stats_.atk = 30;
         stats_.def = 20;
-        stats_.agi = 30;
+        stats_.agi = 20;
         stats_.mp = 30;
         img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
         img_player_.setTexture(img_player_texture_);
@@ -28,7 +28,7 @@ Player::Player(string nome, int classe){
         stats_.hp = stats_.hp_max;
         stats_.atk = 25;
         stats_.def = 20;
-        stats_.agi = 40;
+        stats_.agi = 30;
         stats_.mp = 20;
         img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
         img_player_.setTexture(img_player_texture_);

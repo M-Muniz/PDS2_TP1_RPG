@@ -8,22 +8,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "skill.h"
+#include "boss.h"
 
 using namespace std;
 using namespace sf;
-
-/**
- * @brief Struct para representar os status de um jogador no jogo.
- */
-struct Status {
-    int hp_max; /**< Vada máxima do Player*/
-    int hp; /**< Vida do Player */
-    int atk; /**< Valor de ataque do Player */
-    int def; /**< Valor de defesa do Player */
-    int mp; /**< Valor de energia no Player */
-    int xp; /**< Valor de experiência do Player */
-    int agi; /**< Valor de possível esquiva do Player */
-};
 
 /**
  * @brief Classe para representar um jogador no jogo.
@@ -69,12 +57,12 @@ public:
     Skill UserSkills(int index);
 
 private:
-    int classe_; /**< Classe do Player*/
-    string name_; /**< Nome do Player */
-    Status stats_; /**< Status do Player*/
-    vector<Skill> skills_; /**< Vetor de habilidades do Player*/
-    Texture img_player_texture_; /**< Textura para importar para o Sprite*/
-    Sprite img_player_; /**< Imagem do Player para a interface gráfica*/
+    int classe_; /**< Classe do Player. */
+    string name_; /**< Nome do Player. */
+    Status stats_; /**< Status do Player. */
+    vector<Skill> skills_; /**< Vetor de habilidades do Player. */
+    Texture img_player_texture_; /**< Textura para importar para o Sprite. */
+    Sprite img_player_; /**< Imagem do Player para a interface gráfica. */
 };
 
 #endif 

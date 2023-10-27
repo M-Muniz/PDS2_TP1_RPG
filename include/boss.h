@@ -12,12 +12,15 @@
 using namespace std;
 using namespace sf;
 
+/**
+ * @brief Estrutura de dados para armezenas os status do objeto.
+ */
 struct Status {
-    int hp;   /**< Vida do chefe (boss). */
-    int atk;  /**< Valor de ataque do chefe (boss). */
-    int def;  /**< Valor de defesa do chefe (boss). */
-    int xp;   /**< Valor de experiência passado ao jogador. */
-    int agi;  /**< Valor de possível esquiva do chefe (boss). */
+    int hp;   /**< Vida do objeto. */
+    int atk;  /**< Valor de ataque do objeto. */
+    int def;  /**< Valor de defesa do objeto. */
+    int xp;   /**< Valor de experiência do objeto. */
+    int agi;  /**< Valor de possível esquiva do objeto. */
 };
 /**
  * @brief Classe que representa um chefe (boss) no jogo.

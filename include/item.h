@@ -14,18 +14,6 @@ using namespace std;
 using namespace sf;
 
 /**
-* @brief Estrutura de dados que armazena os atributos deste item.
-*/
-struct Attributes {
-        int hp;   /**< Valor de vida a ser somado. */
-        int atk;  /**< Valor de ataque a ser somado. */
-        int def;  /**< Valor de defesa a ser somado. */
-        int mp;   /**< Valor de energia a ser somado. */
-        int xp;   /**< Valor de experiência a ser somado. */
-        int agi;  /**< Valor de possível esquiva a ser somado. */
-    };
-
-/**
  * @brief Classe que representa um item no jogo.
  */
 class Item {
@@ -42,8 +30,8 @@ public:
     void Sum(Player& Usr);
 
 private:
-    Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item*/
-    Texture img_item_texture_; /**< Textura para importar para o Sprite*/
+    Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item. */
+    Texture img_item_texture_; /**< Textura para importar para o Sprite. */
     Sprite img_item_; /**< Imagem do item para a interface gráfica. */
 };
 

@@ -17,9 +17,9 @@ using namespace sf;
  */
 class Rpg {
 public:
-    shared_ptr<sf::RenderWindow> window;
-    Texture bg;
-    shared_ptr<sf::Sprite> background;
+    shared_ptr<RenderWindow> window; /**< Janela */
+    Texture bg; /**< Textura para importar para o backgroud da tela */
+    shared_ptr<Sprite> background; /**< Background da */
 
 public:
     /**
