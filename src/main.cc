@@ -7,9 +7,13 @@
 #include "../include/skill.h"
 
 int main(){
-    auto jogo = std::make_shared<Rpg>();
+    Menu * menu = new Menu();
     
-    jogo->Run();
+    menu->RunMenu();
+
+    delete menu;
     
+    menu = nullptr;
+
     return 0;
 }

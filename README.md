@@ -246,6 +246,8 @@ void SetValues(); // Função para definir os valores para cada um dos objetos d
 
 void LoopEvents(); // Função para armazenar os eventos que ocorrem no Menu (interações como mouse e teclado).
 
+void ReceiveName(); // Função para receber uma string (nome do player) através da interface gráfica.
+
 void DrawAll(); // Função para desenhar as coisas na janela da interface gráfica.
 
 ##    Colaborators:
@@ -258,17 +260,11 @@ bool theselect_; //  Armazena se houve uma seleção de uma opção do Menu.
 
 RenderWindow *window_; // Janela do Menu.
 
-RectangleShape *winclose_; // Shape para fechar a janela, se pressionado.
-
 Font *font_; // Armazena a fonte a ser usada no Menu.
 
 Texture *image_; // Armazena a imagem para importar para o background.
 
 Sprite *bg_; // Background do Menu para a interface gráfica.
-
-Vector2i pos_mouse_; // Armazena a posição do mouse na tela.
-
-Vector2f mouse_coord_; // Armazena a coordenada do mouse na tela.
 
 vector<string> options_; // Vetor de opções do Menu.
 

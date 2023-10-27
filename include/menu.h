@@ -22,18 +22,16 @@ class Menu {
     bool theselect_; /**<  Armazena se houve uma seleção de uma opção do Menu.*/
 
     RenderWindow *window_; /**<  Janela do Menu.*/
-    RectangleShape *winclose_; /**<  Shape para fechar a janela, se pressionado.*/
     Font *font_; /**<  Armazena a fonte a ser usada no Menu.*/
     Texture *image_; /**<  Armazena a imagem para importar para o background.*/
-    Sprite *bg_; /**<   Background do Menu para a interface gráfica*/
+    Sprite *bg_; /**<   Background do Menu para a interface gráfica.*/
+    
+    string player_name_; /**< String para armazenar o nome do Player. */
 
-    Vector2i pos_mouse_; /**< Armazena a posição do mouse na tela*/
-    Vector2f mouse_coord_; /**< Armazena a coordenada do mouse na tela*/
-
-    vector<string> options_; /**< Vetor de opções do Menu*/
-    vector<Vector2f> coords_; /**< Vetor de posições das opções do Menu*/
-    vector<Text> texts_; /**< Vetor de textos para as opções do Menu*/
-    vector<size_t> sizes_; /**< Tamanho das fontes para as opções do Menu*/
+    vector<string> options_; /**< Vetor de opções do Menu.*/
+    vector<Vector2f> coords_; /**< Vetor de posições das opções do Menu.*/
+    vector<Text> texts_; /**< Vetor de textos para as opções do Menu.*/
+    vector<size_t> sizes_; /**< Tamanho das fontes para as opções do Menu.*/
 
   protected:
     /**
@@ -50,6 +48,11 @@ class Menu {
     * @brief Função para desenhar as coisas na janela da interface gráfica.
     */
     void DrawAll();
+
+    /**
+    * @brief Função para receber o nome do Player através da interface gráfica.
+    */
+    void ReceiveName();
 
   public:
     /**
