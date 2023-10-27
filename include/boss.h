@@ -16,9 +16,11 @@ using namespace sf;
  * @brief Estrutura de dados para armezenas os status do objeto.
  */
 struct Status {
+    int hp_max; /**< Vida máxima do objeto. */
     int hp;   /**< Vida do objeto. */
     int atk;  /**< Valor de ataque do objeto. */
     int def;  /**< Valor de defesa do objeto. */
+    int mp; /**< Valore de mana do usuário. */
     int xp;   /**< Valor de experiência do objeto. */
     int agi;  /**< Valor de possível esquiva do objeto. */
 };
