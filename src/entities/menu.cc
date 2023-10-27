@@ -30,14 +30,14 @@ void Menu::SetValues(){
 
   options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Rogue"};
   texts_.resize(5);
-  coords_ = {{575,55},{525,200},{600,310},{620,415},{610,515}};
+  coords_ = {{575,55},{525,205},{600,310},{620,415},{610,515}};
   sizes_ = {20,20,24,24,24};
 
   for (size_t i{}; i < texts_.size(); ++i){
-   texts_[i].setFont(*font_); 
-   texts_[i].setString(options_[i]); 
-   texts_[i].setCharacterSize(sizes_[i]);
-   texts_[i].setPosition(coords_[i]);
+    texts_[i].setFont(*font_); 
+    texts_[i].setString(options_[i]); 
+    texts_[i].setCharacterSize(sizes_[i]);
+    texts_[i].setPosition(coords_[i]);
   }
   texts_[0].setFillColor(Color::Red);
   texts_[1].setFillColor(Color::Black);
@@ -58,7 +58,6 @@ void Menu::LoopEvents(){
         ++pos_;
         pressed_ = true;
         texts_[pos_].setOutlineThickness(4);
-        texts_[pos_ + 1].setOutlineThickness(0);
         texts_[pos_ - 1].setOutlineThickness(0);
         pressed_ = false;
         theselect_ = false;
@@ -71,7 +70,6 @@ void Menu::LoopEvents(){
         pressed_ = true;
         texts_[pos_].setOutlineThickness(4);
         texts_[pos_ + 1].setOutlineThickness(0);
-        texts_[pos_ - 1].setOutlineThickness(0);
         pressed_ = false;
         theselect_ = false;
       }
@@ -123,7 +121,7 @@ void Menu::ReceiveName(){
           if(!player_name_.empty()){
             player_name_.pop_back(); // Remove o último caractere da string
           }
-        }else if(event.text.unicode < 128 && player_name_.size() <= 10){ // Limite de 10 caracteres para o nome
+        }else if(event.text.unicode < 128 && player_name_.size() < 10){ // Limite de 10 caracteres para o nome
           player_name_ += static_cast<char>(event.text.unicode); // Adicione o caractere à string caso 
         }
 
