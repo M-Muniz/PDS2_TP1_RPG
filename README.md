@@ -84,18 +84,26 @@ Player;
 ##    Responsabilitys:
 
 Player(); // Construtor.
+
 Atk(); // Retorna o valor de ataque do Player.
+
 Def(int Atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
 esquiva do Player. 
+
 Upar(int Xp); // Aumenta os status do Palyer com base na experiência recebida.
+
 ReturnStatus(); // Retorna a struct de dados do Player.
+
 UserSkills(int Index); // Retorna uma das skills do Player com base no indexador.
 
 ##    Colaborators:
 
 vector<Skill> skills_[3]; // Vetor de habilidades do Player.
+
 Status stats_; // Estrutura que armazena os status do Player.
+
 String name_; // Nome do Player.
+
 Sprite img_player_; // Imagem do Player para a interface gráfica.
 
 # ----------------------------------------------------------------
@@ -107,14 +115,18 @@ Enemy;
 ##    Responsabilitys:
 
 Enemy(); // Construtor.
+
 Atk(); // Retorna o valor de ataque do Enemy.
+
 Def(int Atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
 esquiva do Enemy.
+
 ReturnStatus(); // Retorna a struct de dados do Enemy.
 
 ##    Colaborators:
 
 Status stats_; // Estrutura de dados que armazena os status do inimigo.
+
 string name_; // Nome do inimigo.
 
 # ----------------------------------------------------------------
@@ -126,13 +138,17 @@ Rpg;
 ##    Responsabilitys:
 
 MoveEnemys(); // Move os inimigos.
+
 SetAnime(Vários)(); // Anima os objetos do jogo.     
+
 Events(); // Eventos do jogo que acontecem na interface grafica.
+
 Draw(); // Anima a janela. 
 
 ##    Colaborators:
 
 Rpg(); // Construtor da classe.
+
 Run(); // Inicia o jogo.
 
 # ----------------------------------------------------------------
@@ -148,7 +164,9 @@ skill(int classe); // Construtor da class skill baseado na Classe(RPG) seleciona
 ##    Colaborators:
 
 int class_; // Armazena o valor da classe do Player ou do Boss.
+
 Attributes attributes_; // Estrutura de dados com os atributos da Skill.
+
 Sprite img_skill_; // Imagem da Skill para a interface grafica. 
 
 # ----------------------------------------------------------------
@@ -161,16 +179,22 @@ Boss;
 
 Boss(); // Construtor.
 Atk(); // Retorna o valor de ataque do Boss.
+
 Def(int Atk_player); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
 esquiva do Boss. 
+
 ReturnStatus(); // Retorna a estrutura de dados de status do Boss.
+
 BossSkills(); // Retorna uma das skills do Boss com base no indexador.
 
 ##    Colaborators:
 
 Skill skills_[]; // Vetor das habilidade do Boss;
+
 Status stats_ // Estrutura de dados com os status do Boss.
+
 String name_; // Nome do Boss.
+
 Sprite img_boss_; // Imagem do Boss para a interface gráfica.
 
 # ----------------------------------------------------------------
@@ -182,9 +206,11 @@ Item;
 ##    Responsabilitys:
 
 Item(); //Construtor.
+
 Sum(Player Usr); // Soma os atributos dessa class ao player.
 
 ##    Colaborators:
 
 Attributes attributes_; // Estrutura de dados com os atributos do item.
+
 Sprite img_Item; // Imagem do item para a interface gráfica.
