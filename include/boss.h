@@ -60,6 +60,7 @@ private:
      */
     Status stats_;
     string name_; /**< Nome do chefe (boss). */
+    Texture img_boss_texture_; /**< Textura para importar para o Sprite*/
     Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
     Skill skills_; /**< Habilidades do chefe (boss). */
 };

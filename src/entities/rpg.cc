@@ -1,30 +1,30 @@
 #include "../../include/rpg.h"
 
 Rpg::Rpg() {
-    window = std::make_shared<sf::RenderWindow>(
-        sf::VideoMode(1200, 800),
+    window = std::make_shared<RenderWindow>(
+        VideoMode(1200, 800),
         "nometemporario",
-        sf::Style::Titlebar | sf::Style::Close
+        Style::Titlebar | Style::Close
     );
-    window->setPosition(sf::Vector2i(0, 20));
+    window->setPosition(Vector2i(0, 0));
     window->setFramerateLimit(100);
     bg.loadFromFile("resources/bg_temp.jpg");
 
-    background = std::make_shared<sf::Sprite>();
+    background = make_shared<Sprite>();
     background->setTexture(bg);
 }
 
 void Rpg::Events() {
-    auto event = std::make_shared<sf::Event>();
+    auto event = make_shared<Event>();
     while (window->pollEvent(*event)) {
-        if (event->type == sf::Event::Closed) {
+        if (event->type == Event::Closed) {
             window->close();
         }
     }
 }
 
 void Rpg::Draw() {
-    window->clear(sf::Color::Black);
+    window->clear(Color::Black);
     window->draw(*background);
     window->display();
 }

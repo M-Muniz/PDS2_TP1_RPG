@@ -107,7 +107,9 @@ Status stats_; // Estrutura que armazena os status do Player.
 
 String name_; // Nome do Player.
 
-vector<Sprite> img_player_; // Imagem do Player para a interface gráfica.
+Texture img_player_texture_; // Textura para importar para o Sprite
+
+Sprite img_player_; // Imagem do Player para a interface gráfica.
 
 # ----------------------------------------------------------------
 
@@ -131,6 +133,10 @@ ReturnStatus(); // Retorna a struct de dados do Enemy.
 Status stats_; // Estrutura de dados que armazena os status do inimigo.
 
 string name_; // Nome do inimigo.
+
+Texture img_enemy_texture_; // Textura para importar para o Sprite
+
+Sprite img_enemy_; // Imagem do Enemy para a interface gráfica.
 
 # ----------------------------------------------------------------
 
@@ -170,6 +176,8 @@ int class_; // Armazena o valor da classe do Player ou do Boss.
 
 Attributes attributes_; // Estrutura de dados com os atributos da Skill.
 
+Texture img_skill_texture_; // Textura para importar para o Sprite.
+
 Sprite img_skill_; // Imagem da Skill para a interface grafica. 
 
 # ----------------------------------------------------------------
@@ -198,6 +206,8 @@ Status stats_ // Estrutura de dados com os status do Boss.
 
 String name_; // Nome do Boss.
 
+Texture img_boss_texture_; // Textura para importar para o Sprite.
+
 Sprite img_boss_; // Imagem do Boss para a interface gráfica.
 
 # ----------------------------------------------------------------
@@ -216,4 +226,30 @@ Sum(Player Usr); // Soma os atributos dessa class ao player.
 
 Attributes attributes_; // Estrutura de dados com os atributos do item.
 
+Texture img_item_texture_; // Textura para importar para o Sprite.
+
 Sprite img_Item; // Imagem do item para a interface gráfica.
+
+# ----------------------------------------------------------------
+
+##    Class: 
+
+Menu;
+
+##    Responsabilitys:
+
+Item(); //Construtor.
+
+Sum(Player Usr); // Soma os atributos dessa class ao player.
+
+##    Colaborators:
+
+int pos_; // Armazena a posição de seleção do menu.
+
+bool selected_; // Armazena se alguma opção foi selecionada.
+
+bool enter_select_; // Identifica se a tecla enter foi pressionada (seleção)
+
+Sprite img_Item; // Imagem do item para a interface gráfica.
+
+# ----------------------------------------------------------------

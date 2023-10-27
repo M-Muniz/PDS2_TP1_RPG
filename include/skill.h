@@ -38,6 +38,7 @@ public:
 private:
     int class_; ///< Armazena o valor da classe do jogador ou do chefe (Boss).
     Attributes attributes_; ///< Estrutura de dados com os atributos da Skill.
+    Texture img_skill_texture_; /**< Textura para importar para o Sprite*/
     Sprite img_skill_; ///< Imagem da Skill para a interface gráfica.
 };
 
