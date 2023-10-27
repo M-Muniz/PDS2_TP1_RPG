@@ -7,6 +7,10 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+
+using namespace std;
+using namespace sf;
+
 /**
 * @brief Estrutura de dados que armazena os atributos dessa Skill.
 */
@@ -26,15 +30,15 @@ class Skill {
 public:
     /**
      * @brief Construtor da classe Skill baseado na Classe (RPG) selecionada.
-     * 
      * @param classe O valor da classe do jogador ou do chefe (Boss).
+     * @param index O valor do indexador da skill (Para gerar skills diferentes).
      */
-    Skill(int classe);
+    Skill(int classe, int index);
     
 private:
     int class_; ///< Armazena o valor da classe do jogador ou do chefe (Boss).
     Attributes attributes_; ///< Estrutura de dados com os atributos da Skill.
-    sf::Sprite img_skill_; ///< Imagem da Skill para a interface gráfica.
+    Sprite img_skill_; ///< Imagem da Skill para a interface gráfica.
 };
 
 #endif

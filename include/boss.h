@@ -9,6 +9,9 @@
 #include <SFML/Audio.hpp>
 #include "skill.h"
 
+using namespace std;
+using namespace sf;
+
 struct Status {
     int hp;   /**< Vida do chefe (boss). */
     int atk;  /**< Valor de ataque do chefe (boss). */
@@ -56,9 +59,8 @@ private:
      * @brief Estrutura de dados que armazena os status do chefe (boss).
      */
     Status stats_;
-
-    std::string name_; /**< Nome do chefe (boss). */
-    sf::Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
+    string name_; /**< Nome do chefe (boss). */
+    Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
     Skill skills_; /**< Habilidades do chefe (boss). */
 };
 

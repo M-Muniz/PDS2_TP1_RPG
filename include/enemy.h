@@ -9,6 +9,9 @@
 #include <SFML/Audio.hpp>
 #include "skill.h"
 
+using namespace std;
+using namespace sf;
+
 struct Status {
     int hp;   /**< Vida do inimigo. */
     int atk;  /**< Valor de ataque do inimigo. */
@@ -46,8 +49,7 @@ public:
 
 private:
     Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */
-
-    std::string name_; /**< Nome do inimigo. */
+    string name_; /**< Nome do inimigo. */
 };
 
 #endif

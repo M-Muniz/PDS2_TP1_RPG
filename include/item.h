@@ -10,6 +10,8 @@
 #include "skill.h"
 #include "player.h"
 
+using namespace std;
+using namespace sf;
 
 /**
 * @brief Estrutura de dados que armazena os atributos deste item.
@@ -42,7 +44,7 @@ public:
 private:
     Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item*/
 
-    sf::Sprite img_item_; /**< Imagem do item para a interface gráfica. */
+    Sprite img_item_; /**< Imagem do item para a interface gráfica. */
 };
 
 #endif

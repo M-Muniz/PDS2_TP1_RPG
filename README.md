@@ -83,12 +83,13 @@ Player;
 
 ##    Responsabilitys:
 
-Player(); // Construtor.
+Player(string nome, int classe); // Construtor, recebe o nome do personagem
+e a sua classe.
 
 Atk(); // Retorna o valor de ataque do Player.
 
 Def(int Atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
-esquiva do Player. 
+esquiva do Player, retorna 0 se o Player desviar do ataque e 1 c.c. 
 
 Upar(int Xp); // Aumenta os status do Palyer com base na experiência recebida.
 
@@ -98,13 +99,15 @@ UserSkills(int Index); // Retorna uma das skills do Player com base no indexador
 
 ##    Colaborators:
 
+int classe_; // Classe do Player
+
 vector<Skill> skills_[3]; // Vetor de habilidades do Player.
 
 Status stats_; // Estrutura que armazena os status do Player.
 
 String name_; // Nome do Player.
 
-Sprite img_player_; // Imagem do Player para a interface gráfica.
+vector<Sprite> img_player_; // Imagem do Player para a interface gráfica.
 
 # ----------------------------------------------------------------
 
