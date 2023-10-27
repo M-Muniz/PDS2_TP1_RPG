@@ -64,9 +64,12 @@ Como usuario desejo jogar um jogo simples de RPG com o combate em turnos.
 ### Critérios de aceitação   
 
 . Desejo ser capaz de ter uma pequena variedade de açoes durante meus turnos, como atacar e usar skills.
+
 . Ser capaz de alterar entre classes ou habilidades entre partidas, e que haja uma , para que cada jogo 
 seja unico.
+
 . Quero que o jogo possua uma interface grafica para q eu seja capaz de enxergar os combates.
+
 . Quero interagir atraves da interface grafica com uso de botoes ou comandos.
 
 
