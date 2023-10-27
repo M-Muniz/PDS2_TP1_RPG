@@ -218,7 +218,7 @@ Item;
 
 ##    Responsabilitys:
 
-Item(); //Construtor.
+Item(); // Construtor.
 
 Sum(Player Usr); // Soma os atributos dessa class ao player.
 
@@ -238,9 +238,9 @@ Menu;
 
 ##    Responsabilitys:
 
-Item(); //Construtor.
+Menu(); // Construtor.
 
-Sum(Player Usr); // Soma os atributos dessa class ao player.
+~Menu(); // Destrutor.
 
 ##    Colaborators:
 
@@ -249,7 +249,5 @@ int pos_; // Armazena a posição de seleção do menu.
 bool selected_; // Armazena se alguma opção foi selecionada.
 
 bool enter_select_; // Identifica se a tecla enter foi pressionada (seleção)
-
-Sprite img_Item; // Imagem do item para a interface gráfica.
 
 # ----------------------------------------------------------------
