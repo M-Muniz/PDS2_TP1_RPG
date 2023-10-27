@@ -7,6 +7,7 @@
 #include "../include/skill.h"
 
 int main(){
+    srand(time(NULL));
     Menu * menu = new Menu();
     
     menu->RunMenu();
