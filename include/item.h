@@ -21,7 +21,7 @@ public:
     /**
      * @brief Construtor da classe Item.
      */
-    Item();
+    Item(int tipo_item);
 
     /**
      * @brief Soma os atributos deste item ao jogador.
@@ -30,7 +30,7 @@ public:
     void Sum(Player& usr);
 
 private:
-    Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item. */
+    Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item*/
     Texture img_item_texture_; /**< Textura para importar para o Sprite. */
     Sprite img_item_; /**< Imagem do item para a interface gráfica. */
 };

@@ -16,8 +16,7 @@ using namespace sf;
 /**
  * @brief Classe para representar um jogador no jogo.
  */
-class Player{
-friend Item;
+friend class Item;
 public:
     /**
      * @brief Construtor da classe Player.

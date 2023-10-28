@@ -26,7 +26,7 @@ class Menu {
     Texture *image_; /**<  Armazena a imagem para importar para o background.*/
     Sprite *bg_; /**<   Background do Menu para a interface gráfica.*/
     
-    string player_name_; /**< String para armazenar o nome do Player. */
+    string player_name_; /**< String para armazenar o nome do Player (limitada a 10 caracteres em Menu::ReceiveName()). */
 
     vector<string> options_; /**< Vetor de opções do Menu.*/
     vector<Vector2f> coords_; /**< Vetor de posições das opções do Menu.*/
