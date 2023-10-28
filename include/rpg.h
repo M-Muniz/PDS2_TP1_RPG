@@ -9,26 +9,29 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 
+using namespace std;
+using namespace sf;
 
 /**
  * @brief Classe principal para o jogo de RPG.
  */
 class Rpg {
 public:
-    std::shared_ptr<sf::RenderWindow> window;
-    sf::Texture bg;
-    std::shared_ptr<sf::Sprite> background;
+    shared_ptr<RenderWindow> window; /**< Janela */
+    Texture bg; /**< Textura para importar para o backgroud da tela */
+    shared_ptr<Sprite> background; /**< Background da */
 
 public:
     /**
-     * @brief Inicia o jogo de RPG.
-     */
-    void Run();
-        /**
      * @brief Construtor da classe Rpg.
      */
     Rpg();
     
+    /**
+     * @brief Inicia o jogo de RPG.
+     */
+    void Run();
+
     private:
     /**
      * @brief Move os inimigos no jogo.
@@ -49,7 +52,5 @@ public:
      * @brief Anima a janela do jogo.
      */
     void Draw();
-
-
 };
 #endif
