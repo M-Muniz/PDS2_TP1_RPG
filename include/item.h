@@ -27,7 +27,7 @@ public:
      * @brief Soma os atributos deste item ao jogador.
      * @param Usr O jogador ao qual os atributos deste item serão somados.
      */
-    void Sum(Player& Usr);
+    void Sum(Player& usr);
 
 private:
     Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item*/

@@ -25,15 +25,15 @@ Item::Item(int tipo_item){
         img_item_.setTexture(img_item_texture_);
     }else if(tipo_item == 5){ // Item de + Esquiva
         attributes_.agi = 5;
-        img_item_texture_.teloadFromFile("reosurces/agi_item.png");
+        img_item_texture_.loadFromFile("reosurces/agi_item.png");
         img_item_.setTexture(img_item_texture_);
     }
 }
 
-Item::Sum(Player& Usr){
+void Item::Sum(Player& usr){
     usr.stats_.hp += attributes_.hp;
     if(usr.stats_.hp > usr.stats_.hp_max){
-	    usr.stats_.hp = usrstats_.hp_max;
+	    usr.stats_.hp = usr.stats_.hp_max;
     }
     usr.stats_.atk += attributes_.atk;
     usr.stats_.def += attributes_.def;
