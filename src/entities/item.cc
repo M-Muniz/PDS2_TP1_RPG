@@ -1,13 +1,5 @@
 #include "../../include/item.h"
 
-<<<<<<< HEAD
-Item::Item(){
-
-}
-
-void Item::Sum(Player& usr){
-}
-=======
 #include <iostream>
 
 Item::Item(int tipo_item){
@@ -50,4 +42,3 @@ void Item::Sum(Player& usr){
     usr.stats_.agi += attributes_.agi;
     
 }
->>>>>>> isa-branch
