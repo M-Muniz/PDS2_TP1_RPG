@@ -44,7 +44,7 @@ public:
      * @brief Recebe o valor de ataque do jogador e subtrai da vida com base na defesa e esquiva do chefe (boss).
      * @param Atk_player O valor de ataque do jogador.
      */
-    void Def(int Atk_player);
+    bool Def(int Atk_player);
 
     /**
      * @brief Retorna a struct de dados do chefe (boss).
