@@ -8,28 +8,23 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "skill.h"
+#include "boss.h"
 
-/**
- * @brief Struct para representar os status de um jogador no jogo.
- */
-struct Status {
-    int hp; /**< Vida do Player */
-    int atk; /**< Valor de ataque do Player */
-    int def; /**< Valor de defesa do Player */
-    int mp; /**< Valor de energia no Player */
-    int xp; /**< Valor de experiência do Player */
-    int agi; /**< Valor de possível esquiva do Player */
-};
+using namespace std;
+using namespace sf;
 
 /**
  * @brief Classe para representar um jogador no jogo.
  */
-class Player {
+class Player{
+friend class Item;
 public:
     /**
      * @brief Construtor da classe Player.
+     * @param nome Nome do Player.
+     * @param classe Classe do Player.
      */
-    Player();
+    Player(string nome, int classe);
 
     /**
      * @brief Retorna o valor de ataque do Player.
@@ -38,16 +33,16 @@ public:
     int Atk();
 
     /**
-     * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do Player.
-     * @param Atk_enemy Valor de ataque do inimigo.
+     * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do Player, retorna 0 se o Player esquivou e 1 não se esquivou.
+     * @param atk_enemy Valor de ataque do inimigo.
      */
-    void Def(int Atk_enemy);
+    bool Def(int atk_enemy);
 
     /**
      * @brief Aumenta os status do Player com base na experiência recebida.
-     * @param Xp Pontos de experiência a serem adicionados.
+     * @param xp Pontos de experiência a serem adicionados.
      */
-    void Upar(int Xp);
+    void Upar(int xp);
 
     /**
      * @brief Retorna a struct de dados do Player.
@@ -57,16 +52,18 @@ public:
 
     /**
      * @brief Retorna uma das skills do Player com base no índice.
-     * @param Index Índice da habilidade desejada.
+     * @param index Índice da habilidade desejada.
      * @return Objeto Skill representando a habilidade.
      */
-    Skill UserSkills(int Index);
+    Skill UserSkills(int index);
 
 private:
-    std::string name; /**< Nome do Player */
-    Status ntats_; /**< Status do Player*/
-    std::vector<Skill> skills[3]; /**< Vetor de habilidades do Player */
-    sf::Sprite img_player; /**< Imagem do Player para a interface gráfica */
+    int classe_; /**< Classe do Player. */
+    string name_; /**< Nome do Player. */
+    Status stats_; /**< Status do Player. */
+    vector<Skill> skills_; /**< Vetor de habilidades do Player. */
+    Texture img_player_texture_; /**< Textura para importar para o Sprite. */
+    Sprite img_player_; /**< Imagem do Player para a interface gráfica. */
 };
 
 #endif 
