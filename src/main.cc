@@ -11,6 +11,7 @@ int main(){
     Menu * menu = new Menu();
     
     menu->RunMenu();
+    Player Jogador(menu->ReturnName(),menu->ReturnClass());
 
     delete menu;
     

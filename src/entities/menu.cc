@@ -15,6 +15,7 @@ Menu::~Menu(){
   delete font_;
   delete image_;
   delete bg_;
+
 }
 
 void Menu::SetValues(){
@@ -153,5 +154,13 @@ void Menu::RunMenu(){
   }
   ReceiveName();
   cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
+}
+
+int Menu::ReturnClass(){ //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
+  return (pos_-2);
+}
+
+string Menu::ReturnName(){
+  return player_name_;
 }
 
