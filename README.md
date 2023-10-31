@@ -282,9 +282,17 @@ execute o arquivo game.app.
 
 ## game.app
 
-Após executar o game.app, um menu de seleção de classe irá abrir. Para navegar pelo menu basta 
-utilizar as setas (cima e baixo), e para selecionar utilize o botão "enter". Após selecionar a 
-sua classe, o menu irá se fechar e uma input irá aparecer para que você insira o nome do seu 
-personagem. Inicialmente, essas informações ficam salvas nas variáveis Menu::pos_ e 
+Após executar o game.app, um menu de seleção de classe irá abrir. 
+
+![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/133266092/49a62e45-08c6-41b3-be38-ce11b3ddf874)
+
+Para navegar pelo menu basta utilizar as setas (cima e baixo), e para selecionar utilize o botão "enter". 
+Após selecionar a sua classe, o menu irá se fechar e uma input irá aparecer para que você insira o nome 
+do seu personagem. 
+
+![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/133266092/1c1657ba-d42f-4a47-aadb-ff6366cb9429)
+
+
+Inicialmente, essas informações ficam salvas nas variáveis Menu::pos_ e 
 Menu::player_name_. Por enquanto, é possível verificar se as informações foram salvas corretamente
 por um cout no terminal apenas para este fim.
