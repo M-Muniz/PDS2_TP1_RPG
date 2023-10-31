@@ -3,11 +3,7 @@
 Rpg::Rpg(Player jogador){
     player_ = jogador;
 
-    window = std::make_shared<RenderWindow>(
-        VideoMode(1200, 928),
-        "nometemporario",
-        Style::Titlebar | Style::Close
-    );
+    window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "nometemporario", Style::Titlebar | Style::Close);
     window->setPosition(Vector2i(0, 0));
     window->setFramerateLimit(100);
 
@@ -21,28 +17,53 @@ Rpg::Rpg(Player jogador){
     buttons_[0].setPosition(Vector2f(122, 692));
     buttons_[0].setFillColor(Color::Transparent);
     buttons_[0].setOutlineColor(Color::Red);
-    buttons_[0].setOutlineThickness(4);
+    buttons_[0].setOutlineThickness(0);
 
     buttons_[1].setSize(Vector2f(65, 65));
     buttons_[1].setPosition(Vector2f(915, 680));
     buttons_[1].setFillColor(Color::Transparent);
     buttons_[1].setOutlineColor(Color::Red);
-    buttons_[1].setOutlineThickness(4);
+    buttons_[1].setOutlineThickness(0);
 
     buttons_[2].setSize(Vector2f(65, 65));
     buttons_[2].setPosition(Vector2f(1037, 680));
     buttons_[2].setFillColor(Color::Transparent);
     buttons_[2].setOutlineColor(Color::Red);
-    buttons_[2].setOutlineThickness(4);
+    buttons_[2].setOutlineThickness(0);
 
     buttons_[3].setSize(Vector2f(65, 65));
     buttons_[3].setPosition(Vector2f(976, 767));
     buttons_[3].setFillColor(Color::Transparent);
     buttons_[3].setOutlineColor(Color::Red);
-    buttons_[3].setOutlineThickness(4);
+    buttons_[3].setOutlineThickness(0);
+
+    cd_skills_.resize(3);
+
+    for(size_t i{}; i < cd_skills_.size(); i++){
+        cd_skills_[i].resize(3);
+    }
+
+    for(size_t i{}; i < cd_skills_.size(); i++){
+        for(size_t j{}; j < cd_skills_[i].size(); j++){
+            cd_skills_[i][j].setSize(Vector2f(7,7));
+            cd_skills_[i][j].setFillColor(Color::Green);
+            cd_skills_[i][j].setOutlineThickness(0);
+        }
+    }
+
+    cd_skills_[0][0].setPosition(Vector2f(931.5,750));
+    cd_skills_[0][1].setPosition(Vector2f(945.5,750));
+    cd_skills_[0][2].setPosition(Vector2f(959.5,750));
+
+    cd_skills_[1][0].setPosition(Vector2f(1053.5,750));
+    cd_skills_[1][1].setPosition(Vector2f(1067.5,750));
+    cd_skills_[1][2].setPosition(Vector2f(1081.5,750));
+
+    cd_skills_[2][0].setPosition(Vector2f(992.5,837));
+    cd_skills_[2][1].setPosition(Vector2f(1006.5,837));
+    cd_skills_[2][2].setPosition(Vector2f(1020.5,837));
 
     player_status_.resize(2);
-
     player_status_[0].setFillColor(Color::Green);
     player_status_[0].setOutlineThickness(0);
     player_status_[0].setSize(Vector2f(461, 21));
@@ -53,43 +74,40 @@ Rpg::Rpg(Player jogador){
     player_status_[1].setSize(Vector2f(409, 9.4));
     player_status_[1].setPosition(Vector2f(395, 766));
 
-    stringstream aux;
-    string aux_s;
+    // stringstream aux;
+    // string aux_s;
 
-    texts_strings_.push_back(player_.name_);
+    // texts_strings_.push_back("Name: " + player_.name_ + ".");
 
-    aux << player_.stats_.atk;
-    aux >> aux_s;
+    // aux << player_.stats_.atk;
+    // aux >> aux_s;
+    // texts_strings_.push_back("Atk: " + aux_s + ".");
 
-    texts_strings_.push_back(aux_s);
+    // aux << player_.stats_.def;
+    // aux >> aux_s;
+    // texts_strings_.push_back("Def: " + aux_s + ".");
 
-    aux << player_.stats_.def;
-    aux >> aux_s;
+    // aux << player_.stats_.xp;
+    // aux >> aux_s;
+    // texts_strings_.push_back("Xp: " + aux_s + ".");
 
-    texts_strings_.push_back(aux_s);
+    // texts_sizes_.push_back(25);
+    // texts_sizes_.push_back(15);
+    // texts_sizes_.push_back(15);
+    // texts_sizes_.push_back(15);
 
-    aux << player_.stats_.xp;
-    aux >> aux_s;
+    // Font fonte;
+    // fonte.loadFromFile("fonts/super_legend_boy.ttf");
 
-    texts_strings_.push_back(aux_s);
+    // texts_.resize(4);
 
-    texts_sizes_.resize(4);
-    texts_sizes_ = {25,16,15,15};
-
-    Font fonte;
-    fonte.loadFromFile("../../fonts/super_legend_boy.ttf");
-
-    for(int i = 0; i < 4; i++){
-        texts_[i].setString(texts_strings_[i]);
-        texts_[i].setCharacterSize(texts_sizes_[i]);
-        texts_[i].setFont(fonte);
-    }
-
-    texts_coords_.resize(4);
-
-    float var = texts_[0].getGlobalBounds().width()/2;
-
-    texts_coords_ = {{600 - var, },{},{},{}};
+    // for(size_t i{}; i < texts_.size(); i++){
+    //     texts_[i].setString(texts_strings_[i]);
+    //     texts_[i].setCharacterSize(texts_sizes_[i]);
+    //     texts_[i].setFont(fonte);
+    // }
+    // // FloatRect textBounds = texts_.front().getLocalBounds();
+    // // texts_.front().setPosition((1200 - textBounds.width)/2, 680);
 }
 
 void Rpg::Game(){
@@ -134,7 +152,6 @@ void Rpg::Events() {
     while (window->pollEvent(*event)) {
         if (event->type == Event::Closed) {
             window->close();
-
         }
     }
 }
@@ -142,12 +159,21 @@ void Rpg::Events() {
 void Rpg::Draw() {
     window->clear(Color::Black);
     window->draw(*background);
-    for(int i = 0; i < 4; i++){
+    for(size_t i{}; i < buttons_.size(); i++){
         window->draw(buttons_[i]);
     }
-    for(int i = 0; i < 2; i++){
+    for(size_t i{}; i < cd_skills_.size(); i++){
+        for(size_t j{}; j < cd_skills_[i].size(); j++){
+            window->draw(cd_skills_[i][j]);
+        } 
+    }
+    for(size_t i{}; i < player_status_.size(); i++){
         window->draw(player_status_[i]);
     }
+    // for(size_t i{}; i < texts_.size(); i++){
+    //     window->draw(texts_[i]);
+    // }
+    
     window->draw(player_.img_player_);
     window->display();
 

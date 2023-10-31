@@ -29,11 +29,11 @@ void Menu::SetValues(){
   bg_->setTexture(*image_);
 
   options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Samurai"};
-  texts_.resize(5);
   coords_ = {{575,55},{525,205},{600,310},{620,415},{590,515}};
   sizes_ = {20,20,24,24,24};
+  texts_.resize(5);
 
-  for (size_t i{}; i < texts_.size(); ++i){
+  for(size_t i{}; i < texts_.size(); i++){
     texts_[i].setFont(*font_); 
     texts_[i].setString(options_[i]); 
     texts_[i].setCharacterSize(sizes_[i]);
