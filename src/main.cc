@@ -12,22 +12,14 @@ int main(){
 
   Menu* menu = new Menu();
   menu->RunMenu();
-
-  Player jogador(menu->ReturnName(), menu->ReturnClass());
-
+  Player* jogador = new Player(menu->ReturnName(),menu->ReturnClass());
   delete menu;
-
-  Rpg* jogo = new Rpg();
-  jogo->player_ = jogador;
-
-  cout << jogo->player_.ReturnName() << endl;
-
+  Rpg* jogo = new Rpg(jogador);
   jogo->Run();
-
+  delete jogador;
   delete jogo;
 
   menu = nullptr;
-  jogo = nullptr;
 
   return 0;
 }
