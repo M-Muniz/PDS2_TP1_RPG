@@ -290,8 +290,7 @@ Para navegar pelo menu basta utilizar as setas (cima e baixo), e para selecionar
 Após selecionar a sua classe, o menu irá se fechar e uma input irá aparecer para que você insira o nome 
 do seu personagem. 
 
-![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/133266092/1c1657ba-d42f-4a47-aadb-ff6366cb9429)
-
+![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/133266092/1f8ac36f-a085-427a-8969-97936fc8954f)
 
 Inicialmente, essas informações ficam salvas nas variáveis Menu::pos_ e 
 Menu::player_name_. Por enquanto, é possível verificar se as informações foram salvas corretamente
