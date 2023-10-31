@@ -17,6 +17,7 @@ using namespace sf;
  * @brief Classe que representa um inimigo no jogo.
  */
 class Enemy {
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Enemy.

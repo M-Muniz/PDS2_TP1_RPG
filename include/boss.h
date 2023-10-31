@@ -28,6 +28,7 @@ struct Status {
  * @brief Classe que representa um chefe (boss) no jogo.
  */
 class Boss {
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Boss.

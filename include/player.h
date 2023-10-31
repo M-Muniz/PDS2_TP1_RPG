@@ -18,6 +18,7 @@ using namespace sf;
  */
 class Player{
 friend class Item;
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Player.
