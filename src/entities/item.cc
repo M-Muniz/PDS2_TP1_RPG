@@ -1,6 +1,9 @@
 #include "../../include/item.h"
 
+<<<<<<< HEAD
 #include <iostream>
+=======
+>>>>>>> ze-branch
 
 Item::Item(int tipo_item){
     if(tipo_item == 0){ // Item de + Vida
@@ -42,3 +45,7 @@ void Item::Sum(Player& usr){
     usr.stats_.agi += attributes_.agi;
     
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> ze-branch

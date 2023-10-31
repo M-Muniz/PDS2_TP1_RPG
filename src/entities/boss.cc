@@ -1,7 +1,5 @@
 #include "../../include/boss.h"
 
-#include <iostream>
-#include <stdlib.h> // necessário p/ as funções rand() e srand()
 Boss::Boss(){
     stats_.hp_max = 1000;
     stats_.hp = stats_.hp_max;
@@ -15,7 +13,8 @@ Boss::Boss(){
     img_boss_texture_.loadFromFile("resources/bg_temp.jpg");
     img_boss_.setTexture(img_boss_texture_);
     for(int i = 0; i < 3; i++){
-        BossSkills(i);
+        Skill aux(4, i);
+        skills_.push_back(aux);
     }
 }
 
