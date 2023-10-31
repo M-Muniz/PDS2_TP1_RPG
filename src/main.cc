@@ -9,7 +9,8 @@
 int main(){
     srand(time(NULL));
 
-    Menu * menu = new Menu();
+    Menu *menu = new Menu();
+
     menu->RunMenu();
     
     Player Jogador(menu->ReturnName(),menu->ReturnClass());

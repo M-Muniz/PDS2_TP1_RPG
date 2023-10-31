@@ -57,6 +57,11 @@ public:
      */
     Skill UserSkills(int index);
 
+    /**
+     * @brief Retorna o nome do Player.
+     */
+    string Name();
+
 private:
     int classe_; /**< Classe do Player. */
     string name_; /**< Nome do Player. */
