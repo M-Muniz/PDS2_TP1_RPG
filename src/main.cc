@@ -19,6 +19,9 @@ int main(){
 
   Rpg* jogo = new Rpg();
   jogo->player_ = jogador;
+
+  cout << jogo->player_.ReturnName() << endl;
+
   jogo->Run();
 
   delete jogo;

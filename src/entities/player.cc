@@ -43,6 +43,8 @@ Player::Player(string nome, int classe){
     }
 }
 
+string Player::ReturnName(){return name_;}
+
 int Player::Atk(){return stats_.atk;}
 
 bool Player::Def(int atk_enemy){
