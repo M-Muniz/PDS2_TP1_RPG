@@ -1,9 +1,5 @@
 #include "../../include/player.h"
 
-#include <iostream>
-#include <stdlib.h> // necessário p/ as funções rand() e srand()
-#include<time.h> //necessário p/ função time()
-
 Player::Player(string nome, int classe){
     if(classe == 0){ // Classe Guerreiro
         stats_.hp_max = 110;
@@ -12,7 +8,7 @@ Player::Player(string nome, int classe){
         stats_.def = 30;
         stats_.agi = 15;
         stats_.mp = 20;
-        img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
+        img_player_texture_.loadFromFile("resources/Knight/sprite_knight_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }else if(classe == 1){ // Classe Mago
         stats_.hp_max = 95;

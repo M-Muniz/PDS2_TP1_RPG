@@ -7,16 +7,17 @@
 #include "../include/skill.h"
 
 int main(){
-    srand(time(NULL));
+  srand(time(NULL));
 
-    Menu * menu = new Menu();
-    menu->RunMenu();
-    
-    Player Jogador(menu->ReturnName(),menu->ReturnClass());
+  Menu * menu = new Menu();
+  menu->RunMenu();
+  Player jogador(menu->ReturnName(),menu->ReturnClass());
+  delete menu;
+  Rpg* jogo = new Rpg(jogador);
+  jogo->Run();
+  delete jogo;
 
-    delete menu;
-    
-    menu = nullptr;
+  menu = nullptr;
 
-    return 0;
+  return 0;
 }

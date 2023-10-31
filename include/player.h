@@ -1,6 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include <iostream>
+#include <stdlib.h> // necessário p/ as funções rand() e srand()
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>

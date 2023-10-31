@@ -22,12 +22,12 @@ public:
     shared_ptr<RenderWindow> window; /**< Janela */
     Texture bg; /**< Textura para importar para o backgroud da tela */
     shared_ptr<Sprite> background; /**< Background da */
-
+    shared_ptr<Sprite> player_sprite;
 public:
     /**
      * @brief Construtor da classe Rpg.
      */
-    Rpg(Player jogador);
+    Rpg(Player* jogador);
     
     /**
      * @brief Inicia o jogo de RPG.
