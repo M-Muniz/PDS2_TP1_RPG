@@ -34,6 +34,11 @@ public:
      * @param index O valor do indexador da skill (Para gerar skills diferentes).
      */
     Skill(int classe, int index);
+
+    /**
+     * @brief Construtor vazio da classe Skill.
+     */
+    Skill();
     
 private:
     int class_; /**< Armazena o valor da classe do jogador ou do chefe (Boss). */

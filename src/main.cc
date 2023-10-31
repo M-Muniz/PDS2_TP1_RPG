@@ -17,7 +17,8 @@ int main(){
 
   delete menu;
 
-  Rpg* jogo = new Rpg(jogador);
+  Rpg* jogo = new Rpg();
+  jogo->player_ = jogador;
   jogo->Run();
 
   delete jogo;

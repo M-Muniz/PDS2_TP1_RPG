@@ -1,5 +1,6 @@
 #include "../../include/item.h"
 
+Item::Item(){}
 
 Item::Item(int tipo_item){
     if(tipo_item == 0){ // Item de + Vida

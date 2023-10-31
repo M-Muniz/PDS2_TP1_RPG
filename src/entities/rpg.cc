@@ -1,8 +1,7 @@
 #include "../../include/rpg.h"
 
-Rpg::Rpg(Player jogador){
+Rpg::Rpg(){
     window = std::make_shared<RenderWindow>(VideoMode(1200, 652), "nometemporario", Style::Titlebar | Style::Close);
-    player_ = jogador;
     window->setPosition(Vector2i(0, 0));
     window->setFramerateLimit(100);
 

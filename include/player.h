@@ -30,6 +30,11 @@ public:
     Player(string nome, int classe);
 
     /**
+     * @brief Construtor vazio da classe Player.
+     */
+    Player();
+
+    /**
      * @brief Retorna o valor de ataque do Player.
      * @return Valor de ataque.
      */

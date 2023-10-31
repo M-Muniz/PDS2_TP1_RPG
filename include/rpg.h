@@ -34,7 +34,7 @@ public:
     /**
      * @brief Construtor da classe Rpg.
      */
-    Rpg(Player jogador);
+    Rpg();
     
     /**
      * @brief Inicia o jogo de RPG.

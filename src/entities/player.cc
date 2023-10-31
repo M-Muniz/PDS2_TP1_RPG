@@ -1,5 +1,7 @@
 #include "../../include/player.h"
 
+Player::Player(){}
+
 Player::Player(string nome, int classe){
     if(classe == 0){ // Classe Guerreiro
         stats_.hp_max = 110;
