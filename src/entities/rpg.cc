@@ -16,11 +16,11 @@ Rpg::Rpg(Player* jogador){
     player_sprite->setTextureRect(IntRect(0,0,67,64));
 
     if(player_class_ == 0){
-        player_sprite->setPosition(175,300);
+        player_sprite->setPosition(150,300);
     }else if(player_class_ == 1){
-        player_sprite->setPosition(169,300);
+        player_sprite->setPosition(125,300);
     }else if(player_class_ == 2){
-        player_sprite->setPosition(168,300);
+        player_sprite->setPosition(110,300);
     }
 
     bg.loadFromFile("resources/bgs/bg_temp.png");

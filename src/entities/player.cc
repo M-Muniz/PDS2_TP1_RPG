@@ -8,7 +8,7 @@ Player::Player(string nome, int classe){
         stats_.def = 30;
         stats_.agi = 15;
         stats_.mp = 20;
-        img_player_texture_.loadFromFile("resources/Knight/sprite_knight_default.png"); 
+        img_player_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }else if(classe == 1){ // Classe Mago
         stats_.hp_max = 95;
@@ -17,7 +17,7 @@ Player::Player(string nome, int classe){
         stats_.def = 20;
         stats_.agi = 20;
         stats_.mp = 30;
-        img_player_texture_.loadFromFile("resources/Mage/sprite_mage_default.png"); 
+        img_player_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }else if(classe == 2){ // Classe Samurai
         stats_.hp_max = 80;
@@ -26,7 +26,7 @@ Player::Player(string nome, int classe){
         stats_.def = 20;
         stats_.agi = 30;
         stats_.mp = 20;
-        img_player_texture_.loadFromFile("resources/Samurai/sprite_samurai_default.png"); 
+        img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }
     stats_.xp = 0;
