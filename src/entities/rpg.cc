@@ -39,7 +39,7 @@ void Rpg::SetAnimePlayer(){
 
         player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,64));
     }else if(player_class_ == 1){
-        player_sprite->setPosition(125,300);    
+        player_sprite->setPosition(125,285);    
 
         if(frame > 8){
             frame -= 8;
@@ -47,7 +47,7 @@ void Rpg::SetAnimePlayer(){
 
         player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,67));
     }else if(player_class_ == 2){
-        player_sprite->setPosition(110,300);
+        player_sprite->setPosition(110,265);
         
         if(frame > 6){
             frame -= 6;
