@@ -28,13 +28,13 @@ public:
     Texture bg; /**< Textura para importar para o backgroud da tela. */
     shared_ptr<Sprite> background; /**< Background da tela. */
     
-    // vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
-    // vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
+    vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
+    vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
     
-    // vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
-    // vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
-    // vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
-    // vector<size_t> texts_sizes_; /**< Vetor para posicionar os textos na tela. */
+    vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
+    vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
+    vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
+    vector<size_t> texts_sizes_; /**< Vetor para posicionar os textos na tela. */
     
     Player player_; /**< Jogador. */
     list<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
