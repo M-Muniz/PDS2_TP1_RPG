@@ -1,6 +1,6 @@
 #include "../../include/rpg.h"
 
-Rpg::Rpg() {
+Rpg::Rpg(Player jogador) {
     window = std::make_shared<RenderWindow>(
         VideoMode(1200, 800),
         "nometemporario",

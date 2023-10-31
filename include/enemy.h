@@ -7,7 +7,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "skill.h"
 #include "boss.h"
 
 using namespace std;
