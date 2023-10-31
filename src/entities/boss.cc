@@ -1,7 +1,5 @@
 #include "../../include/boss.h"
 
-#include <iostream>
-#include <stdlib.h> // necessário p/ as funções rand() e srand()
 Boss::Boss(){
     stats_.hp_max = 1000;
     stats_.hp = stats_.hp_max;
