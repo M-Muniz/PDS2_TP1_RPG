@@ -78,7 +78,7 @@ void Menu::LoopEvents(){
 
     if(Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_){
       theselect_ = true;
-      //cout << options_[pos_] << '\n';
+      cout << options_[pos_] << '\n';
       window_->close();
     }
   }
@@ -150,10 +150,9 @@ void Menu::RunMenu(){
   while(window_->isOpen()){
     LoopEvents();
     DrawAll();
-    
   }
   ReceiveName();
-  //cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
+  cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
 }
 
 int Menu::ReturnClass(){ //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção

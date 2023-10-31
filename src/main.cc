@@ -14,7 +14,6 @@ int main(){
     
     Player Jogador(menu->ReturnName(),menu->ReturnClass());
 
-    menu->~Menu();
     delete menu;
     
     menu = nullptr;
