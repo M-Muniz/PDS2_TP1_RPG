@@ -52,6 +52,44 @@ Rpg::Rpg(Player jogador){
     player_status_[1].setOutlineThickness(0);
     player_status_[1].setSize(Vector2f(409, 9.4));
     player_status_[1].setPosition(Vector2f(395, 766));
+
+    stringstream aux;
+    string aux_s;
+
+    texts_strings_.push_back(player_.name_);
+
+    aux << player_.stats_.atk;
+    aux >> aux_s;
+
+    texts_strings_.push_back(aux_s);
+
+    aux << player_.stats_.def;
+    aux >> aux_s;
+
+    texts_strings_.push_back(aux_s);
+
+    aux << player_.stats_.xp;
+    aux >> aux_s;
+
+    texts_strings_.push_back(aux_s);
+
+    texts_sizes_.resize(4);
+    texts_sizes_ = {25,16,15,15};
+
+    Font fonte;
+    fonte.loadFromFile("../../fonts/super_legend_boy.ttf");
+
+    for(int i = 0; i < 4; i++){
+        texts_[i].setString(texts_strings_[i]);
+        texts_[i].setCharacterSize(texts_sizes_[i]);
+        texts_[i].setFont(fonte);
+    }
+
+    texts_coords_.resize(4);
+
+    float var = texts_[0].getGlobalBounds().width()/2;
+
+    texts_coords_ = {{600 - var, },{},{},{}};
 }
 
 void Rpg::Game(){
@@ -90,11 +128,13 @@ void Rpg::SetAnimePlayer(){
         player_.img_player_.setTextureRect(IntRect(67*(int)frame,0,67,70));
     }
 }
+
 void Rpg::Events() {
     auto event = make_shared<Event>();
     while (window->pollEvent(*event)) {
         if (event->type == Event::Closed) {
             window->close();
+
         }
     }
 }
