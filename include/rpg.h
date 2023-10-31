@@ -24,6 +24,7 @@ public:
     shared_ptr<Sprite> background; /**< Background da */
     shared_ptr<Sprite> player_sprite;/**< sprite do player */
     float frame;
+    int player_class_; /**< Armazena a classe do Player*/
 public:
     /**
      * @brief Construtor da classe Rpg.
