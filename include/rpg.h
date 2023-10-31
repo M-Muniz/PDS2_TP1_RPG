@@ -43,9 +43,14 @@ public:
     void MoveEnemys();
 
     /**
-     * @brief Anima os objetos do jogo.
+     * @brief Anima os objetos Player do jogo.
      */
     void SetAnimePlayer();
+
+    /**
+     * @brief Anima os objetos Enemy do jogo.
+     */
+    void SetAnimeEnemy();
 
     /**
      * @brief Gerencia eventos do jogo que acontecem na interface gráfica.

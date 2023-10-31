@@ -24,6 +24,10 @@ void Rpg::Game(){
     SetAnimePlayer();
 }
 
+void Rpg::SetAnimeEnemy(){
+    
+}
+
 void Rpg::SetAnimePlayer(){
     frame += 0.07;
     if(player_class_ == 0){
