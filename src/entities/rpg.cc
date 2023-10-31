@@ -29,7 +29,7 @@ void Rpg::Game(){
     frame += 0.07;
 
     SetAnimePlayer();
-    SetAnimeEnemy();
+    //SetAnimeEnemy();
 }
 
 void Rpg::SetAnimePlayer(){
@@ -55,31 +55,31 @@ void Rpg::SetAnimePlayer(){
 }
 
 void Rpg::SetAnimeEnemy(){
-    if(player_.classe_ == 0){
-        if (frame > 4){
-            frame -= 4;
-        }
+    // if(player_.classe_ == 0){
+    //     if (frame > 4){
+    //         frame -= 4;
+    //     }
 
-        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,64));
-    }else if(player_.classe_ == 1){
-        if(frame > 8){
-            frame -= 8;
-        }
+    //     player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,64));
+    // }else if(player_.classe_ == 1){
+    //     if(frame > 8){
+    //         frame -= 8;
+    //     }
 
-        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,67));
-    }else if(player_.classe_ == 2){
-        if(frame > 6){
-            frame -= 6;
-        }
+    //     player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,67));
+    // }else if(player_.classe_ == 2){
+    //     if(frame > 6){
+    //         frame -= 6;
+    //     }
 
-        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,70));
-    }else if(player_.classe_ == 3){
-        if(frame > 6){
-            frame -= 6;
-        }
+    //     player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,70));
+    // }else if(player_.classe_ == 3){
+    //     if(frame > 6){
+    //         frame -= 6;
+    //     }
 
-        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,70));
-    }
+    //     player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,70));
+    // }
 }
 
 void Rpg::Events() {
