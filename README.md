@@ -148,7 +148,7 @@ Draw(); // Anima a janela.
 
 ##    Colaborators:
 
-Rpg(); // Construtor da classe.
+Rpg(Player jogador); // Construtor da classe.
 
 Run(); // Inicia o jogo.
 

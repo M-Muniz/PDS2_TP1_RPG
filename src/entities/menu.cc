@@ -24,13 +24,13 @@ void Menu::SetValues(){
   pos_ = 2;
   pressed_ = theselect_ = false;
   font_->loadFromFile("fonts/super_legend_boy.ttf");
-  image_->loadFromFile("resources/bg_menu.png");
+  image_->loadFromFile("resources/bgs/bg_menu.png");
 
   bg_->setTexture(*image_);
 
-  options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Rogue"};
+  options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Samurai"};
   texts_.resize(5);
-  coords_ = {{575,55},{525,205},{600,310},{620,415},{610,515}};
+  coords_ = {{575,55},{525,205},{600,310},{620,415},{590,515}};
   sizes_ = {20,20,24,24,24};
 
   for (size_t i{}; i < texts_.size(); ++i){
@@ -44,7 +44,7 @@ void Menu::SetValues(){
   texts_[2].setOutlineColor(Color::Blue);
   texts_[2].setOutlineThickness(4);
   texts_[3].setOutlineColor(Color::Magenta);
-  texts_[4].setOutlineColor(Color::Green);
+  texts_[4].setOutlineColor(Color::Red);
 }
 
 void Menu::LoopEvents(){
@@ -88,7 +88,7 @@ void Menu::ReceiveName(){
   RenderWindow window(VideoMode(500, 100), "Name select");
   
   Texture bg;
-  bg.loadFromFile("resources/bg_insert_name.png");
+  bg.loadFromFile("resources/bgs/bg_insert_name.png");
   
   Sprite background;
   background.setTexture(bg);
@@ -104,6 +104,8 @@ void Menu::ReceiveName(){
   title.setPosition({100, 15});
   title.setCharacterSize(18);
   title.setFillColor(Color::White);
+  title.setOutlineColor(Color::Black);
+  title.setOutlineThickness(2);
   
   Text input_text;
   input_text.setFont(font);

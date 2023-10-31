@@ -1,6 +1,8 @@
 #ifndef BOSS_H_
 #define BOSS_H_
 
+#include <iostream>
+#include <stdlib.h> // necessário p/ as funções rand() e srand()
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -28,6 +30,7 @@ struct Status {
  * @brief Classe que representa um chefe (boss) no jogo.
  */
 class Boss {
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Boss.

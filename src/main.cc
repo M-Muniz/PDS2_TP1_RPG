@@ -1,3 +1,4 @@
+#include<time.h> //necessário p/ função time()
 #include "../include/boss.h"
 #include "../include/enemy.h"
 #include "../include/item.h"
@@ -7,17 +8,18 @@
 #include "../include/skill.h"
 
 int main(){
-    srand(time(NULL));
+  srand(time(NULL));
 
-    Menu *menu = new Menu();
+  Menu* menu = new Menu();
+  menu->RunMenu();
+  Player* jogador = new Player(menu->ReturnName(),menu->ReturnClass());
+  delete menu;
+  Rpg* jogo = new Rpg(jogador);
+  jogo->Run();
+  delete jogador;
+  delete jogo;
 
-    menu->RunMenu();
-    
-    Player Jogador(menu->ReturnName(),menu->ReturnClass());
+  menu = nullptr;
 
-    delete menu;
-    
-    menu = nullptr;
-
-    return 0;
+  return 0;
 }

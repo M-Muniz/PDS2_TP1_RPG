@@ -1,6 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include <iostream>
+#include <stdlib.h> // necessário p/ as funções rand() e srand()
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -18,6 +20,7 @@ using namespace sf;
  */
 class Player{
 friend class Item;
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Player.
@@ -25,6 +28,11 @@ public:
      * @param classe Classe do Player.
      */
     Player(string nome, int classe);
+
+    /**
+     * @brief Construtor vazio da classe Player.
+     */
+    Player();
 
     /**
      * @brief Retorna o valor de ataque do Player.
@@ -61,7 +69,7 @@ public:
      * @brief Retorna o nome do Player.
      */
     string Name();
-
+  
 private:
     int classe_; /**< Classe do Player. */
     string name_; /**< Nome do Player. */

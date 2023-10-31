@@ -1,8 +1,6 @@
 #include "../../include/player.h"
 
-#include <iostream>
-#include <stdlib.h> // necessário p/ as funções rand() e srand()
-#include<time.h> //necessário p/ função time()
+Player::Player(){}
 
 Player::Player(string nome, int classe){
     if(classe == 0){ // Classe Guerreiro
@@ -12,7 +10,7 @@ Player::Player(string nome, int classe){
         stats_.def = 30;
         stats_.agi = 15;
         stats_.mp = 20;
-        img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
+        img_player_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }else if(classe == 1){ // Classe Mago
         stats_.hp_max = 95;
@@ -21,16 +19,16 @@ Player::Player(string nome, int classe){
         stats_.def = 20;
         stats_.agi = 20;
         stats_.mp = 30;
-        img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
+        img_player_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
         img_player_.setTexture(img_player_texture_);
-    }else if(classe == 2){ // Classe Ladino
+    }else if(classe == 2){ // Classe Samurai
         stats_.hp_max = 80;
         stats_.hp = stats_.hp_max;
         stats_.atk = 25;
         stats_.def = 20;
         stats_.agi = 30;
         stats_.mp = 20;
-        img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
+        img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }
     stats_.xp = 0;
@@ -44,6 +42,8 @@ Player::Player(string nome, int classe){
         skills_.push_back(aux);
     }
 }
+
+string Player::ReturnName(){return name_;}
 
 int Player::Atk(){return stats_.atk;}
 
