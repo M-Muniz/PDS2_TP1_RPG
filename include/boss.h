@@ -44,7 +44,7 @@ public:
      * @brief Recebe o valor de ataque do jogador e subtrai da vida com base na defesa e esquiva do chefe (boss).
      * @param Atk_player O valor de ataque do jogador.
      */
-    void Def(int Atk_player);
+    bool Def(int Atk_player);
 
     /**
      * @brief Retorna a struct de dados do chefe (boss).
@@ -67,7 +67,7 @@ private:
     string name_; /**< Nome do chefe (boss). */
     Texture img_boss_texture_; /**< Textura para importar para o Sprite*/
     Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
-    Skill skills_; /**< Habilidades do chefe (boss). */
+    vector<Skill> skills_; /**< Vetor de habilidades do chefe (boss). */
 };
 
 #endif

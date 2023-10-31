@@ -48,7 +48,6 @@ Player::Player(string nome, int classe){
 int Player::Atk(){return stats_.atk;}
 
 bool Player::Def(int atk_enemy){
-    srand(time(NULL));
 
     int x = rand() % 100;
 
