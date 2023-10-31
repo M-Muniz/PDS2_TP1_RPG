@@ -17,7 +17,7 @@ Player::Player(string nome, int classe){
         stats_.def = 20;
         stats_.agi = 20;
         stats_.mp = 30;
-        img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
+        img_player_texture_.loadFromFile("resources/Mage/sprite_mage_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }else if(classe == 2){ // Classe Ladino
         stats_.hp_max = 80;

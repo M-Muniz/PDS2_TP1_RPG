@@ -6,6 +6,7 @@ Rpg::Rpg(Player* jogador){
         "nometemporario",
         Style::Titlebar | Style::Close
     );
+    player_class_ = jogador->classe_;
     window->setPosition(Vector2i(0, 0));
     window->setFramerateLimit(100);
 
@@ -26,11 +27,26 @@ void Rpg::Game(){
 }
 
 void Rpg::SetAnimePlayer(){
+<<<<<<< HEAD
     frame+=0.07;
     if (frame>4){
         frame-=4;
+=======
+    frame += 0.07;
+    if(player_class_ == 0){
+        if (frame > 4){
+            frame -= 4;
+        }
+
+        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,64));
+    }else if(player_class_ == 1){
+        if(frame > 8){
+            frame -= 8;
+        }
+
+        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,67));
+>>>>>>> ze-branch
     }
-    player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,64));
 }
 void Rpg::Events() {
     auto event = make_shared<Event>();

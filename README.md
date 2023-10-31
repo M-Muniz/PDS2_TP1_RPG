@@ -45,7 +45,6 @@ Para baixar a biblioteca, basta usar o comando "sudo apt-get install libsfml-dev
 de outra forma ou acompanhar um tutorial mais completo, basta acessar o site oficial da biblioteca, disponível 
 em "https://www.sfml-dev.org/index.php".
 
-
 # ----------------------------------------------------------------
 
 # User Story: 
