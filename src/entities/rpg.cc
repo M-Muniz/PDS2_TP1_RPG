@@ -26,7 +26,7 @@ void Rpg::Game(){
 }
 
 void Rpg::SetAnimePlayer(){
-    frame+=0.15;
+    frame+=0.07;
     if (frame>4){
         frame-=4;
     }
