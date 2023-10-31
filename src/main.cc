@@ -1,11 +1,22 @@
+#include "../include/boss.h"
+#include "../include/enemy.h"
+#include "../include/item.h"
+#include "../include/menu.h"
+#include "../include/player.h"
 #include "../include/rpg.h"
-#include<memory>
-#include <SFML/Graphics.hpp>
+#include "../include/skill.h"
 
 int main(){
-    auto jogo = std::make_shared<Rpg>();
+    srand(time(NULL));
+
+    Menu * menu = new Menu();
+    menu->RunMenu();
     
-    jogo->Run();
+    Player Jogador(menu->ReturnName(),menu->ReturnClass());
+
+    delete menu;
     
+    menu = nullptr;
+
     return 0;
 }

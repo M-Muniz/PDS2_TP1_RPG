@@ -10,18 +10,8 @@
 #include "skill.h"
 #include "player.h"
 
-
-/**
-* @brief Estrutura de dados que armazena os atributos deste item.
-*/
-struct Attributes {
-        int hp;   /**< Valor de vida a ser somado. */
-        int atk;  /**< Valor de ataque a ser somado. */
-        int def;  /**< Valor de defesa a ser somado. */
-        int mp;   /**< Valor de energia a ser somado. */
-        int xp;   /**< Valor de experiência a ser somado. */
-        int agi;  /**< Valor de possível esquiva a ser somado. */
-    };
+using namespace std;
+using namespace sf;
 
 /**
  * @brief Classe que representa um item no jogo.
@@ -31,18 +21,18 @@ public:
     /**
      * @brief Construtor da classe Item.
      */
-    Item();
+    Item(int tipo_item);
 
     /**
      * @brief Soma os atributos deste item ao jogador.
      * @param Usr O jogador ao qual os atributos deste item serão somados.
      */
-    void Sum(Player& Usr);
+    void Sum(Player& usr);
 
 private:
     Attributes attributes_; /**< Estrutura de dados que armazena os atributos do item*/
-
-    sf::Sprite img_item_; /**< Imagem do item para a interface gráfica. */
+    Texture img_item_texture_; /**< Textura para importar para o Sprite. */
+    Sprite img_item_; /**< Imagem do item para a interface gráfica. */
 };
 
 #endif

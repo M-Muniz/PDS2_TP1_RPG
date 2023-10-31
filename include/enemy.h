@@ -8,13 +8,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "skill.h"
+#include "boss.h"
 
-struct Status {
-    int hp;   /**< Vida do inimigo. */
-    int atk;  /**< Valor de ataque do inimigo. */
-    int def;  /**< Valor de defesa do inimigo. */
-    int agi;  /**< Valor de possível esquiva do inimigo. */
-};
+using namespace std;
+using namespace sf;
 
 /**
  * @brief Classe que representa um inimigo no jogo.
@@ -24,7 +21,7 @@ public:
     /**
      * @brief Construtor da classe Enemy.
      */
-    Enemy();
+    Enemy(int inimigo );
 
     /**
      * @brief Retorna o valor de ataque do inimigo.
@@ -34,9 +31,9 @@ public:
 
     /**
      * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do inimigo.
-     * @param Atk_enemy O valor de ataque do atacante.
+     * @param atk_enemy O valor de ataque do atacante.
      */
-    void Def(int Atk_enemy);
+    bool Def(int atk_enemy);
 
     /**
      * @brief Retorna a struct de dados do inimigo.
@@ -46,8 +43,9 @@ public:
 
 private:
     Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */
-
-    std::string name_; /**< Nome do inimigo. */
+    string name_; /**< Nome do inimigo. */
+    Texture img_enemy_texture_; /**< Textura para importar para o Sprite. */
+    Sprite img_enemy_; /**< Imagem do inimigo para a interface gráfica. */
 };
 
 #endif

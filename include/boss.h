@@ -9,12 +9,20 @@
 #include <SFML/Audio.hpp>
 #include "skill.h"
 
+using namespace std;
+using namespace sf;
+
+/**
+ * @brief Estrutura de dados para armezenas os status do objeto.
+ */
 struct Status {
-    int hp;   /**< Vida do chefe (boss). */
-    int atk;  /**< Valor de ataque do chefe (boss). */
-    int def;  /**< Valor de defesa do chefe (boss). */
-    int xp;   /**< Valor de experiência passado ao jogador. */
-    int agi;  /**< Valor de possível esquiva do chefe (boss). */
+    int hp_max; /**< Vida máxima do objeto. */
+    int hp;   /**< Vida do objeto. */
+    int atk;  /**< Valor de ataque do objeto. */
+    int def;  /**< Valor de defesa do objeto. */
+    int mp; /**< Valore de mana do usuário. */
+    int xp;   /**< Valor de experiência do objeto. */
+    int agi;  /**< Valor de possível esquiva do objeto. */
 };
 /**
  * @brief Classe que representa um chefe (boss) no jogo.
@@ -36,7 +44,7 @@ public:
      * @brief Recebe o valor de ataque do jogador e subtrai da vida com base na defesa e esquiva do chefe (boss).
      * @param Atk_player O valor de ataque do jogador.
      */
-    void Def(int Atk_player);
+    bool Def(int Atk_player);
 
     /**
      * @brief Retorna a struct de dados do chefe (boss).
@@ -56,10 +64,10 @@ private:
      * @brief Estrutura de dados que armazena os status do chefe (boss).
      */
     Status stats_;
-
-    std::string name_; /**< Nome do chefe (boss). */
-    sf::Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
-    Skill skills_; /**< Habilidades do chefe (boss). */
+    string name_; /**< Nome do chefe (boss). */
+    Texture img_boss_texture_; /**< Textura para importar para o Sprite*/
+    Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
+    vector<Skill> skills_; /**< Vetor de habilidades do chefe (boss). */
 };
 
 #endif
