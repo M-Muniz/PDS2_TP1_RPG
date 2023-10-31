@@ -74,40 +74,49 @@ Rpg::Rpg(Player jogador){
     player_status_[1].setSize(Vector2f(409, 9.4));
     player_status_[1].setPosition(Vector2f(395, 766));
 
-    // stringstream aux;
-    // string aux_s;
+    stringstream aux;
+    string aux_s_1, aux_s_2, aux_s_3;
 
-    // texts_strings_.push_back("Name: " + player_.name_ + ".");
+    aux << player_.stats_.atk;
+    aux >> aux_s_1;
 
-    // aux << player_.stats_.atk;
-    // aux >> aux_s;
-    // texts_strings_.push_back("Atk: " + aux_s + ".");
+    aux << player_.stats_.def;
+    aux >> aux_s_2;
 
-    // aux << player_.stats_.def;
-    // aux >> aux_s;
-    // texts_strings_.push_back("Def: " + aux_s + ".");
+    aux << player_.stats_.xp;
+    aux >> aux_s_3;
 
-    // aux << player_.stats_.xp;
-    // aux >> aux_s;
-    // texts_strings_.push_back("Xp: " + aux_s + ".");
+    texts_strings_ = {aux_s_1, aux_s_2, aux_s_3};
+    texts_coords_ = {{0,0},{0,0},{0,0}};
 
-    // texts_sizes_.push_back(25);
-    // texts_sizes_.push_back(15);
-    // texts_sizes_.push_back(15);
-    // texts_sizes_.push_back(15);
+    Font fonte;
+    fonte.loadFromFile("fonts/super_legend_boy.ttf");
 
-    // Font fonte;
-    // fonte.loadFromFile("fonts/super_legend_boy.ttf");
+    texts_.resize(3);
 
-    // texts_.resize(4);
+    for(size_t i{}; i < texts_.size(); i++){
+        texts_[i].setString(texts_strings_[i]);
+        texts_[i].setFont(fonte);
+        texts_[i].setPosition(texts_coords_[i]);
+        texts_[i].setCharacterSize(15);
+        texts_[i].setFillColor(Color::White);
+        texts_[i].setOutlineColor(Color::Black);
+        texts_[i].setOutlineThickness(2);
+    }
 
-    // for(size_t i{}; i < texts_.size(); i++){
-    //     texts_[i].setString(texts_strings_[i]);
-    //     texts_[i].setCharacterSize(texts_sizes_[i]);
-    //     texts_[i].setFont(fonte);
-    // }
-    // // FloatRect textBounds = texts_.front().getLocalBounds();
-    // // texts_.front().setPosition((1200 - textBounds.width)/2, 680);
+    // texts_[0].setString(texts_strings_[0]);
+    // texts_[0].setFillColor(Color::White);
+    // texts_[0].setOutlineColor(Color::Black);
+    // texts_[0].setOutlineThickness(2);
+    // texts_[0].setCharacterSize(15);
+    // texts_[0].setFont(fonte);
+
+    FloatRect text_bound = texts_[0].getLocalBounds();
+    float x = (1200 - text_bound.width)/2;
+
+    texts_[0].setPosition(Vector2f(x,830));
+    // texts_[1].setPosition(Vector2f());
+    // texts_[2].setPosition(Vector2f());
 }
 
 void Rpg::Game(){
@@ -173,6 +182,8 @@ void Rpg::Draw() {
     // for(size_t i{}; i < texts_.size(); i++){
     //     window->draw(texts_[i]);
     // }
+    
+    window->draw(texts_[0]);
     
     window->draw(player_.img_player_);
     window->display();

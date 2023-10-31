@@ -78,7 +78,7 @@ void Menu::LoopEvents(){
 
     if(Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_){
       theselect_ = true;
-      cout << options_[pos_] << '\n';
+      cout << options_[pos_] << endl;
       window_->close();
     }
   }

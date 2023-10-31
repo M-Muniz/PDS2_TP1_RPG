@@ -35,9 +35,9 @@ public:
     vector<vector<RectangleShape>> cd_skills_; /**< Mostradores para o cooldown das skills do player. */
 
     vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
+    Text player_name_; /**< Texto para plotar o nome do Player na tela. */
     vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
     vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
-    vector<size_t> texts_sizes_; /**< Vetor para posicionar os textos na tela. */
     
     Player player_; /**< Jogador. */
     list<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
