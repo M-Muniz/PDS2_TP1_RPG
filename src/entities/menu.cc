@@ -15,14 +15,13 @@ Menu::~Menu(){
   delete font_;
   delete image_;
   delete bg_;
-
 }
 
 void Menu::SetValues(){
   window_->create(VideoMode(1240,720), "Menu Inicial", Style::Titlebar | Style::Close);
   window_->setPosition(Vector2i(0,0));
 
-  pos_ = 1;
+  pos_ = 2;
   pressed_ = theselect_ = false;
   font_->loadFromFile("fonts/super_legend_boy.ttf");
   image_->loadFromFile("resources/bg_menu.png");
@@ -43,6 +42,7 @@ void Menu::SetValues(){
   texts_[0].setFillColor(Color::Red);
   texts_[1].setFillColor(Color::Black);
   texts_[2].setOutlineColor(Color::Blue);
+  texts_[2].setOutlineThickness(4);
   texts_[3].setOutlineColor(Color::Magenta);
   texts_[4].setOutlineColor(Color::Green);
 }
@@ -56,7 +56,7 @@ void Menu::LoopEvents(){
 
     if(Keyboard::isKeyPressed(Keyboard::Down) && !pressed_){
       if(pos_ < 4){
-        ++pos_;
+        pos_++;
         pressed_ = true;
         texts_[pos_].setOutlineThickness(4);
         texts_[pos_ - 1].setOutlineThickness(0);
@@ -67,7 +67,7 @@ void Menu::LoopEvents(){
 
     if(Keyboard::isKeyPressed(Keyboard::Up) && !pressed_){
       if(pos_ > 2){
-        --pos_;
+        pos_--;
         pressed_ = true;
         texts_[pos_].setOutlineThickness(4);
         texts_[pos_ + 1].setOutlineThickness(0);
@@ -78,7 +78,7 @@ void Menu::LoopEvents(){
 
     if(Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_){
       theselect_ = true;
-      cout << options_[pos_] << '\n';
+      //cout << options_[pos_] << '\n';
       window_->close();
     }
   }
@@ -153,7 +153,7 @@ void Menu::RunMenu(){
     
   }
   ReceiveName();
-  cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
+  //cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
 }
 
 int Menu::ReturnClass(){ //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
