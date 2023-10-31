@@ -1,6 +1,8 @@
 #include "../../include/enemy.h"
 
-Enemy::Enemy(int inimigo){
+Enemy::Enemy(){
+  int inimigo = rand() % 4;
+
   if(inimigo == 0){/*o inimigo 0 corresponde a um inimigo mais balanceado*/         
     stats_.hp_max = 80;
     stats_.hp = stats_.hp_max;
@@ -9,9 +11,9 @@ Enemy::Enemy(int inimigo){
     stats_.agi = 10;
     stats_.mp = 0;
     stats_.xp = 20;
-    img_enemy_texture_.loadFromFile("resources/bg_temp.jpg");
+    img_enemy_texture_.loadFromFile("resources/spear_skeleton/sprite_spearskeleton_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
-    name_ = "esqueleto";
+    name_ = "Spear Skeleton";
   }else if(inimigo == 1){/*o inimigo 1 corresponde a um inimigo mais agressivo*/ 
     stats_.hp_max = 40;
     stats_.hp = stats_.hp_max;
@@ -20,9 +22,9 @@ Enemy::Enemy(int inimigo){
     stats_.agi = 15;
     stats_.mp = 0;
     stats_.xp = 20;
-    img_enemy_texture_.loadFromFile("resources/bg_temp.jpg");
+    img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
-    name_ = "assasino";
+    name_ = "Small Werewolf";
   }else if(inimigo == 2){/*o inimigo 2 corresponde a um inimigo mais defensivo*/ 
     stats_.hp_max = 135;
     stats_.hp = stats_.hp_max;
@@ -31,9 +33,9 @@ Enemy::Enemy(int inimigo){
     stats_.agi = 5;
     stats_.mp = 0;
     stats_.xp = 30;
-    img_enemy_texture_.loadFromFile("resources/bg_temp.jpg");
+    img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
-    name_ = "grandao";
+    name_ = "Big Warewolf";
   }else if(inimigo == 3){/*o inimigo 3 corresponde a um inimigo mais balanceado*/ 
     stats_.hp_max = 70;
     stats_.hp = stats_.hp_max;
@@ -42,9 +44,9 @@ Enemy::Enemy(int inimigo){
     stats_.agi = 15;
     stats_.mp = 0;
     stats_.xp = 25;
-    img_enemy_texture_.loadFromFile("resources/bg_temp.jpg");
+    img_enemy_texture_.loadFromFile("resources/sword_skeleton/sprite_swordskeleton_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
-    name_ = "esqueleto";
+    name_ = "Sword Skeleton";
   }
 
 }
