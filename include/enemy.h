@@ -7,7 +7,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "skill.h"
 #include "boss.h"
 
 using namespace std;
@@ -17,11 +16,12 @@ using namespace sf;
  * @brief Classe que representa um inimigo no jogo.
  */
 class Enemy {
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Enemy.
      */
-    Enemy(int inimigo );
+    Enemy();
 
     /**
      * @brief Retorna o valor de ataque do inimigo.

@@ -17,11 +17,17 @@ using namespace sf;
  * @brief Classe que representa um item no jogo.
  */
 class Item {
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Item.
      */
     Item(int tipo_item);
+
+    /**
+     * @brief Construtor vazio da classe Item.
+     */
+    Item();
 
     /**
      * @brief Soma os atributos deste item ao jogador.
