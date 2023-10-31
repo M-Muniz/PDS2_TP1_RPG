@@ -14,7 +14,14 @@ Rpg::Rpg(Player* jogador){
     player_sprite->setTexture(jogador->img_player_texture_);
     player_sprite->setScale(5,5);
     player_sprite->setTextureRect(IntRect(0,0,67,64));
-    player_sprite->setPosition(185,300);
+
+    if(player_class_ == 0){
+        player_sprite->setPosition(175,300);
+    }else if(player_class_ == 1){
+        player_sprite->setPosition(169,300);
+    }else if(player_class_ == 2){
+        player_sprite->setPosition(168,300);
+    }
 
     bg.loadFromFile("resources/bgs/bg_temp.png");
     background = make_shared<Sprite>();
