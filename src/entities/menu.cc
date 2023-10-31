@@ -28,9 +28,9 @@ void Menu::SetValues(){
 
   bg_->setTexture(*image_);
 
-  options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Rogue"};
+  options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Samurai"};
   texts_.resize(5);
-  coords_ = {{575,55},{525,205},{600,310},{620,415},{610,515}};
+  coords_ = {{575,55},{525,205},{600,310},{620,415},{590,515}};
   sizes_ = {20,20,24,24,24};
 
   for (size_t i{}; i < texts_.size(); ++i){
@@ -44,7 +44,7 @@ void Menu::SetValues(){
   texts_[2].setOutlineColor(Color::Blue);
   texts_[2].setOutlineThickness(4);
   texts_[3].setOutlineColor(Color::Magenta);
-  texts_[4].setOutlineColor(Color::Green);
+  texts_[4].setOutlineColor(Color::Red);
 }
 
 void Menu::LoopEvents(){

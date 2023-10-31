@@ -40,6 +40,12 @@ void Rpg::SetAnimePlayer(){
         }
 
         player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,67));
+    }else if(player_class_ == 2){
+        if(frame > 6){
+            frame -= 6;
+        }
+
+        player_sprite->setTextureRect(IntRect(67*(int)frame,0,67,70));
     }
 }
 void Rpg::Events() {
