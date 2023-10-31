@@ -16,7 +16,7 @@ Rpg::Rpg(Player* jogador){
     player_sprite->setTextureRect(IntRect(0,0,67,64));
     player_sprite->setPosition(185,300);
 
-    bg.loadFromFile("resources/bg_temp.png");
+    bg.loadFromFile("resources/bgs/bg_temp.png");
     background = make_shared<Sprite>();
     background->setTexture(bg);
     background->setScale(2.35,2.35);

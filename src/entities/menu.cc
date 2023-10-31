@@ -24,7 +24,7 @@ void Menu::SetValues(){
   pos_ = 2;
   pressed_ = theselect_ = false;
   font_->loadFromFile("fonts/super_legend_boy.ttf");
-  image_->loadFromFile("resources/bg_menu.png");
+  image_->loadFromFile("resources/bgs/bg_menu.png");
 
   bg_->setTexture(*image_);
 
@@ -88,7 +88,7 @@ void Menu::ReceiveName(){
   RenderWindow window(VideoMode(500, 100), "Name select");
   
   Texture bg;
-  bg.loadFromFile("resources/bg_insert_name.png");
+  bg.loadFromFile("resources/bgs/bg_insert_name.png");
   
   Sprite background;
   background.setTexture(bg);
