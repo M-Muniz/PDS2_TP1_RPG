@@ -104,6 +104,8 @@ void Menu::ReceiveName(){
   title.setPosition({100, 15});
   title.setCharacterSize(18);
   title.setFillColor(Color::White);
+  title.setOutlineColor(Color::Black);
+  title.setOutlineThickness(2);
   
   Text input_text;
   input_text.setFont(font);
