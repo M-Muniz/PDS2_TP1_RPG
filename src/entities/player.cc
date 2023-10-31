@@ -76,3 +76,5 @@ void Player::Upar(int xp){
 }
 
 Status Player::ReturnStatus(){return stats_;}
+
+string Player::Name(){return name_;}

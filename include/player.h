@@ -68,8 +68,8 @@ public:
     /**
      * @brief Retorna o nome do Player.
      */
-    string ReturnName();
-
+    string Name();
+  
 private:
     int classe_; /**< Classe do Player. */
     string name_; /**< Nome do Player. */
