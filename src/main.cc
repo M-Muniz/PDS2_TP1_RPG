@@ -7,9 +7,13 @@
 #include "../include/skill.h"
 
 int main(){
-    Menu * menu = new Menu();
-    
+    srand(time(NULL));
+
+    Menu *menu = new Menu();
+
     menu->RunMenu();
+    
+    Player Jogador(menu->ReturnName(),menu->ReturnClass());
 
     delete menu;
     

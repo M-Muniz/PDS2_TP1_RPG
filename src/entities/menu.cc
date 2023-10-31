@@ -154,3 +154,6 @@ void Menu::RunMenu(){
   cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
 }
 
+int Menu::ReturnClass(){return (pos_-2);} //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
+
+string Menu::ReturnName(){return player_name_;}
