@@ -4,7 +4,7 @@ Rpg::Rpg(){
     window = std::make_shared<RenderWindow>(VideoMode(1200, 652), "nometemporario", Style::Titlebar | Style::Close);
     window->setPosition(Vector2i(0, 0));
     window->setFramerateLimit(100);
-
+    
     player_sprite= make_shared<Sprite>();
     player_sprite->setTexture(player_.img_player_texture_);
     player_sprite->setScale(5,5);
