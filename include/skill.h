@@ -26,6 +26,7 @@ struct Attributes {
  * @brief Classe Skill responsável por representar as habilidades do jogador ou do chefe (Boss) no jogo de RPG.
  */
 class Skill {
+friend class Rpg;
 public:
     /**
      * @brief Construtor da classe Skill baseado na Classe (RPG) selecionada.
