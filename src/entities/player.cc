@@ -19,14 +19,14 @@ Player::Player(string nome, int classe){
         stats_.mp = 30;
         img_player_texture_.loadFromFile("resources/Mage/sprite_mage_default.png"); 
         img_player_.setTexture(img_player_texture_);
-    }else if(classe == 2){ // Classe Ladino
+    }else if(classe == 2){ // Classe Samurai
         stats_.hp_max = 80;
         stats_.hp = stats_.hp_max;
         stats_.atk = 25;
         stats_.def = 20;
         stats_.agi = 30;
         stats_.mp = 20;
-        img_player_texture_.loadFromFile("resources/bg_temp.jpg"); 
+        img_player_texture_.loadFromFile("resources/Samurai/sprite_samurai_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }
     stats_.xp = 0;
