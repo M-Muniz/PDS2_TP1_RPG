@@ -43,6 +43,9 @@ public:
   vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
   vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
 
+  Vector2i pos_mouse_;
+  Vector2f mouse_coord_;
+
 
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 

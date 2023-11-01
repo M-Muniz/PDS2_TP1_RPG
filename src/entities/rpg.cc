@@ -2,8 +2,14 @@
 
 Rpg::Rpg(Player jogador){
   player_ = jogador;
+<<<<<<< HEAD
 
   window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "RPG - TP1", Style::Titlebar | Style::Close);
+=======
+  mouse_coord_={0,0};
+  pos_mouse_={0,0};
+  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
+>>>>>>> ze-branch
   window->setPosition(Vector2i(0, 0));
   window->setFramerateLimit(100);
   Enemy inimigo1;
@@ -124,10 +130,11 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(){
-  frame_p_ += 0.07;
-  frame_e_ += 0.07;
-  // SetAnimeEnemy();
-  SetAnimePlayer();
+    frame_p_ += 0.07;
+    frame_e_ += 0.07;
+    //SetAnimeEnemy();
+    SetAnimePlayer();
+
 }
 
 /*void Rpg::SetAnimeEnemy(){
@@ -136,8 +143,8 @@ void Rpg::Game(){
 
         enemys_[0].img_enemy_.setPosition(500,500);
 
-        if(frame_e_ > 7){                               TO DO
-            frame_e_-=7;                        funçao que vai animar os inimigos 
+        if(frame_e_ > 7){                               TODO
+            frame_e_-=7;                      funçao que vai animar os inimigos 
 
         }
     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
@@ -187,6 +194,12 @@ void Rpg::SetAnimePlayer(){
 
 int Rpg::Events() {
   Event event;
+<<<<<<< HEAD
+=======
+  pos_mouse_ = Mouse::getPosition(*window);
+  mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
+
+>>>>>>> ze-branch
   while (window->pollEvent(event)) {
     if (event.type == Event::Closed) {
       window->close();
@@ -197,6 +210,16 @@ int Rpg::Events() {
     // if(){}
     return 0;
   }
+<<<<<<< HEAD
+=======
+  if(Mouse::isButtonPressed(Mouse::Left)){  
+    if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
+      enemys_.front().Def(player_.Atk());
+      cout << "A funçao realizada foi ataque normal."<< endl;
+      return 1;
+    }
+  }
+>>>>>>> ze-branch
   return 0;
 }
 
@@ -225,7 +248,11 @@ void Rpg::Draw() {
 
 void Rpg::Run() {
   while (window->isOpen()) {
+<<<<<<< HEAD
     for(int turno=1;player_.stats_.hp>0;turno++){
+=======
+    for(int turno=1;player_.stats_.hp || !(window->isOpen());turno++){
+>>>>>>> ze-branch
 
       Game();
       Draw();
@@ -238,9 +265,15 @@ void Rpg::Run() {
         }
 
         if(enemys_.front().stats_.hp <= 0 ){
+<<<<<<< HEAD
           Enemy inimigonovo;
           enemys_.pop_back();
           enemys_.push_back(inimigonovo);
+=======
+          Enemy inimigo_novo;
+          enemys_.pop_back();
+          enemys_.push_back(inimigo_novo);
+>>>>>>> ze-branch
         }
 
       }else{
@@ -248,6 +281,10 @@ void Rpg::Run() {
         if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp ;
           cout << "de vida restante" << endl;
+<<<<<<< HEAD
+=======
+          cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
+>>>>>>> ze-branch
         }else{
           cout << "Inimigo errou o golpe" << endl;
         }

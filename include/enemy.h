@@ -31,9 +31,9 @@ public:
 
   /**
    * @brief Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e esquiva do inimigo.
-   * @param atk_enemy O valor de ataque do atacante.
+   * @param atk_player O valor de ataque do atacante.
    */
-  bool Def(int atk_enemy);
+  bool Def(int atk_player);
 
   /**
    * @brief Retorna a struct de dados do inimigo.
