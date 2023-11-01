@@ -124,11 +124,10 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(){
-    frame_p_ += 0.07;
-    frame_e_ += 0.07;
-    SetAnimeEnemy();
-    SetAnimePlayer();
-
+  frame_p_ += 0.07;
+  frame_e_ += 0.07;
+  // SetAnimeEnemy();
+  SetAnimePlayer();
 }
 
 /*void Rpg::SetAnimeEnemy(){
