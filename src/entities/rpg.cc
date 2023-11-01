@@ -192,10 +192,9 @@ int Rpg::Events() {
   pos_mouse_ = Mouse::getPosition(*window);
   mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
 
-  while (window->pollEvent(event)) {
+  while (window->pollEvent(event) && window->isOpen()){
     if (event.type == Event::Closed) {
       window->close();
-      return -1;
     }
     // if(){}
     // if(){}
