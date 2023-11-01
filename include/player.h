@@ -78,6 +78,7 @@ private:
   Texture img_player_texture_; /**< Textura para importar para o Sprite. */
   Sprite img_player_; /**< Imagem do Player para a interface gráfica. */
   vector<vector<bool>> skills_cd_; /**< Computa o cooldown das skills do player. */
+  
 };
 
 #endif 

@@ -2,8 +2,9 @@
 
 Rpg::Rpg(Player jogador){
   player_ = jogador;
-
-  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "nometemporario", Style::Titlebar | Style::Close);
+  mouse_coord_={0,0};
+  pos_mouse_={0,0};
+  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
   window->setPosition(Vector2i(0, 0));
   window->setFramerateLimit(100);
   Enemy inimigo1;
@@ -124,10 +125,11 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(){
-  frame_p_ += 0.07;
-  frame_e_ += 0.07;
-  // SetAnimeEnemy();
-  SetAnimePlayer();
+    frame_p_ += 0.07;
+    frame_e_ += 0.07;
+    //SetAnimeEnemy();
+    SetAnimePlayer();
+
 }
 
 /*void Rpg::SetAnimeEnemy(){
@@ -136,8 +138,8 @@ void Rpg::Game(){
 
         enemys_[0].img_enemy_.setPosition(500,500);
 
-        if(frame_e_ > 7){                               TO DO
-            frame_e_-=7;                        funçao que vai animar os inimigos 
+        if(frame_e_ > 7){                               TODO
+            frame_e_-=7;                      funçao que vai animar os inimigos 
 
         }
     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
@@ -185,13 +187,25 @@ void Rpg::SetAnimePlayer(){
   }
 }
 
-void Rpg::Events() {
-  auto event = make_shared<Event>();
-  while (window->pollEvent(*event)) {
-    if (event->type == Event::Closed) {
+int Rpg::Events() {
+  Event event;
+  pos_mouse_ = Mouse::getPosition(*window);
+  mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
+
+  while (window->pollEvent(event)) {
+    if (event.type == Event::Closed) {
       window->close();
+      return -1;
     }
   }
+  if(Mouse::isButtonPressed(Mouse::Left)){  
+    if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
+      enemys_.front().Def(player_.Atk());
+      cout << "A funçao realizada foi ataque normal."<< endl;
+      return 1;
+    }
+  }
+  return 0;
 }
 
 void Rpg::Draw() {
@@ -219,8 +233,35 @@ void Rpg::Draw() {
 
 void Rpg::Run() {
   while (window->isOpen()) {
-    Events();
-    Game();
-    Draw();
+    for(int turno=1;player_.stats_.hp || !(window->isOpen());turno++){
+
+      Game();
+      Draw();
+
+      if(turno % 2 == 1){
+
+        while(!Events()){
+          Game();
+          Draw();
+        }
+
+        if(enemys_.front().stats_.hp <= 0 ){
+          Enemy inimigo_novo;
+          enemys_.pop_back();
+          enemys_.push_back(inimigo_novo);
+        }
+
+      }else{
+
+        if(player_.Def(enemys_.front().Atk())){
+          cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp ;
+          cout << "de vida restante" << endl;
+          cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
+        }else{
+          cout << "Inimigo errou o golpe" << endl;
+        }
+
+      }
+    }
   }
 }
