@@ -42,8 +42,9 @@ public:
     Player player_; /**< Jogador. */
     vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
     vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
+
     
-    float frame;
+    float frame_e_,frame_p_;
 
 public:
     /**
