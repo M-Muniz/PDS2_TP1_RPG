@@ -311,7 +311,7 @@ vector<size_t> sizes_; // Tamanho das fontes para as opções do Menu.
 ## Compilação e execução
 
 Para compilar o nosso programa, basta rodar o comando make no terminal e, após isso,
-execute o arquivo game.app.
+execute o arquivo game.app (digite "./game.app" no terminal).
 
 ## game.app
 
@@ -325,19 +325,32 @@ do seu personagem.
 
 ![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/133266092/1f8ac36f-a085-427a-8969-97936fc8954f)
 
-Inicialmente, essas informações ficam salvas nas variáveis Menu::pos_ e 
-Menu::player_name_. Por enquanto, é possível verificar se as informações foram salvas corretamente
-por um cout no terminal apenas para este fim.
+Inicialmente, essas informações ficam salvas nas variáveis Menu::pos_ e Menu::player_name_. Por 
+enquanto, é possível verificar se as informações foram salvas corretamente por um cout no terminal 
+apenas para este fim.
 ![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/139146076/b8fb2323-2580-4703-8d20-4dc66bab6ac9)
 
-Depois de escolher o personagem e o nome o jogo começará, ate esse instante o jogo consiste no player 
-visivel e em um inimigo invisivel. O inimigo é gerado aleatoriamente no começo de td jogo e é sempre 
-substituido por outro apos sua morte.
+Depois de escolher o personagem e o nome o jogo começará. Até esse instante o jogo consiste no player 
+visivel (a imagem e a animação variam de acordo com a classe selecionada) e em um inimigo invisivel 
+(pois ainda não conseguimos realiazar a animação dele). O inimigo é gerado aleatoriamente no começo de 
+todo jogo e é sempre substituido por outro apos sua morte, também gerado aleatoriamente (como ainda não 
+é possível realizar uma distinção visual, o tipo de inimigo é exposto no terminal, assim como as demais 
+informações).
 ![image](https://github.com/M-Muniz/PDS2_TP1_RPG/assets/139146076/5d2fa438-adaf-40db-ac51-6df4147d66f5)
 
-O botao no canto inferior esquerdo da tela representa a funçao de ataque do player ,que sera impressa no
-terminal cada vez que o player realizar o golpe. Depois disso é a vez do inimigo que atacara o jogador e
-imprimira no terminal seu erro ou seu acerto .
-Caso ele acerte a vida do player tambem é imprimida em tempo real
+O botao no canto inferior esquerdo da tela representa a funçao de ataque do player, que sera impressa no
+terminal cada vez que o player realizar o golpe (por enquanto, todas as interações fornecem uma resposta
+no terminal, mas iremos implementar tudo na interface gráfica). Depois disso é a vez do inimigo que 
+atacara o jogador e imprimira no terminal seu erro ou seu acerto. Caso ele acerte, a vida do player tambem 
+é impressa em tempo real no terminal e a barra de vida na interface gráfica se altera proporcionalmente 
+(ainda iremos implementar uma barra de vida para o inimigo, assim como o player). Futuramente, o mesmo 
+ocorrerá com a mana do player ao gastar uma skill, essas que por sua vez, além de um custo de mana, terão 
+um cooldown baseado em turnos, sendo representado pelas marcações verdes abaixo do botão de cada skill. 
 
-Ate o instante todas as verificaçoes foram feitas no terminal por que nao conseguimos linkar td com a interface grafica
+### Final do jogo
+
+Caso a vida do player seja menor ou igual a 0, o loop de turnos se encerra, mas ainda não implementamos uma 
+tela de game over ou de pontuação, por isso, ao final do jogo, para encerra-lo, basta fechar a janela.
+
+
+
