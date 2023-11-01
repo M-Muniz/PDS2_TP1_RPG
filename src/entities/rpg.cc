@@ -7,6 +7,10 @@ Rpg::Rpg(Player jogador){
     window->setPosition(Vector2i(0, 0));
     window->setFramerateLimit(100);
 
+    Enemy inimigo1;
+    enemys_.push_back(inimigo1);
+
+
     bg.loadFromFile("resources/bgs/bg_temp.png");
     background = make_shared<Sprite>();
     background->setTexture(bg);

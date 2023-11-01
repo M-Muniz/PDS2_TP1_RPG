@@ -40,8 +40,8 @@ public:
     vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
     
     Player player_; /**< Jogador. */
-    list<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
-    list<Boss> boss_; /**< Lista de Boss's para o jogo. */
+    vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
+    vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
     
     float frame;
 
