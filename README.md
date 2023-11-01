@@ -48,7 +48,7 @@ em "https://www.sfml-dev.org/index.php".
 # ----------------------------------------------------------------
 
 # User Story: 
-
+Objetivo: criar um jogo de turnos em uma dungeon pré definida, na qual o usuário poderá escolher suas ações e moldar seu personagem enquanto enfrenta inimigos cada vez mais fortes. O Personagem jogável e os inimigos estarão representados através de Class na qual suas ações seriam definidas atraves de funções.
 ##    RPG em turnos C++
 
 Como usuario desejo jogar um jogo simples de RPG com o combate em turnos.
@@ -80,20 +80,20 @@ e a sua classe.
 
 Atk(); // Retorna o valor de ataque do Player.
 
-Def(int Atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
+Def(int atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
 esquiva do Player, retorna 0 se o Player desviar do ataque e 1 c.c. 
 
-Upar(int Xp); // Aumenta os status do Palyer com base na experiência recebida.
+Upar(int xp); // Aumenta os status do Palyer com base na experiência recebida.
 
 ReturnStatus(); // Retorna a struct de dados do Player.
 
-UserSkills(int Index); // Retorna uma das skills do Player com base no indexador.
+UserSkills(int index); // Retorna uma das skills do Player com base no indexador.
 
 ##    Colaborators:
 
 int classe_; // Classe do Player
 
-vector<Skill> skills_[3]; // Vetor de habilidades do Player.
+vector<Skill> skills_; // Vetor de habilidades do Player.
 
 Status stats_; // Estrutura que armazena os status do Player.
 
@@ -103,6 +103,7 @@ Texture img_player_texture_; // Textura para importar para o Sprite
 
 Sprite img_player_; // Imagem do Player para a interface gráfica.
 
+vector<vector<bool>> skills_cd_; // Computa o cooldown das skills do player. 
 # ----------------------------------------------------------------
 
 ##    Class:
@@ -115,7 +116,7 @@ Enemy(); // Construtor.
 
 Atk(); // Retorna o valor de ataque do Enemy.
 
-Def(int Atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
+Def(int Atk_player); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
 esquiva do Enemy.
 
 ReturnStatus(); // Retorna a struct de dados do Enemy.
@@ -138,19 +139,52 @@ Rpg;
 
 ##    Responsabilitys:
 
-MoveEnemys(); // Move os inimigos.
-
-SetAnime(Vários)(); // Anima os objetos do jogo.     
-
-Events(); // Eventos do jogo que acontecem na interface grafica.
-
-Draw(); // Anima a janela. 
-
-##    Colaborators:
-
 Rpg(Player jogador); // Construtor da classe.
 
 Run(); // Inicia o jogo.
+
+shared_ptr<RenderWindow> window; // Janela.
+
+Texture bg; // Textura para importar para o backgroud da tela.
+
+shared_ptr<Sprite> background; // Background da tela.
+
+vector<RectangleShape> buttons_; // Vetor para os botões clicáveis.
+
+vector<RectangleShape> player_status_; // Barras de mana e vida do Player.
+
+vector<vector<RectangleShape>> cd_skills_; // Mostradores para o cooldown das skills do player.
+
+vector<Text> texts_; // Vetor para posicionar os textos na tela.
+
+Text player_name_; // Texto para plotar o nome do Player na tela. 
+
+vector<Vector2f> texts_coords_; // Vetor para posicionar os textos na tela.
+
+ vector<string> texts_strings_; // Vetor para posicionar os textos na tela. 
+
+ Player player_; // Jogador.
+
+ vector<Enemy> enemys_; // Lista de Enemys para o jogo.
+
+ vector<Boss> boss_; // Lista de Boss's para o jogo.
+
+ float frame_e_,frame_p_; // Frame
+
+
+##    Colaborators:
+
+MoveEnemys(); // Move os inimigos.
+
+SetAnimePlayer(); // Anima os objetos Player do jogo.
+
+SetAnimeEnemy(); // Anima os objetos Enemy do jogo. 
+
+Events(); // Eventos do jogo que acontecem na interface grafica.
+
+Draw(); // Anima a janela.
+
+Game(); // Seta os frames do jogo.
 
 # ----------------------------------------------------------------
 
@@ -183,16 +217,16 @@ Boss;
 Boss(); // Construtor.
 Atk(); // Retorna o valor de ataque do Boss.
 
-Def(int Atk_player); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
+Def(int atk_player); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
 esquiva do Boss. 
 
 ReturnStatus(); // Retorna a estrutura de dados de status do Boss.
 
-BossSkills(); // Retorna uma das skills do Boss com base no indexador.
+BossSkills(int index); // Retorna uma das skills do Boss com base no indexador.
 
 ##    Colaborators:
 
-Skill skills_[]; // Vetor das habilidade do Boss;
+vector<Skill> skills_; // Vetor das habilidade do Boss;
 
 Status stats_ // Estrutura de dados com os status do Boss.
 
@@ -212,7 +246,7 @@ Item;
 
 Item(); // Construtor.
 
-Sum(Player Usr); // Soma os atributos dessa class ao player.
+Sum(Player& usr); // Soma os atributos dessa class ao player.
 
 ##    Colaborators:
 

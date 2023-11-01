@@ -83,7 +83,9 @@ public:
    * @brief Anima a janela do jogo.
    */
   void Draw();
-
+  /**
+   * @brief Anima a janela do jogo.
+   */
   void Game();
 };
 #endif
