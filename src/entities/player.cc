@@ -31,6 +31,9 @@ Player::Player(string nome, int classe){
         img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
         img_player_.setTexture(img_player_texture_);
     }
+    
+    img_player_.setScale(5,5);
+
     stats_.xp = 0;
 
     name_ = nome;
@@ -43,7 +46,7 @@ Player::Player(string nome, int classe){
     }
 }
 
-string Player::ReturnName(){return name_;}
+string Player::Name(){return name_;}
 
 int Player::Atk(){return stats_.atk;}
 
@@ -76,5 +79,3 @@ void Player::Upar(int xp){
 }
 
 Status Player::ReturnStatus(){return stats_;}
-
-string Player::Name(){return name_;}

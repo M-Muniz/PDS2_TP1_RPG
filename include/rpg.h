@@ -4,11 +4,16 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <list>
+#include <iostream>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "player.h"
+#include "boss.h"
+#include "enemy.h"
 
 using namespace std;
 using namespace sf;
@@ -19,17 +24,32 @@ using namespace sf;
 class Rpg {
 
 public:
-    shared_ptr<RenderWindow> window; /**< Janela */
-    Texture bg; /**< Textura para importar para o backgroud da tela */
-    shared_ptr<Sprite> background; /**< Background da */
-    shared_ptr<Sprite> player_sprite;/**< sprite do player */
+    
+    shared_ptr<RenderWindow> window; /**< Janela. */
+    
+    Texture bg; /**< Textura para importar para o backgroud da tela. */
+    shared_ptr<Sprite> background; /**< Background da tela. */
+    
+    vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
+    vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
+    vector<vector<RectangleShape>> cd_skills_; /**< Mostradores para o cooldown das skills do player. */
+
+    vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
+    Text player_name_; /**< Texto para plotar o nome do Player na tela. */
+    vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
+    vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
+    
+    Player player_; /**< Jogador. */
+    vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
+    vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
+    
     float frame;
-    int player_class_; /**< Armazena a classe do Player*/
+
 public:
     /**
      * @brief Construtor da classe Rpg.
      */
-    Rpg(Player* jogador);
+    Rpg(Player jogador);
     
     /**
      * @brief Inicia o jogo de RPG.
