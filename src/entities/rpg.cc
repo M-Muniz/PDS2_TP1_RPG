@@ -199,9 +199,7 @@ int Rpg::Events() {
     // if(){}
     // if(){}
     // if(){}
-    return 0;
-  }
-  if(Mouse::isButtonPressed(Mouse::Left)){  
+    if(Mouse::isButtonPressed(Mouse::Left)){  
     if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
       if(enemys_.front().Def(player_.Atk())){
         cout << "O jogador acertou o ataque."<< endl;
@@ -212,6 +210,9 @@ int Rpg::Events() {
       return 1;
     }
   }
+    return 0;
+  }
+  
   return 0;
 }
 
