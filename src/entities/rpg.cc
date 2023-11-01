@@ -232,15 +232,18 @@ void Rpg::Draw() {
 }
 
 void Rpg::Run() {
-  while (window->isOpen()) {
-    for(int turno=1;player_.stats_.hp || !(window->isOpen());turno++){
-
+  while(window->isOpen()){
+    for(int turno = 1; player_.stats_.hp > 0 && window->isOpen(); turno++){
       Game();
       Draw();
 
       if(turno % 2 == 1){
 
-        while(!Events()){
+        while(!Events() && window->isOpen()){
+          if(!window->isOpen()){
+            return;
+          }
+
           Game();
           Draw();
         }
@@ -255,14 +258,15 @@ void Rpg::Run() {
 
         if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
-          cout << "de vida restante" << endl;
-          cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
-          float tam_x = 461*(player_.stats_.hp/player_.stats_.hp_max);
+          cout << " de vida restante." << endl;
+          cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+          float tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x,21));
+          player_status_[0].setFillColor(Color::Green);
+          player_status_[0].setPosition(Vector2f(369, 738));
         }else{
           cout << "Inimigo errou o golpe" << endl;
         }
-
       }
     }
   }
