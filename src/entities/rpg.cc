@@ -267,6 +267,15 @@ void Rpg::Run() {
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+          if(player_.stats_.hp <= 0){
+            player_status_[0].setSize(Vector2f(0,21));
+            player_status_[0].setFillColor(Color::Green);
+            player_status_[0].setPosition(Vector2f(369, 738));
+
+            cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
+
+            window->close();
+          }
           float tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x,21));
           player_status_[0].setFillColor(Color::Green);
