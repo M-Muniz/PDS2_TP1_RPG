@@ -3,12 +3,12 @@
 Rpg::Rpg(Player jogador){
   player_ = jogador;
 
-  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "nometemporario", Style::Titlebar | Style::Close);
+  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "RPG - TP1", Style::Titlebar | Style::Close);
   window->setPosition(Vector2i(0, 0));
   window->setFramerateLimit(100);
   Enemy inimigo1;
   enemys_.push_back(inimigo1);
-  cout << enemys_[0].name_<<endl;
+  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
 
 
   bg.loadFromFile("resources/bgs/bg_temp.png");
@@ -185,13 +185,19 @@ void Rpg::SetAnimePlayer(){
   }
 }
 
-void Rpg::Events() {
-  auto event = make_shared<Event>();
-  while (window->pollEvent(*event)) {
-    if (event->type == Event::Closed) {
+int Rpg::Events() {
+  Event event;
+  while (window->pollEvent(event)) {
+    if (event.type == Event::Closed) {
       window->close();
+      return -1;
     }
+    // if(){}
+    // if(){}
+    // if(){}
+    return 0;
   }
+  return 0;
 }
 
 void Rpg::Draw() {
@@ -219,8 +225,34 @@ void Rpg::Draw() {
 
 void Rpg::Run() {
   while (window->isOpen()) {
-    Events();
-    Game();
-    Draw();
+    for(int turno=1;player_.stats_.hp>0;turno++){
+
+      Game();
+      Draw();
+
+      if(turno % 2 == 1){
+
+        while(!Events()){
+          Game();
+          Draw();
+        }
+
+        if(enemys_.front().stats_.hp <= 0 ){
+          Enemy inimigonovo;
+          enemys_.pop_back();
+          enemys_.push_back(inimigonovo);
+        }
+
+      }else{
+
+        if(player_.Def(enemys_.front().Atk())){
+          cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp ;
+          cout << "de vida restante" << endl;
+        }else{
+          cout << "Inimigo errou o golpe" << endl;
+        }
+
+      }
+    }
   }
 }

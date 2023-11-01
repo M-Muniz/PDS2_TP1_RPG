@@ -38,14 +38,13 @@ public:
   Text player_name_; /**< Texto para plotar o nome do Player na tela. */
   vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
   vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
-    
 
   Player player_; /**< Jogador. */
   vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
   vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
 
 
-  float frame_e_,frame_p_;
+  float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 
 public:
   /**
@@ -77,7 +76,7 @@ public:
   /**
    * @brief Gerencia eventos do jogo que acontecem na interface gráfica.
    */
-  void Events();
+  int Events();
 
   /**
    * @brief Anima a janela do jogo.
