@@ -9,7 +9,7 @@ Rpg::Rpg(Player jogador){
   window->setFramerateLimit(100);
   Enemy inimigo1;
   enemys_.push_back(inimigo1);
-  cout << enemys_[0].name_<<endl;
+  cout << "O inimigo gerado aleatoriamente foi: " << enemys_[0].name_ << "." << endl;
 
 
   bg.loadFromFile("resources/bgs/bg_temp.png");
@@ -192,16 +192,23 @@ int Rpg::Events() {
   pos_mouse_ = Mouse::getPosition(*window);
   mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
 
-  while (window->pollEvent(event)) {
+  while (window->pollEvent(event) && window->isOpen()){
     if (event.type == Event::Closed) {
       window->close();
-      return -1;
     }
+    // if(){}
+    // if(){}
+    // if(){}
+    return 0;
   }
   if(Mouse::isButtonPressed(Mouse::Left)){  
     if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
-      enemys_.front().Def(player_.Atk());
-      cout << "A funçao realizada foi ataque normal."<< endl;
+      if(enemys_.front().Def(player_.Atk())){
+        cout << "O jogador acertou o ataque."<< endl;
+        cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+      }else{
+        cout << "O jogador errou o ataque." <<endl;
+      }
       return 1;
     }
   }
@@ -243,7 +250,6 @@ void Rpg::Run() {
           if(!window->isOpen()){
             return;
           }
-
           Game();
           Draw();
         }
@@ -252,10 +258,11 @@ void Rpg::Run() {
           Enemy inimigo_novo;
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
+          cout << "Você derrotou o inimigo!" << endl;
+          cout << "O novo inimigo gerado aleatoriamente é um " << inimigo_novo.name_ << "." << endl;
         }
 
       }else{
-
         if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
@@ -265,7 +272,7 @@ void Rpg::Run() {
           player_status_[0].setFillColor(Color::Green);
           player_status_[0].setPosition(Vector2f(369, 738));
         }else{
-          cout << "Inimigo errou o golpe" << endl;
+          cout << "Inimigo errou o golpe." << endl;
         }
       }
     }
