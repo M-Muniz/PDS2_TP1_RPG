@@ -54,7 +54,7 @@ bool Player::Def(int atk_enemy){
 
   int x = rand() % 100;
 
-  if (x + stats_.agi < 65){ // Player não desviou
+  if (x + stats_.agi < 80){ // Player não desviou
     stats_.hp -= (atk_enemy - stats_.def);
         
     return 1;
