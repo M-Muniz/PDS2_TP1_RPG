@@ -1,4 +1,4 @@
-#include<time.h> //necessário p/ função time()
+#include <time.h> //necessário p/ função time()
 #include "../include/boss.h"
 #include "../include/enemy.h"
 #include "../include/item.h"
