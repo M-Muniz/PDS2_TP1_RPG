@@ -2,14 +2,9 @@
 
 Rpg::Rpg(Player jogador){
   player_ = jogador;
-<<<<<<< HEAD
-
-  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "RPG - TP1", Style::Titlebar | Style::Close);
-=======
   mouse_coord_={0,0};
   pos_mouse_={0,0};
   window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
->>>>>>> ze-branch
   window->setPosition(Vector2i(0, 0));
   window->setFramerateLimit(100);
   Enemy inimigo1;
@@ -194,12 +189,9 @@ void Rpg::SetAnimePlayer(){
 
 int Rpg::Events() {
   Event event;
-<<<<<<< HEAD
-=======
   pos_mouse_ = Mouse::getPosition(*window);
   mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
 
->>>>>>> ze-branch
   while (window->pollEvent(event)) {
     if (event.type == Event::Closed) {
       window->close();
@@ -210,16 +202,17 @@ int Rpg::Events() {
     // if(){}
     return 0;
   }
-<<<<<<< HEAD
-=======
   if(Mouse::isButtonPressed(Mouse::Left)){  
     if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
-      enemys_.front().Def(player_.Atk());
-      cout << "A funçao realizada foi ataque normal."<< endl;
+      if(enemys_.front().Def(player_.Atk())){
+      cout << "O jogador acertou o ataque."<< endl;
+      cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
+      }else{
+        cout << "O jogador errou o ataque" <<endl;
+      }
       return 1;
     }
   }
->>>>>>> ze-branch
   return 0;
 }
 
@@ -248,11 +241,7 @@ void Rpg::Draw() {
 
 void Rpg::Run() {
   while (window->isOpen()) {
-<<<<<<< HEAD
-    for(int turno=1;player_.stats_.hp>0;turno++){
-=======
     for(int turno=1;player_.stats_.hp || !(window->isOpen());turno++){
->>>>>>> ze-branch
 
       Game();
       Draw();
@@ -265,15 +254,9 @@ void Rpg::Run() {
         }
 
         if(enemys_.front().stats_.hp <= 0 ){
-<<<<<<< HEAD
-          Enemy inimigonovo;
-          enemys_.pop_back();
-          enemys_.push_back(inimigonovo);
-=======
           Enemy inimigo_novo;
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
->>>>>>> ze-branch
         }
 
       }else{
@@ -281,10 +264,6 @@ void Rpg::Run() {
         if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp ;
           cout << "de vida restante" << endl;
-<<<<<<< HEAD
-=======
-          cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
->>>>>>> ze-branch
         }else{
           cout << "Inimigo errou o golpe" << endl;
         }
