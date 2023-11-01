@@ -25,6 +25,11 @@ public:
     Item(int tipo_item);
 
     /**
+     * @brief Construtor vazio da classe Item.
+     */
+    Item();
+
+    /**
      * @brief Soma os atributos deste item ao jogador.
      * @param Usr O jogador ao qual os atributos deste item serão somados.
      */

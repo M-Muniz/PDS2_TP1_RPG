@@ -30,6 +30,11 @@ public:
     Player(string nome, int classe);
 
     /**
+     * @brief Construtor vazio da classe Player.
+     */
+    Player();
+
+    /**
      * @brief Retorna o valor de ataque do Player.
      * @return Valor de ataque.
      */
@@ -60,6 +65,11 @@ public:
      */
     Skill UserSkills(int index);
 
+    /**
+     * @brief Retorna o nome do Player.
+     */
+    string Name();
+  
 private:
     int classe_; /**< Classe do Player. */
     string name_; /**< Nome do Player. */
@@ -67,6 +77,7 @@ private:
     vector<Skill> skills_; /**< Vetor de habilidades do Player. */
     Texture img_player_texture_; /**< Textura para importar para o Sprite. */
     Sprite img_player_; /**< Imagem do Player para a interface gráfica. */
+    vector<vector<bool>> skills_cd_; /**< Computa o cooldown das skills do player. */
 };
 
 #endif 

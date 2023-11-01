@@ -21,7 +21,7 @@ public:
     /**
      * @brief Construtor da classe Enemy.
      */
-    Enemy(int inimigo );
+    Enemy();
 
     /**
      * @brief Retorna o valor de ataque do inimigo.

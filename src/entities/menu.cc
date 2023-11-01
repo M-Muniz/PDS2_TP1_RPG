@@ -24,16 +24,16 @@ void Menu::SetValues(){
   pos_ = 2;
   pressed_ = theselect_ = false;
   font_->loadFromFile("fonts/super_legend_boy.ttf");
-  image_->loadFromFile("resources/bg_menu.png");
+  image_->loadFromFile("resources/bgs/bg_menu.png");
 
   bg_->setTexture(*image_);
 
   options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Samurai"};
-  texts_.resize(5);
   coords_ = {{575,55},{525,205},{600,310},{620,415},{590,515}};
   sizes_ = {20,20,24,24,24};
+  texts_.resize(5);
 
-  for (size_t i{}; i < texts_.size(); ++i){
+  for(size_t i{}; i < texts_.size(); i++){
     texts_[i].setFont(*font_); 
     texts_[i].setString(options_[i]); 
     texts_[i].setCharacterSize(sizes_[i]);
@@ -78,7 +78,7 @@ void Menu::LoopEvents(){
 
     if(Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_){
       theselect_ = true;
-      cout << options_[pos_] << '\n';
+      cout << options_[pos_] << endl;
       window_->close();
     }
   }
@@ -88,7 +88,7 @@ void Menu::ReceiveName(){
   RenderWindow window(VideoMode(500, 100), "Name select");
   
   Texture bg;
-  bg.loadFromFile("resources/bg_insert_name.png");
+  bg.loadFromFile("resources/bgs/bg_insert_name.png");
   
   Sprite background;
   background.setTexture(bg);
@@ -157,11 +157,6 @@ void Menu::RunMenu(){
   cout << options_[pos_] << " " << player_name_ << endl; // Imprime os dados no terminal para fins de verificação
 }
 
-int Menu::ReturnClass(){ //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
-  return (pos_-2);
-}
+int Menu::ReturnClass(){return (pos_-2);} //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
 
-string Menu::ReturnName(){
-  return player_name_;
-}
-
+string Menu::ReturnName(){return player_name_;}

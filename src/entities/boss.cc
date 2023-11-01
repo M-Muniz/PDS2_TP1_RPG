@@ -12,6 +12,7 @@ Boss::Boss(){
     name_ = "Is'Abelu";
     img_boss_texture_.loadFromFile("resources/bg_temp.jpg");
     img_boss_.setTexture(img_boss_texture_);
+    
     for(int i = 0; i < 3; i++){
         Skill aux(4, i);
         skills_.push_back(aux);

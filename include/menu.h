@@ -59,10 +59,12 @@ class Menu {
     * @brief Construtor.
     */
     Menu();
+
     /**
     * @brief Retorna o nome do player.
     */
     string ReturnName();
+
     /**
     * @brief Retorna a classe do player.
     */
