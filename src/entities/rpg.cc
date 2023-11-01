@@ -254,9 +254,11 @@ void Rpg::Run() {
       }else{
 
         if(player_.Def(enemys_.front().Atk())){
-          cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp ;
+          cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << "de vida restante" << endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
+          float tam_x = 461*(player_.stats_.hp/player_.stats_.hp_max);
+          player_status_[0].setSize(Vector2f(tam_x,21));
         }else{
           cout << "Inimigo errou o golpe" << endl;
         }
