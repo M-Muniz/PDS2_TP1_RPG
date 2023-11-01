@@ -205,10 +205,10 @@ int Rpg::Events() {
   if(Mouse::isButtonPressed(Mouse::Left)){  
     if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
       if(enemys_.front().Def(player_.Atk())){
-      cout << "O jogador acertou o ataque."<< endl;
-      cout << "Inimigo esta com " << enemys_.front().stats_.hp << endl;
+        cout << "O jogador acertou o ataque."<< endl;
+        cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
       }else{
-        cout << "O jogador errou o ataque" <<endl;
+        cout << "O jogador errou o ataque." <<endl;
       }
       return 1;
     }
@@ -260,10 +260,11 @@ void Rpg::Run() {
           Enemy inimigo_novo;
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
+          cout << "Você derrotou o inimigo!" << endl;
+          cout << "O novo inimigo gerado aleatoriamente é um " << inimigo_novo.name_ << "." << endl;
         }
 
       }else{
-
         if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
@@ -273,7 +274,7 @@ void Rpg::Run() {
           player_status_[0].setFillColor(Color::Green);
           player_status_[0].setPosition(Vector2f(369, 738));
         }else{
-          cout << "Inimigo errou o golpe" << endl;
+          cout << "Inimigo errou o golpe." << endl;
         }
       }
     }
