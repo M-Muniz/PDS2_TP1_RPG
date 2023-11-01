@@ -1,10 +1,7 @@
 #include "../../include/item.h"
 
-<<<<<<< HEAD
 #include <iostream>
-=======
 Item::Item(){}
->>>>>>> muniz-branch
 
 Item::Item(int tipo_item){
     if(tipo_item == 0){ // Item de + Vida
