@@ -39,11 +39,13 @@ public:
   vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
   vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
     
+
   Player player_; /**< Jogador. */
   vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
   vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
-    
-  float frame;
+
+
+  float frame_e_,frame_p_;
 
 public:
   /**
