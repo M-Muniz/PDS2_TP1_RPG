@@ -199,17 +199,16 @@ int Rpg::Events() {
     // if(){}
     // if(){}
     // if(){}
-    return 0;
-  }
-  if(Mouse::isButtonPressed(Mouse::Left)){  
-    if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
-      if(enemys_.front().Def(player_.Atk())){
-        cout << "O jogador acertou o ataque."<< endl;
-        cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
-      }else{
-        cout << "O jogador errou o ataque." <<endl;
+    if(Mouse::isButtonPressed(Mouse::Left)){  
+      if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
+        if(enemys_.front().Def(player_.Atk())){
+          cout << "O jogador acertou o ataque."<< endl;
+          cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+        }else{
+          cout << "O jogador errou o ataque." <<endl;
+        }
+        return 1;
       }
-      return 1;
     }
   }
   return 0;
