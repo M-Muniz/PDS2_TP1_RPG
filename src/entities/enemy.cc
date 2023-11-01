@@ -26,7 +26,7 @@ Enemy::Enemy(){
     img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
     name_ = "Small Werewolf";
-    img_enemy_.setScale(-3,-3);
+    img_enemy_.setScale(-3,3);
   }else if(inimigo == 2){/*o inimigo 2 corresponde a um inimigo mais defensivo*/ 
     stats_.hp_max = 135;
     stats_.hp = stats_.hp_max;
@@ -38,7 +38,7 @@ Enemy::Enemy(){
     img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
     name_ = "Big Warewolf";
-    img_enemy_.setScale(-7,-7);
+    img_enemy_.setScale(-7,7);
   }else if(inimigo == 3){/*o inimigo 3 corresponde a um inimigo mais balanceado*/ 
     stats_.hp_max = 70;
     stats_.hp = stats_.hp_max;

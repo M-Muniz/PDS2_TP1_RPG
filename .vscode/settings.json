@@ -1,6 +1,10 @@
 {
-    "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "iosfwd": "cpp"
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp",
+        "ostream": "cpp"
     }
 }

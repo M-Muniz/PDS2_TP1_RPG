@@ -1,11 +1,15 @@
 #include "../../include/rpg.h"
 
-Rpg::Rpg(Player jogador){   
+Rpg::Rpg(Player jogador){
   player_ = jogador;
 
   window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "nometemporario", Style::Titlebar | Style::Close);
   window->setPosition(Vector2i(0, 0));
   window->setFramerateLimit(100);
+  Enemy inimigo1;
+  enemys_.push_back(inimigo1);
+  cout << enemys_[0].name_<<endl;
+
 
   bg.loadFromFile("resources/bgs/bg_temp.png");
   background = make_shared<Sprite>();
@@ -40,15 +44,15 @@ Rpg::Rpg(Player jogador){
   cd_skills_.resize(3);
 
   for(size_t i{}; i < cd_skills_.size(); i++){
-    cd_skills_[i].resize(3);
+      cd_skills_[i].resize(3);
   }
 
   for(size_t i{}; i < cd_skills_.size(); i++){
-    for(size_t j{}; j < cd_skills_[i].size(); j++){
-      cd_skills_[i][j].setSize(Vector2f(7,7));
-      cd_skills_[i][j].setFillColor(Color::Green);
-      cd_skills_[i][j].setOutlineThickness(0);
-    }
+      for(size_t j{}; j < cd_skills_[i].size(); j++){
+          cd_skills_[i][j].setSize(Vector2f(7,7));
+          cd_skills_[i][j].setFillColor(Color::Green);
+          cd_skills_[i][j].setOutlineThickness(0);
+      }
   }
 
   cd_skills_[0][0].setPosition(Vector2f(931.5,750));
@@ -120,39 +124,65 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(){
-  frame += 0.07;
-  SetAnimePlayer();
+    frame_p_ += 0.07;
+    frame_e_ += 0.07;
+    SetAnimeEnemy();
+    SetAnimePlayer();
+
 }
 
-void Rpg::SetAnimeEnemy(){
+/*void Rpg::SetAnimeEnemy(){
     
-}
+    if(enemys_[0].name_ =="Sword Skeleton"){
+
+        enemys_[0].img_enemy_.setPosition(500,500);
+
+        if(frame_e_ > 7){                               TO DO
+            frame_e_-=7;                        funçao que vai animar os inimigos 
+
+        }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
+    }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
+        enemys_[0].img_enemy_.setPosition(500,500);
+        if(frame_e_ > 8){
+            frame_e_-=8;
+        }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
+    }else if(enemys_[0].name_ =="Spear Skeleton"){
+        enemys_[0].img_enemy_.setPosition(500,500);
+        if(frame_e_ > 7){
+            frame_e_ -= 7;
+        }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
+    }
+
+}*/
 
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
     player_.img_player_.setPosition(150,300);
-        
-    if (frame > 4){
-      frame -= 4;
+
+    if (frame_p_ > 4){
+        frame_p_ -= 4;
     }
 
-    player_.img_player_.setTextureRect(IntRect(67*(int)frame,0,67,64));
+    player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,64));
   }else if(player_.classe_ == 1){
     player_.img_player_.setPosition(125,285);    
 
-    if(frame > 8){
-      frame -= 8;
+    if(frame_p_ > 8){
+        frame_p_ -= 8;
     }
 
-    player_.img_player_.setTextureRect(IntRect(67*(int)frame,0,67,67));
+    player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,67));
   }else if(player_.classe_ == 2){
     player_.img_player_.setPosition(110,265);
-        
-    if(frame > 6){
-      frame -= 6;
+
+    if(frame_p_ > 6){
+        frame_p_ -= 6;
     }
 
-    player_.img_player_.setTextureRect(IntRect(67*(int)frame,0,67,70));
+    player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,70));
   }
 }
 
@@ -168,7 +198,6 @@ void Rpg::Events() {
 void Rpg::Draw() {
   window->clear(Color::Black);
   window->draw(*background);
-
   for(size_t i{}; i < buttons_.size(); i++){
       window->draw(buttons_[i]);
   }
@@ -184,9 +213,8 @@ void Rpg::Draw() {
   //     window->draw(t);
   // }
   // window->draw(texts_.front());
-
+  window->draw(enemys_.front().img_enemy_);
   window->draw(player_.img_player_);
-
   window->display();
 }
 
