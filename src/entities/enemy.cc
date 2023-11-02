@@ -60,7 +60,7 @@ int Enemy::Atk(){return stats_.atk;}
 bool Enemy::Def(int atk_player){
   int aux = rand() % 100;
 
-  if(aux+stats_.agi < 70){/* o golpe atingiu o inimigo */
+  if(aux+stats_.agi < 75){/* o golpe atingiu o inimigo */
    
     stats_.hp -= atk_player - stats_.def;
 
