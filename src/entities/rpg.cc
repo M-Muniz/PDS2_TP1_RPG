@@ -4,9 +4,9 @@ Rpg::Rpg(Player jogador){
   player_ = jogador;
   mouse_coord_={0,0};
   pos_mouse_={0,0};
-  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
-  window->setPosition(Vector2i(0, 0));
-  window->setFramerateLimit(100);
+  window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
+  window_->setPosition(Vector2i(0, 0));
+  window_->setFramerateLimit(100);
   Enemy inimigo1;
   enemys_.push_back(inimigo1);
   cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
@@ -78,26 +78,12 @@ Rpg::Rpg(Player jogador){
   player_status_[1].setOutlineThickness(0);
   player_status_[1].setSize(Vector2f(409, 9.4));
   player_status_[1].setPosition(Vector2f(395, 766));
-
-  // player_name_.setString(player_.name_);
-  // player_name_.setFont(font);
-  // player_name_.setFillColor(Color::Black);
-  // player_name_.setOutlineThickness(1);
-
-  // if(player_.classe_ == 0){
-  //   player_name_.setOutlineColor(Color::Blue);
-  // }else if(player_.classe_ == 1){
-  //   player_name_.setOutlineColor(Color::Magenta);
-  // }else if(player_.classe_ == 2){
-  //   player_name_.setOutlineColor(Color::Red);
-  // }
 }
 
 void Rpg::Game(){
-    frame_p_ += 0.07;
-    frame_e_ += 0.07;
-    SetAnimePlayer();
-
+  frame_p_ += 0.07;
+  frame_e_ += 0.07;
+  SetAnimePlayer();
 }
 
 void Rpg::SetAnimePlayer(){
@@ -130,12 +116,12 @@ void Rpg::SetAnimePlayer(){
 
 int Rpg::Events() {
   Event event;
-  pos_mouse_ = Mouse::getPosition(*window);
-  mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
+  pos_mouse_ = Mouse::getPosition(*window_);
+  mouse_coord_ = window_->mapPixelToCoords(pos_mouse_);
 
-  while (window->pollEvent(event) && window->isOpen()){
+  while (window_->pollEvent(event) && window_->isOpen()){
     if (event.type == Event::Closed) {
-      window->close();
+      window_->close();
     }
     if(Mouse::isButtonPressed(Mouse::Left)){  
       if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
@@ -152,47 +138,79 @@ int Rpg::Events() {
   return 0;
 }
 
-void Rpg::Draw() {  
+void Rpg::DrawTexts(){
   Font font;
   font.loadFromFile("fonts/super_legend_boy.ttf"); 
 
-  teste.setFont(font);
-  teste.setString("teste");
-  teste.setCharacterSize(25);
-  teste.setFillColor(Color::Red);
+  player_name_.setString(player_.name_);
+  player_name_.setCharacterSize(25);
+  player_name_.setFont(font);
+  player_name_.setFillColor(Color::White);
+  player_name_.setOutlineThickness(1);
 
-  FloatRect text_rect = teste.getLocalBounds();
-  teste.setPosition(Vector2f((window->getSize().x - text_rect.width) / 2,700));
+  if(player_.classe_ == 0){
+    player_name_.setOutlineColor(Color::Blue);
+  }else if(player_.classe_ == 1){
+    player_name_.setOutlineColor(Color::Magenta);
+  }else if(player_.classe_ == 2){
+    player_name_.setOutlineColor(Color::Red);
+  }  
+  
+  FloatRect name_rect = player_name_.getLocalBounds();
+  player_name_.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 680));
 
-  window->clear(Color::Black);
-  window->draw(*background);
+  // for(int i = 0;i < 3; i++){
+  //   texts_[i].setCharacterSize(18);
+  //   texts_[i].setFont(font);
+  //   texts_[i].setFillColor(Color::White);
+  //   texts_[i].setOutlineThickness(1);
+  //   texts_[i].setOutlineColor(Color::Black);
+  // }
+
+  // stringstream aux;
+  // string x;
+
+  // aux << player_.stats_.atk;
+  // aux >> x;
+
+  // texts_[0].setString("Atk: " + x);
+
+  window_->draw(player_name_);
+  // for(auto t : texts_){
+  //   window_->draw(t); 
+  // }
+}
+
+void Rpg::Draw() {  
+  window_->clear(Color::Black);
+  window_->draw(*background);
   for(size_t i{}; i < buttons_.size(); i++){
-      window->draw(buttons_[i]);
+    window_->draw(buttons_[i]);
   }
   for(size_t i{}; i < cd_skills_.size(); i++){
-      for(size_t j{}; j < cd_skills_[i].size(); j++){
-          window->draw(cd_skills_[i][j]);
-      } 
+    for(size_t j{}; j < cd_skills_[i].size(); j++){
+      window_->draw(cd_skills_[i][j]);
+    } 
   }
   for(size_t i{}; i < player_status_.size(); i++){
-      window->draw(player_status_[i]);
+    window_->draw(player_status_[i]);
   }
-  window->draw(teste);
-  window->draw(enemys_.front().img_enemy_);
-  window->draw(player_.img_player_);
-  window->display();
+  DrawTexts();
+  window_->draw(enemys_.front().img_enemy_);
+  window_->draw(player_.img_player_);
+  window_->display();
 }
 
 void Rpg::Run() {
-  while(window->isOpen()){
-    for(int turno = 1; player_.stats_.hp > 0 && window->isOpen(); turno++){
+  while(window_->isOpen()){
+    for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
       Game();
       Draw();
 
       if(turno % 2 == 1){
 
-        while(!Events() && window->isOpen()){
-          if(!window->isOpen()){
+        while(!Events() && window_->isOpen()){
+          if(!window_->isOpen()){
             return;
           }
 
@@ -217,7 +235,7 @@ void Rpg::Run() {
 
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
 
-            window->close();
+            window_->close();
           }
           
           float tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;

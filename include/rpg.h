@@ -25,7 +25,7 @@ class Rpg {
 
 public:
     
-  shared_ptr<RenderWindow> window; /**< Janela. */
+  shared_ptr<RenderWindow> window_; /**< Janela. */
     
   Texture bg; /**< Textura para importar para o backgroud da tela. */
   shared_ptr<Sprite> background; /**< Background da tela. */
@@ -36,9 +36,6 @@ public:
 
   vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
   Text player_name_; /**< Texto para plotar o nome do Player na tela. */
-  Text teste;
-  vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
-  vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
 
   Player player_; /**< Jogador. */
   vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
@@ -83,9 +80,15 @@ public:
   int Events();
 
   /**
+   * @brief Desenha os textos na janela do jogo.
+   */
+  void DrawTexts();
+
+  /**
    * @brief Anima a janela do jogo.
    */
   void Draw();
+
   /**
    * @brief Anima a janela do jogo.
    */
