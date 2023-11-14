@@ -9,8 +9,7 @@ Rpg::Rpg(Player jogador){
   window->setFramerateLimit(100);
   Enemy inimigo1;
   enemys_.push_back(inimigo1);
-  item_.push_back(Item(1));
-  cout << "O inimigo gerado aleatoriamente foi: " << enemys_[0].name_ << "." << endl;
+  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
 
 
   bg.loadFromFile("resources/bgs/bg_temp.png");
@@ -250,26 +249,32 @@ void Rpg::Run() {
           if(!window->isOpen()){
             return;
           }
+
           Game();
           Draw();
         }
-
+      }else{
         if(enemys_.front().stats_.hp <= 0 ){
           Enemy inimigo_novo;
-          item_.front().Sum(player_);
-          item_.pop_back();
-          item_.push_back(Item(rand() % 6));
+          enemys_.front().drop_item_.Sum(player_);
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
           cout << "Você derrotou o inimigo!" << endl;
           cout << "O novo inimigo gerado aleatoriamente é um " << inimigo_novo.name_ << "." << endl;
-        }
-
-      }else{
-        if(player_.Def(enemys_.front().Atk())){
+        }else if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+          if(player_.stats_.hp <= 0){
+            player_status_[0].setSize(Vector2f(0,21));
+            player_status_[0].setFillColor(Color::Green);
+            player_status_[0].setPosition(Vector2f(369, 738));
+
+            cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
+
+            window->close();
+          }
+          
           float tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x,21));
           player_status_[0].setFillColor(Color::Green);
