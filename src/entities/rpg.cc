@@ -9,6 +9,7 @@ Rpg::Rpg(Player jogador){
   window->setFramerateLimit(100);
   Enemy inimigo1;
   enemys_.push_back(inimigo1);
+  item_.push_back(Item(1));
   cout << "O inimigo gerado aleatoriamente foi: " << enemys_[0].name_ << "." << endl;
 
 
@@ -256,6 +257,9 @@ void Rpg::Run() {
 
         if(enemys_.front().stats_.hp <= 0 ){
           Enemy inimigo_novo;
+          item_.front().Sum(player_);
+          item_.pop_back();
+          item_.push_back(Item(rand() % 6));
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
           cout << "Você derrotou o inimigo!" << endl;
@@ -275,6 +279,6 @@ void Rpg::Run() {
           cout << "Inimigo errou o golpe." << endl;
         }
       }
-    }
+    }cout <<player_.Atk()<<endl;
   }
 }

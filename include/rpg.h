@@ -14,6 +14,7 @@
 #include "player.h"
 #include "boss.h"
 #include "enemy.h"
+#include "item.h"
 
 using namespace std;
 using namespace sf;
@@ -43,7 +44,7 @@ public:
   Player player_; /**< Jogador. */
   vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
   vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
-
+  vector<Item> item_;
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
 
