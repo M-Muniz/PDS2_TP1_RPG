@@ -36,6 +36,7 @@ public:
 
   vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
   Text player_name_; /**< Texto para plotar o nome do Player na tela. */
+  Text teste;
   vector<Vector2f> texts_coords_; /**< Vetor para posicionar os textos na tela. */
   vector<string> texts_strings_; /**< Vetor para posicionar os textos na tela. */
 

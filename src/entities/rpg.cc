@@ -79,85 +79,26 @@ Rpg::Rpg(Player jogador){
   player_status_[1].setSize(Vector2f(409, 9.4));
   player_status_[1].setPosition(Vector2f(395, 766));
 
-  // stringstream aux;
-  // string aux_s_1 = "teste1", aux_s_2 = "teste2", aux_s_3 = "teste3";
+  // player_name_.setString(player_.name_);
+  // player_name_.setFont(font);
+  // player_name_.setFillColor(Color::Black);
+  // player_name_.setOutlineThickness(1);
 
-  // aux << player_.stats_.atk;
-  // aux >> aux_s_1;
-
-  // aux << player_.stats_.def;
-  // aux >> aux_s_2;
-
-  // aux << player_.stats_.xp;
-  // aux >> aux_s_3;
-
-  // texts_strings_ = {aux_s_1, aux_s_2, aux_s_3};
-  // texts_coords_ = {{0,0},{0,0},{0,0}};
-
-  // Font fonte;
-  // fonte.loadFromFile("fonts/super_legend_boy.ttf");
-
-  // texts_.resize(3);
-
-  // for(size_t i{}; i < texts_.size(); i++){
-  //     texts_[i].setString(texts_strings_[i]);
-  //     texts_[i].setFont(fonte);
-  //     texts_[i].setPosition(texts_coords_[i]);
-  //     texts_[i].setCharacterSize(15);
-  //     texts_[i].setFillColor(Color::White);
-  //     texts_[i].setOutlineColor(Color::Black);
-  //     texts_[i].setOutlineThickness(2);
+  // if(player_.classe_ == 0){
+  //   player_name_.setOutlineColor(Color::Blue);
+  // }else if(player_.classe_ == 1){
+  //   player_name_.setOutlineColor(Color::Magenta);
+  // }else if(player_.classe_ == 2){
+  //   player_name_.setOutlineColor(Color::Red);
   // }
-
-  // texts_[0].setString(texts_strings_[0]);
-  // texts_[0].setFillColor(Color::White);
-  // texts_[0].setOutlineColor(Color::Black);
-  // texts_[0].setOutlineThickness(2);
-  // texts_[0].setCharacterSize(15);
-  // texts_[0].setFont(fonte);
-
-  // FloatRect text_bound = texts_[0].getLocalBounds();
-  // float x = (1200 - text_bound.width)/2;
-
-  // texts_[0].setPosition(Vector2f(0,830));
-  // texts_[1].setPosition(Vector2f());
-  // texts_[2].setPosition(Vector2f());
 }
 
 void Rpg::Game(){
     frame_p_ += 0.07;
     frame_e_ += 0.07;
-    //SetAnimeEnemy();
     SetAnimePlayer();
 
 }
-
-/*void Rpg::SetAnimeEnemy(){
-    
-    if(enemys_[0].name_ =="Sword Skeleton"){
-
-        enemys_[0].img_enemy_.setPosition(500,500);
-
-        if(frame_e_ > 7){                               TODO
-            frame_e_-=7;                      funçao que vai animar os inimigos 
-
-        }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
-    }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
-        enemys_[0].img_enemy_.setPosition(500,500);
-        if(frame_e_ > 8){
-            frame_e_-=8;
-        }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
-    }else if(enemys_[0].name_ =="Spear Skeleton"){
-        enemys_[0].img_enemy_.setPosition(500,500);
-        if(frame_e_ > 7){
-            frame_e_ -= 7;
-        }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
-    }
-
-}*/
 
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
@@ -196,9 +137,6 @@ int Rpg::Events() {
     if (event.type == Event::Closed) {
       window->close();
     }
-    // if(){}
-    // if(){}
-    // if(){}
     if(Mouse::isButtonPressed(Mouse::Left)){  
       if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
         if(enemys_.front().Def(player_.Atk())){
@@ -214,7 +152,18 @@ int Rpg::Events() {
   return 0;
 }
 
-void Rpg::Draw() {
+void Rpg::Draw() {  
+  Font font;
+  font.loadFromFile("fonts/super_legend_boy.ttf"); 
+
+  teste.setFont(font);
+  teste.setString("teste");
+  teste.setCharacterSize(25);
+  teste.setFillColor(Color::Red);
+
+  FloatRect text_rect = teste.getLocalBounds();
+  teste.setPosition(Vector2f((window->getSize().x - text_rect.width) / 2,700));
+
   window->clear(Color::Black);
   window->draw(*background);
   for(size_t i{}; i < buttons_.size(); i++){
@@ -228,10 +177,7 @@ void Rpg::Draw() {
   for(size_t i{}; i < player_status_.size(); i++){
       window->draw(player_status_[i]);
   }
-  // for(auto t : texts_){
-  //     window->draw(t);
-  // }
-  // window->draw(texts_.front());
+  window->draw(teste);
   window->draw(enemys_.front().img_enemy_);
   window->draw(player_.img_player_);
   window->display();
