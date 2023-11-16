@@ -30,6 +30,7 @@ public:
   Texture bg; /**< Textura para importar para o backgroud da tela. */
   shared_ptr<Sprite> background; /**< Background da tela. */
     
+  RectangleShape enemy_status_; /**< Barra de vida do inimigo. */  
   vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
   vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
   vector<vector<RectangleShape>> cd_skills_; /**< Mostradores para o cooldown das skills do player. */

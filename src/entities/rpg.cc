@@ -78,6 +78,10 @@ Rpg::Rpg(Player jogador){
   player_status_[1].setOutlineThickness(0);
   player_status_[1].setSize(Vector2f(409, 9.4));
   player_status_[1].setPosition(Vector2f(395, 766));
+
+  enemy_status_.setSize(Vector2f(461,21));
+  enemy_status_.setFillColor(Color::Red);
+  enemy_status_.setPosition(Vector2f(369, 18));
 }
 
 void Rpg::Game(){
@@ -128,6 +132,11 @@ int Rpg::Events() {
         if(enemys_.front().Def(player_.Atk())){
           cout << "O jogador acertou o ataque."<< endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+
+          float tam_x = 461*enemys_.front().stats_.hp/enemys_.front().stats_.hp_max;
+          enemy_status_.setSize(Vector2f(tam_x,21));
+          enemy_status_.setFillColor(Color::Red);
+          enemy_status_.setPosition(Vector2f(369, 18));
         }else{
           cout << "O jogador errou o ataque." <<endl;
         }
@@ -146,7 +155,7 @@ void Rpg::DrawTexts(){
   player_name_.setCharacterSize(25);
   player_name_.setFont(font);
   player_name_.setFillColor(Color::White);
-  player_name_.setOutlineThickness(1);
+  player_name_.setOutlineThickness(3);
 
   if(player_.classe_ == 0){
     player_name_.setOutlineColor(Color::Blue);
@@ -159,26 +168,54 @@ void Rpg::DrawTexts(){
   FloatRect name_rect = player_name_.getLocalBounds();
   player_name_.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 680));
 
-  // for(int i = 0;i < 3; i++){
-  //   texts_[i].setCharacterSize(18);
-  //   texts_[i].setFont(font);
-  //   texts_[i].setFillColor(Color::White);
-  //   texts_[i].setOutlineThickness(1);
-  //   texts_[i].setOutlineColor(Color::Black);
-  // }
+  texts_.resize(4);
 
-  // stringstream aux;
-  // string x;
+  for(int i = 0;i < 3; i++){
+    texts_[i].setCharacterSize(15);
+    texts_[i].setFont(font);
+    texts_[i].setFillColor(Color::White);
+    texts_[i].setOutlineThickness(3);
+    texts_[i].setOutlineColor(Color::Black);
+  }
 
-  // aux << player_.stats_.atk;
-  // aux >> x;
+  stringstream aux1, aux2, aux3;
+  string x;
 
-  // texts_[0].setString("Atk: " + x);
+  aux1 << player_.stats_.atk;
+  aux1 >> x;
+
+  texts_[0].setString("Atk: " + x);
+  name_rect = texts_[0].getLocalBounds();
+  texts_[0].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2) - 150, 800));
+
+  aux2 << player_.stats_.def;
+  aux2 >> x;
+
+  texts_[1].setString("Def: " + x);
+  name_rect = texts_[1].getLocalBounds();
+  texts_[1].setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 800));
+
+  aux3 << player_.stats_.xp;
+  aux3 >> x;
+
+  texts_[2].setString("Xp: " + x);
+  name_rect = texts_[2].getLocalBounds();
+  texts_[2].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2) + 150, 800));
+
+  texts_[3].setCharacterSize(18);
+  texts_[3].setFont(font);
+  texts_[3].setFillColor(Color::Black);
+  texts_[3].setOutlineThickness(3);
+  texts_[3].setOutlineColor(Color::Red);
+  texts_[3].setString(enemys_.front().name_);
+
+  name_rect = texts_[3].getLocalBounds();
+  texts_[3].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2), 60));
 
   window_->draw(player_name_);
-  // for(auto t : texts_){
-  //   window_->draw(t); 
-  // }
+  for(auto t : texts_){
+    window_->draw(t);
+  }
 }
 
 void Rpg::Draw() {  
@@ -195,6 +232,7 @@ void Rpg::Draw() {
   for(size_t i{}; i < player_status_.size(); i++){
     window_->draw(player_status_[i]);
   }
+  window_->draw(enemy_status_);
   DrawTexts();
   window_->draw(enemys_.front().img_enemy_);
   window_->draw(player_.img_player_);
@@ -222,6 +260,7 @@ void Rpg::Run() {
           Enemy inimigo_novo;
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
+          player_.Upar(20);
           cout << "Você derrotou o inimigo!" << endl;
           cout << "O novo inimigo gerado aleatoriamente é um " << inimigo_novo.name_ << "." << endl;
         }else if(player_.Def(enemys_.front().Atk())){
