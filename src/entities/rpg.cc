@@ -95,7 +95,7 @@ void Rpg::SetAnimeEnemy(){
     
      if(enemys_[0].name_ =="Sword Skeleton"){
 
-         enemys_[0].img_enemy_.setPosition(500,500);
+         enemys_[0].img_enemy_.setPosition(1100,270);
 
          if(frame_e_ > 7){ 
              frame_e_-=7;                     
@@ -103,17 +103,23 @@ void Rpg::SetAnimeEnemy(){
          }
      enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,80));
      }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
-         enemys_[0].img_enemy_.setPosition(500,500);
-         if(frame_e_ > 8){
-            frame_e_-=8;
-         }
+        if(enemys_[0].name_ =="Small Werewolf"){
+          enemys_[0].img_enemy_.setPosition(1050,500);
+        }
+        if(enemys_[0].name_ =="Big Werewolf"){
+          enemys_[0].img_enemy_.setPosition(1200,250);
+        }
+
+        if(frame_e_ > 8){
+          frame_e_-=8;
+        }
      enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,100));
     }else if(enemys_[0].name_ =="Spear Skeleton"){
-       enemys_[0].img_enemy_.setPosition(500,500);
+       enemys_[0].img_enemy_.setPosition(1150,200);
        if(frame_e_ > 7){
             frame_e_ -= 7;
          }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,80,110));
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,80,80));
    }
 
  }
@@ -286,18 +292,14 @@ void Rpg::Run() {
         }
       }else{
         if(enemys_.front().stats_.hp <= 0 ){
-          Enemy inimigo_novo;
           enemys_.front().drop_item_.Sum(player_);
-          cout << player_.Atk() << endl;
-          cout << player_.stats_.def << endl;
-          cout << player_.stats_.agi << endl;
-          cout << player_.stats_.hp << endl;
-          cout << player_.stats_.hp_max << endl;
           player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
-          enemys_.push_back(inimigo_novo);
+          delete inimigo1_;
+          inimigo1_ = new Enemy();
+          enemys_.push_back(*(inimigo1_));
           cout << "Você derrotou o inimigo!" << endl;
-          cout << "O novo inimigo gerado aleatoriamente é um " << inimigo_novo.name_ << "." << endl;
+          cout << "O novo inimigo gerado aleatoriamente é um " << enemys_[0].name_ << "." << endl;
         }else if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
