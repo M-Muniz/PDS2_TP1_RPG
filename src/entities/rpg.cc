@@ -88,8 +88,34 @@ void Rpg::Game(){
   frame_p_ += 0.07;
   frame_e_ += 0.07;
   SetAnimePlayer();
-}
+  SetAnimeEnemy();
+  }
+void Rpg::SetAnimeEnemy(){
+    
+    if(enemys_[0].name_ =="Sword Skeleton"){
 
+        enemys_[0].img_enemy_.setPosition(500,500);
+
+        if(frame_e_ > 7){ 
+            frame_e_-=7;                     
+
+        }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
+    }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
+        enemys_[0].img_enemy_.setPosition(500,500);
+        if(frame_e_ > 8){
+            frame_e_-=8;
+        }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
+    }else if(enemys_[0].name_ =="Spear Skeleton"){
+        enemys_[0].img_enemy_.setPosition(500,500);
+        if(frame_e_ > 7){
+            frame_e_ -= 7;
+        }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
+    }
+
+}
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
     player_.img_player_.setPosition(150,300);
@@ -259,6 +285,11 @@ void Rpg::Run() {
         if(enemys_.front().stats_.hp <= 0 ){
           Enemy inimigo_novo;
           enemys_.front().drop_item_.Sum(player_);
+          cout << player_.Atk() << endl;
+          cout << player_.stats_.def << endl;
+          cout << player_.stats_.agi << endl;
+          cout << player_.stats_.hp << endl;
+          cout << player_.stats_.hp_max << endl;
           player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
