@@ -4,48 +4,48 @@ Rpg::Rpg(Player jogador){
   player_ = jogador;
   mouse_coord_={0,0};
   pos_mouse_={0,0};
-  window = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
-  window->setPosition(Vector2i(0, 0));
-  window->setFramerateLimit(100);
+  window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
+  window_->setPosition(Vector2i(0, 0));
+  window_->setFramerateLimit(100);
   Enemy inimigo1;
   enemys_.push_back(inimigo1);
   cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
-  
-  
+
+
   bg.loadFromFile("resources/bgs/bg_temp.png");
   background = make_shared<Sprite>();
   background->setTexture(bg);
   background->setScale(2.35,2.35);
-  
+
   buttons_.resize(4);
   buttons_[0].setSize(Vector2f(141, 141));
   buttons_[0].setPosition(Vector2f(122, 692));
   buttons_[0].setFillColor(Color::Transparent);
   buttons_[0].setOutlineColor(Color::Red);
   buttons_[0].setOutlineThickness(0);
-  
+
   buttons_[1].setSize(Vector2f(65, 65));
   buttons_[1].setPosition(Vector2f(915, 680));
   buttons_[1].setFillColor(Color::Transparent);
   buttons_[1].setOutlineColor(Color::Red);
   buttons_[1].setOutlineThickness(0);
-  
+
   buttons_[2].setSize(Vector2f(65, 65));
   buttons_[2].setPosition(Vector2f(1037, 680));
   buttons_[2].setFillColor(Color::Transparent);
   buttons_[2].setOutlineColor(Color::Red);
   buttons_[2].setOutlineThickness(0);
-  
+
   buttons_[3].setSize(Vector2f(65, 65));
   buttons_[3].setPosition(Vector2f(976, 767));
   buttons_[3].setFillColor(Color::Transparent);
   buttons_[3].setOutlineColor(Color::Red);
   buttons_[3].setOutlineThickness(0);
-  
+
   cd_skills_.resize(3);
-  
+
   for(size_t i{}; i < cd_skills_.size(); i++){
-    cd_skills_[i].resize(3);
+      cd_skills_[i].resize(3);
   }
 
   for(size_t i{}; i < cd_skills_.size(); i++){
@@ -79,84 +79,16 @@ Rpg::Rpg(Player jogador){
   player_status_[1].setSize(Vector2f(409, 9.4));
   player_status_[1].setPosition(Vector2f(395, 766));
 
-  // stringstream aux;
-  // string aux_s_1 = "teste1", aux_s_2 = "teste2", aux_s_3 = "teste3";
-  
-  // aux << player_.stats_.atk;
-  // aux >> aux_s_1;
-  
-  // aux << player_.stats_.def;
-  // aux >> aux_s_2;
-  
-  // aux << player_.stats_.xp;
-  // aux >> aux_s_3;
-  
-  // texts_strings_ = {aux_s_1, aux_s_2, aux_s_3};
-  // texts_coords_ = {{0,0},{0,0},{0,0}};
-  
-  // Font fonte;
-  // fonte.loadFromFile("fonts/super_legend_boy.ttf");
-  
-  // texts_.resize(3);
-  
-  // for(size_t i{}; i < texts_.size(); i++){
-  //     texts_[i].setString(texts_strings_[i]);
-  //     texts_[i].setFont(fonte);
-  //     texts_[i].setPosition(texts_coords_[i]);
-  //     texts_[i].setCharacterSize(15);
-  //     texts_[i].setFillColor(Color::White);
-  //     texts_[i].setOutlineColor(Color::Black);
-  //     texts_[i].setOutlineThickness(2);
-  // }
-
-  // texts_[0].setString(texts_strings_[0]);
-  // texts_[0].setFillColor(Color::White);
-  // texts_[0].setOutlineColor(Color::Black);
-  // texts_[0].setOutlineThickness(2);
-  // texts_[0].setCharacterSize(15);
-  // texts_[0].setFont(fonte);
-
-  // FloatRect text_bound = texts_[0].getLocalBounds();
-  // float x = (1200 - text_bound.width)/2;
-
-  // texts_[0].setPosition(Vector2f(0,830));
-  // texts_[1].setPosition(Vector2f());
-  // texts_[2].setPosition(Vector2f());
+  enemy_status_.setSize(Vector2f(461,21));
+  enemy_status_.setFillColor(Color::Red);
+  enemy_status_.setPosition(Vector2f(369, 18));
 }
 
 void Rpg::Game(){
-    frame_p_ += 0.07;
-    frame_e_ += 0.07;
-    //SetAnimeEnemy();
-    SetAnimePlayer();
-
+  frame_p_ += 0.07;
+  frame_e_ += 0.07;
+  SetAnimePlayer();
 }
-
-/*void Rpg::SetAnimeEnemy(){
-    
-    if(enemys_[0].name_ =="Sword Skeleton"){
-
-        enemys_[0].img_enemy_.setPosition(500,500);
-
-        if(frame_e_ > 7){
-            frame_e_-=7;                      
-        }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
-    }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
-        enemys_[0].img_enemy_.setPosition(500,500);
-        if(frame_e_ > 8){
-            frame_e_-=8;
-        }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
-    }else if(enemys_[0].name_ =="Spear Skeleton"){
-        enemys_[0].img_enemy_.setPosition(500,500);
-        if(frame_e_ > 7){
-            frame_e_ -= 7;
-        }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
-    }
-
-}*/
 
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
@@ -188,21 +120,23 @@ void Rpg::SetAnimePlayer(){
 
 int Rpg::Events() {
   Event event;
-  pos_mouse_ = Mouse::getPosition(*window);
-  mouse_coord_ = window->mapPixelToCoords(pos_mouse_);
+  pos_mouse_ = Mouse::getPosition(*window_);
+  mouse_coord_ = window_->mapPixelToCoords(pos_mouse_);
 
-  while (window->pollEvent(event) && window->isOpen()){
+  while (window_->pollEvent(event) && window_->isOpen()){
     if (event.type == Event::Closed) {
-      window->close();
+      window_->close();
     }
-    // if(){}
-    // if(){}
-    // if(){}
     if(Mouse::isButtonPressed(Mouse::Left)){  
       if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
         if(enemys_.front().Def(player_.Atk())){
           cout << "O jogador acertou o ataque."<< endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+
+          float tam_x = 461*enemys_.front().stats_.hp/enemys_.front().stats_.hp_max;
+          enemy_status_.setSize(Vector2f(tam_x,21));
+          enemy_status_.setFillColor(Color::Red);
+          enemy_status_.setPosition(Vector2f(369, 18));
         }else{
           cout << "O jogador errou o ataque." <<endl;
         }
@@ -213,39 +147,108 @@ int Rpg::Events() {
   return 0;
 }
 
-void Rpg::Draw() {
-  window->clear(Color::Black);
-  window->draw(*background);
+void Rpg::DrawTexts(){
+  Font font;
+  font.loadFromFile("fonts/super_legend_boy.ttf"); 
+
+  player_name_.setString(player_.name_);
+  player_name_.setCharacterSize(25);
+  player_name_.setFont(font);
+  player_name_.setFillColor(Color::White);
+  player_name_.setOutlineThickness(3);
+
+  if(player_.classe_ == 0){
+    player_name_.setOutlineColor(Color::Blue);
+  }else if(player_.classe_ == 1){
+    player_name_.setOutlineColor(Color::Magenta);
+  }else if(player_.classe_ == 2){
+    player_name_.setOutlineColor(Color::Red);
+  }  
+  
+  FloatRect name_rect = player_name_.getLocalBounds();
+  player_name_.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 680));
+
+  texts_.resize(4);
+
+  for(int i = 0;i < 3; i++){
+    texts_[i].setCharacterSize(15);
+    texts_[i].setFont(font);
+    texts_[i].setFillColor(Color::White);
+    texts_[i].setOutlineThickness(3);
+    texts_[i].setOutlineColor(Color::Black);
+  }
+
+  stringstream aux1, aux2, aux3;
+  string x;
+
+  aux1 << player_.stats_.atk;
+  aux1 >> x;
+
+  texts_[0].setString("Atk: " + x);
+  name_rect = texts_[0].getLocalBounds();
+  texts_[0].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2) - 150, 800));
+
+  aux2 << player_.stats_.def;
+  aux2 >> x;
+
+  texts_[1].setString("Def: " + x);
+  name_rect = texts_[1].getLocalBounds();
+  texts_[1].setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 800));
+
+  aux3 << player_.stats_.xp;
+  aux3 >> x;
+
+  texts_[2].setString("Xp: " + x);
+  name_rect = texts_[2].getLocalBounds();
+  texts_[2].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2) + 150, 800));
+
+  texts_[3].setCharacterSize(18);
+  texts_[3].setFont(font);
+  texts_[3].setFillColor(Color::Black);
+  texts_[3].setOutlineThickness(3);
+  texts_[3].setOutlineColor(Color::Red);
+  texts_[3].setString(enemys_.front().name_);
+
+  name_rect = texts_[3].getLocalBounds();
+  texts_[3].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2), 60));
+
+  window_->draw(player_name_);
+  for(auto t : texts_){
+    window_->draw(t);
+  }
+}
+
+void Rpg::Draw() {  
+  window_->clear(Color::Black);
+  window_->draw(*background);
   for(size_t i{}; i < buttons_.size(); i++){
-      window->draw(buttons_[i]);
+    window_->draw(buttons_[i]);
   }
   for(size_t i{}; i < cd_skills_.size(); i++){
-      for(size_t j{}; j < cd_skills_[i].size(); j++){
-          window->draw(cd_skills_[i][j]);
-      } 
+    for(size_t j{}; j < cd_skills_[i].size(); j++){
+      window_->draw(cd_skills_[i][j]);
+    } 
   }
   for(size_t i{}; i < player_status_.size(); i++){
-      window->draw(player_status_[i]);
+    window_->draw(player_status_[i]);
   }
-  // for(auto t : texts_){
-  //     window->draw(t);
-  // }
-  // window->draw(texts_.front());
-  window->draw(enemys_.front().img_enemy_);
-  window->draw(player_.img_player_);
-  window->display();
+  window_->draw(enemy_status_);
+  DrawTexts();
+  window_->draw(enemys_.front().img_enemy_);
+  window_->draw(player_.img_player_);
+  window_->display();
 }
 
 void Rpg::Run() {
-  while(window->isOpen()){
-    for(int turno = 1; player_.stats_.hp > 0 && window->isOpen(); turno++){
+  while(window_->isOpen()){
+    for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
       Game();
       Draw();
 
       if(turno % 2 == 1){
 
-        while(!Events() && window->isOpen()){
-          if(!window->isOpen()){
+        while(!Events() && window_->isOpen()){
+          if(!window_->isOpen()){
             return;
           }
 
@@ -256,6 +259,7 @@ void Rpg::Run() {
         if(enemys_.front().stats_.hp <= 0 ){
           Enemy inimigo_novo;
           enemys_.front().drop_item_.Sum(player_);
+          player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
           enemys_.push_back(inimigo_novo);
           cout << "Você derrotou o inimigo!" << endl;
@@ -271,7 +275,7 @@ void Rpg::Run() {
 
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
 
-            window->close();
+            window_->close();
           }
           
           float tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
@@ -282,7 +286,6 @@ void Rpg::Run() {
           cout << "Inimigo errou o golpe." << endl;
         }
       }
-      cout <<player_.Atk()<<endl;
     }
   }
 }
