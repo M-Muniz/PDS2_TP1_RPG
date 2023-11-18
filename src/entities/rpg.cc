@@ -95,31 +95,31 @@ void Rpg::SetAnimeEnemy(){
     
      if(enemys_[0].name_ =="Sword Skeleton"){
 
-         enemys_[0].img_enemy_.setPosition(1100,270);
+         enemys_[0].img_enemy_.setPosition(1050,320);
 
          if(frame_e_ > 7){ 
              frame_e_-=7;                     
 
          }
-     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,80));
+     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
      }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
         if(enemys_[0].name_ =="Small Werewolf"){
-          enemys_[0].img_enemy_.setPosition(1050,500);
+          enemys_[0].img_enemy_.setPosition(1050,450);
         }
         if(enemys_[0].name_ =="Big Werewolf"){
-          enemys_[0].img_enemy_.setPosition(1200,250);
+          enemys_[0].img_enemy_.setPosition(1200,270);
         }
 
         if(frame_e_ > 8){
           frame_e_-=8;
         }
-     enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,100));
+     enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
     }else if(enemys_[0].name_ =="Spear Skeleton"){
-       enemys_[0].img_enemy_.setPosition(1150,200);
+       enemys_[0].img_enemy_.setPosition(1100,215);
        if(frame_e_ > 7){
             frame_e_ -= 7;
          }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,80,80));
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
    }
 
  }

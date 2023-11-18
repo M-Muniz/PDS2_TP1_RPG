@@ -37,7 +37,7 @@ Enemy::Enemy(){
     img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
     name_ = "Big Werewolf";
-    img_enemy_.setScale(-7,7);
+    img_enemy_.setScale(-6,6);
   }else if(inimigo == 3){/*o inimigo 3 corresponde a um inimigo mais balanceado*/ 
     stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
