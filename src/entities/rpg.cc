@@ -78,6 +78,10 @@ Rpg::Rpg(Player jogador){
   player_status_[1].setOutlineThickness(0);
   player_status_[1].setSize(Vector2f(409, 9.4));
   player_status_[1].setPosition(Vector2f(395, 766));
+
+  enemy_status_.setSize(Vector2f(461,21));
+  enemy_status_.setFillColor(Color::Red);
+  enemy_status_.setPosition(Vector2f(369, 18));
 }
 
 void Rpg::Game(){
