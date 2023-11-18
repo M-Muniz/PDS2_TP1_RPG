@@ -86,6 +86,12 @@ public:
   void DrawTexts();
 
   /**
+   * @brief Desenha as mensagens na janela do jogo.
+   * @param message String da mensagem a ser desenhada.
+   */
+  void DrawMessages(string message);
+
+  /**
    * @brief Anima a janela do jogo.
    */
   void Draw();
