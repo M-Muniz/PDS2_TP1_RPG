@@ -2,8 +2,6 @@
 
 Enemy::Enemy(){
   int inimigo = rand() % 4;
-  int item = rand() % 6;
-  drop_item_=Item(item);
   if(inimigo == 0){/*o inimigo 0 corresponde a um inimigo mais balanceado*/         
     stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;

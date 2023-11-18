@@ -44,6 +44,7 @@ public:
   Enemy* inimigo1_;
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
+  Item* item_drop_;
 
 
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */

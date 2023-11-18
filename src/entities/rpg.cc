@@ -292,8 +292,10 @@ void Rpg::Run() {
         }
       }else{
         if(enemys_.front().stats_.hp <= 0 ){
-          enemys_.front().drop_item_.Sum(player_);
           player_.Upar(enemys_.front().stats_.xp);
+          item_drop_ = new Item(rand() % 6);
+          item_drop_->Sum(player_);
+          delete item_drop_;
           enemys_.pop_back();
           delete inimigo1_;
           inimigo1_ = new Enemy();

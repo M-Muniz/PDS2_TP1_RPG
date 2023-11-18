@@ -47,7 +47,6 @@ private:
   string name_; /**< Nome do inimigo. */
   Texture img_enemy_texture_; /**< Textura para importar para o Sprite. */
   Sprite img_enemy_; /**< Imagem do inimigo para a interface gráfica. */
-  Item drop_item_;
 };
 
 #endif
