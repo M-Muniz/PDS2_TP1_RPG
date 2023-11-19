@@ -1,6 +1,8 @@
 #ifndef BOSS_H_
 #define BOSS_H_
 
+class Skill;
+
 #include <iostream>
 #include <stdlib.h> // necessário p/ as funções rand() e srand()
 #include <vector>
