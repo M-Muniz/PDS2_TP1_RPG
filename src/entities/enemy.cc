@@ -1,4 +1,6 @@
+#include "../../include/player.h"
 #include "../../include/enemy.h"
+#include "../../include/skill.h"
 
 Enemy::Enemy(){
   int inimigo = rand() % 4;
@@ -52,6 +54,14 @@ Enemy::Enemy(){
     img_enemy_.setScale(-5,5);
   }
 
+}
+
+void Enemy::ReduzHp(int qtd){
+  stats_.hp -= qtd;
+}
+
+void Enemy::ReduzDef(int qtd, int turnos){
+  //implentar a logica de redução para turnos
 }
 
 int Enemy::Atk(){return stats_.atk;}
