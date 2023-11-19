@@ -94,5 +94,9 @@ public:
    * @brief Anima a janela do jogo.
    */
   void Game();
+  /**
+   * @brief Desenha os itens na tela
+   */
+  void ItemDraw();
 };
 #endif
