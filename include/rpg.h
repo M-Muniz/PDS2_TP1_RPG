@@ -11,6 +11,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include <chrono>
+#include <thread>
 #include "player.h"
 #include "boss.h"
 #include "enemy.h"

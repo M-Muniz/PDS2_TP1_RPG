@@ -123,6 +123,24 @@ void Rpg::SetAnimeEnemy(){
    }
 
  }
+
+ void Rpg::ItemDraw(){
+   item_drop_ = new Item(rand() % 6);
+   item_drop_->Sum(player_); //soma os status do item no player
+
+   std::chrono::seconds duration(3);  //usa a biblioteca chono pra definir os componentes pro loop de 2s
+   auto start_time = std::chrono::high_resolution_clock::now();
+
+   while (std::chrono::high_resolution_clock::now() - start_time < duration) {
+    Game();
+    Draw();
+    item_drop_->img_item_.setPosition(600,490);
+    window_->draw(item_drop_->img_item_);
+    window_->display();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+}
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
     player_.img_player_.setPosition(150,300);
@@ -293,11 +311,9 @@ void Rpg::Run() {
       }else{
         if(enemys_.front().stats_.hp <= 0 ){
           player_.Upar(enemys_.front().stats_.xp);
-          item_drop_ = new Item(rand() % 6);
-          item_drop_->Sum(player_);
-          delete item_drop_;
           enemys_.pop_back();
           delete inimigo1_;
+          ItemDraw();
           inimigo1_ = new Enemy();
           enemys_.push_back(*(inimigo1_));
           cout << "Você derrotou o inimigo!" << endl;
