@@ -30,6 +30,8 @@ Skill::Skill(int classe, int index, Player* player, Enemy* enemy)
         }else if(index == 2){ // Falhas da Armadura
             enemy_ref->ReduzDef(15, 3);
         }
+    } else if(classe == 4){ // Boss
+
     }
 }
 
