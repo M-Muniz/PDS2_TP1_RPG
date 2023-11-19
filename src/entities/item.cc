@@ -5,11 +5,11 @@ Item::Item(){}
 Item::Item(int tipo_item){
   if(tipo_item == 0){ // Item de + Vida
     attributes_.hp = 10;
-    attributes_.agi=0;
-    attributes_.atk=0;
-    attributes_.def=0;
-    attributes_.mp=0;
-    attributes_.xp=0;
+    attributes_.agi = 0;
+    attributes_.atk = 0;
+    attributes_.def = 0;
+    attributes_.mp = 0;
+    attributes_.xp = 0;
     //img_item_texture_.loadFromFile("resources/hp_item.png");
     //img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 1){ // Item de + Ataque
