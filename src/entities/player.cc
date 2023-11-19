@@ -41,9 +41,25 @@ Player::Player(string nome, int classe){
   classe_ = classe;
 
   for(int i = 0; i < 3; i++){
-    Skill aux(classe, i);
+    Skill aux(classe, i, nullptr, nullptr);
     skills_.push_back(aux);
   }
+}
+
+void Player::AumentaHp(int qtd){
+  stats_.hp += qtd;
+}
+
+void Player::AumentaDef(int qtd, int turnos){
+  //tem que implementar a logica de defesa por numero de turnos
+}
+
+void Player::AumentaMp(int qtd){
+  stats_.mp += qtd;
+}
+
+void Player::AumentaAgi(int qtd, int turnos){
+  //tem que implementar a logica de agilidade por numero de turnos
 }
 
 string Player::Name(){return name_;}
