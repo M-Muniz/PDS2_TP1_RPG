@@ -1,6 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+class Boss;
+
 #include <iostream>
 #include <stdlib.h> // necessário p/ as funções rand() e srand()
 #include <vector>
@@ -57,6 +59,32 @@ public:
    * @return Struct contendo os status do Player.
    */
   Status ReturnStatus();
+
+  /**
+   * @brief Incrementa Hp do Jogador.
+   * @param qtd Quantidade que será aumentada.
+   */
+  void AumentaHp(int qtd);
+
+  /**
+  * @brief Incrementa defesa do Jogador.
+  * @param qtd Quantidade que será aumentada.
+  * @param turnos Quantos turnos dura o efeito.
+  */
+  void AumentaDef(int qtd, int turnos);
+
+  /**
+  * @brief Incrementa energia do Jogador.
+  * @param qtd Quantidade que será aumentada.
+  */
+  void AumentaMp(int qtd);
+
+  /**
+  * @brief Incrementa agilidade do Jogador.
+  * @param qtd Quantidade que será aumentada.
+  * @param turnos Quantos turnos dura o efeito.
+  */
+  void AumentaAgi(int qtd, int turnos);
 
   /**
    * @brief Retorna uma das skills do Player com base no índice.
