@@ -5,28 +5,58 @@ Item::Item(){}
 Item::Item(int tipo_item){
   if(tipo_item == 0){ // Item de + Vida
     attributes_.hp = 10;
-    img_item_texture_.loadFromFile("resources/itens/hp_item.png");
-    img_item_.setTexture(img_item_texture_);
+    attributes_.agi=0;
+    attributes_.atk=0;
+    attributes_.def=0;
+    attributes_.mp=0;
+    attributes_.xp=0;
+    //img_item_texture_.loadFromFile("resources/hp_item.png");
+    //img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 1){ // Item de + Ataque
+    attributes_.hp = 0;
+    attributes_.agi = 0;
     attributes_.atk = 5;
-    img_item_texture_.loadFromFile("resources/itens/atk_item.png");
-    img_item_.setTexture(img_item_texture_);
+    attributes_.def = 0;
+    attributes_.mp = 0;
+    attributes_.xp = 0;
+    ///img_item_texture_.loadFromFile("resources/atk_item.png");
+    //img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 2){ // Item de + Defesa
+    attributes_.hp = 0;
+    attributes_.agi = 0;
+    attributes_.atk = 0;
     attributes_.def = 5;
-    img_item_texture_.loadFromFile("resources/itens/def_item.png");
-    img_item_.setTexture(img_item_texture_);
+    attributes_.mp = 0;
+    attributes_.xp = 0;
+    //img_item_texture_.loadFromFile("resources/def_item.png");
+    //img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 3){ // Item de + Energia
+    attributes_.hp = 0;
+    attributes_.agi = 0;
+    attributes_.atk = 0;
+    attributes_.def = 0;
     attributes_.mp = 10;
-    img_item_texture_.loadFromFile("resources/itens/mp_item.png");
-    img_item_.setTexture(img_item_texture_);
+    attributes_.xp = 0;
+    //img_item_texture_.loadFromFile("resources/mp_item.png");
+    //img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 4){ // Item de + Experiencia
-    attributes_.xp = 5;
-    img_item_texture_.loadFromFile("resources/itens/xp_item.png");
-    img_item_.setTexture(img_item_texture_);
+    attributes_.hp = 0;
+    attributes_.agi = 0;
+    attributes_.atk = 0;
+    attributes_.def = 0;
+    attributes_.mp = 0;
+    attributes_.xp = 20;
+    //img_item_texture_.loadFromFile("resources/xp_item.png");
+    //img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 5){ // Item de + Esquiva
+    attributes_.hp = 0;
     attributes_.agi = 5;
-    img_item_texture_.loadFromFile("reosurces/itens/agi_item.png");
-    img_item_.setTexture(img_item_texture_);
+    attributes_.atk = 0;
+    attributes_.def = 0;
+    attributes_.mp = 0;
+    attributes_.xp = 0;
+    //img_item_texture_.loadFromFile("reosurces/agi_item.png");
+    //img_item_.setTexture(img_item_texture_);
   }
 }
 

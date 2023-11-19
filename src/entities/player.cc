@@ -73,6 +73,7 @@ void Player::Upar(int xp){
     stats_.def += 5;
     stats_.agi += 5;
     stats_.mp += 15; 
+    stats_.xp=0;
   }
     
   return;
