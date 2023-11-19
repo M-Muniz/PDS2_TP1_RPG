@@ -1,4 +1,5 @@
 #include "../../include/item.h"
+#include "../../include/skill.h"
 
 Item::Item(){}
 
