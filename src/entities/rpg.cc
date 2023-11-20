@@ -132,8 +132,18 @@ int Rpg::Events() {
         if(enemys_.front().Def(player_.Atk())){
           cout << "O jogador acertou o ataque."<< endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+
+          stringstream aux;
+          string x;
+
+          aux << enemys_.front().stats_.hp;
+          aux >> x;
+
+          DrawMessages("The enemy has " + x + " of HP.");
         }else{
           cout << "O jogador errou o ataque." <<endl;
+
+          DrawMessages("You miss");
         }
         return 1;
       }
@@ -296,12 +306,25 @@ void Rpg::Run() {
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+
+          stringstream aux;
+          string x;
+
+          aux << player_.stats_.hp;
+          aux >> x;
+
+          DrawMessages("You has " + x + " of HP.");
+
           if(player_.stats_.hp <= 0){
             player_status_[0].setSize(Vector2f(0,21));
             player_status_[0].setFillColor(Color::Green);
             player_status_[0].setPosition(Vector2f(369, 738));
 
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
+
+            DrawMessages("Seu jogador morreu. Game Over.");
+
+            sleep(seconds(5));
 
             window_->close();
           }
@@ -314,6 +337,8 @@ void Rpg::Run() {
           player_status_[0].setPosition(Vector2f(369, 738));
         }else{
           cout << "Inimigo errou o golpe." << endl;
+
+          DrawMessages("Enemy miss");
         }
       }
     }
