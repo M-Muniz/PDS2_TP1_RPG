@@ -168,7 +168,7 @@ void Rpg::DrawMessages(string message){
   }
 
   FloatRect name_rect = text_message.getLocalBounds();
-  text_message.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, window_->getSize().y / 2));
+  text_message.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 350));
 
   window_->draw(text_message);
   window_->display();
