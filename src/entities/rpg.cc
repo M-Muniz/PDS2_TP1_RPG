@@ -82,6 +82,8 @@ Rpg::Rpg(Player jogador){
   enemy_status_.setSize(Vector2f(461,21));
   enemy_status_.setFillColor(Color::Red);
   enemy_status_.setPosition(Vector2f(369, 18));
+
+  font_.loadFromFile("fonts/super_legend_boy.ttf");
 }
 
 void Rpg::Game(){
@@ -153,32 +155,31 @@ int Rpg::Events() {
 }
 
 void Rpg::DrawMessages(string message){
-  Font font;
-  font.loadFromFile("fonts/super_legend_boy.ttf");
-
   Text text_message;
-  text_message.setFont(font);
+  text_message.setFont(font_);
   text_message.setCharacterSize(15);
   text_message.setFillColor(Color::White);
   text_message.setOutlineColor(Color::Black);
   text_message.setOutlineThickness(3);
   text_message.setString(message);
 
+  if(message == "Seu jogador morreu. Game Over."){
+    text_message.setCharacterSize(30);
+  }
+
   FloatRect name_rect = text_message.getLocalBounds();
   text_message.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, window_->getSize().y / 2));
 
   window_->draw(text_message);
+  window_->display();
 
-  sleep(seconds(1));
+  sleep(milliseconds(500));
 }
 
 void Rpg::DrawTexts(){
-  Font font;
-  font.loadFromFile("fonts/super_legend_boy.ttf"); 
-
   player_name_.setString(player_.name_);
   player_name_.setCharacterSize(25);
-  player_name_.setFont(font);
+  player_name_.setFont(font_);
   player_name_.setFillColor(Color::White);
   player_name_.setOutlineThickness(3);
 
@@ -197,7 +198,7 @@ void Rpg::DrawTexts(){
 
   for(int i = 0;i < 3; i++){
     texts_[i].setCharacterSize(15);
-    texts_[i].setFont(font);
+    texts_[i].setFont(font_);
     texts_[i].setFillColor(Color::White);
     texts_[i].setOutlineThickness(3);
     texts_[i].setOutlineColor(Color::Black);
@@ -228,7 +229,7 @@ void Rpg::DrawTexts(){
   texts_[2].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2) + 150, 800));
 
   texts_[3].setCharacterSize(18);
-  texts_[3].setFont(font);
+  texts_[3].setFont(font_);
   texts_[3].setFillColor(Color::Black);
   texts_[3].setOutlineThickness(3);
   texts_[3].setOutlineColor(Color::Red);
@@ -321,6 +322,8 @@ void Rpg::Run() {
             player_status_[0].setPosition(Vector2f(369, 738));
 
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
+
+            window_->clear();
 
             DrawMessages("Seu jogador morreu. Game Over.");
 

@@ -37,6 +37,7 @@ public:
 
   vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
   Text player_name_; /**< Texto para plotar o nome do Player na tela. */
+  Font font_; /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
   vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
