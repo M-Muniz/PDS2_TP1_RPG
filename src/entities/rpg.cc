@@ -169,7 +169,7 @@ void Rpg::DrawMessages(string message){
 
   window_->draw(text_message);
 
-  sleep(seconds(2));
+  sleep(seconds(1));
 }
 
 void Rpg::DrawTexts(){
