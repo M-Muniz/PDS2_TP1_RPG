@@ -362,6 +362,7 @@ void Rpg::Run(){
           player_status_[0].setFillColor(Color::Green);
           player_status_[0].setPosition(Vector2f(369, 738));
 
+          tam_x = 461*enemys_.front().stats_.hp/enemys_.front().stats_.hp_max;
           enemy_status_.setSize(Vector2f(461, 21));
           enemy_status_.setFillColor(Color::Red);
           enemy_status_.setPosition(Vector2f(369, 18));
