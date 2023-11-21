@@ -2,7 +2,6 @@
 
 Enemy::Enemy(){
   int inimigo = rand() % 4;
-
   if(inimigo == 0){/*o inimigo 0 corresponde a um inimigo mais balanceado*/         
     // stats_.hp_max = 80;
     stats_.hp_max = 15;
@@ -40,8 +39,8 @@ Enemy::Enemy(){
     stats_.xp = 30;
     img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
-    name_ = "Big Warewolf";
-    img_enemy_.setScale(-7,7);
+    name_ = "Big Werewolf";
+    img_enemy_.setScale(-6,6);
   }else if(inimigo == 3){/*o inimigo 3 corresponde a um inimigo mais balanceado*/ 
     // stats_.hp_max = 70;
     stats_.hp_max = 15;

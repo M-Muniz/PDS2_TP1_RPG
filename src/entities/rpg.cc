@@ -7,10 +7,13 @@ Rpg::Rpg(Player jogador){
   window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
-  Enemy inimigo1;
-  enemys_.push_back(inimigo1);
-  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_ << endl;
-
+  
+  inimigo1_ = new Enemy();
+  enemys_.push_back(*(inimigo1_));
+  
+  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
+  frame_e_ = 0;
+  frame_p_ = 0;
 
   bg.loadFromFile("resources/bgs/bg_temp.png");
   background = make_shared<Sprite>();
@@ -90,8 +93,59 @@ void Rpg::Game(){
   frame_p_ += 0.07;
   frame_e_ += 0.07;
   SetAnimePlayer();
+  SetAnimeEnemy();
 }
 
+void Rpg::SetAnimeEnemy(){
+    
+     if(enemys_[0].name_ =="Sword Skeleton"){
+
+         enemys_[0].img_enemy_.setPosition(1050,320);
+
+         if(frame_e_ > 7){ 
+             frame_e_-=7;                     
+
+         }
+     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
+     }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
+        if(enemys_[0].name_ =="Small Werewolf"){
+          enemys_[0].img_enemy_.setPosition(1050,450);
+        }
+        if(enemys_[0].name_ =="Big Werewolf"){
+          enemys_[0].img_enemy_.setPosition(1200,270);
+        }
+
+        if(frame_e_ > 8){
+          frame_e_-=8;
+        }
+     enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
+    }else if(enemys_[0].name_ =="Spear Skeleton"){
+       enemys_[0].img_enemy_.setPosition(1100,215);
+       if(frame_e_ > 7){
+            frame_e_ -= 7;
+         }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
+   }
+
+ }
+
+ void Rpg::ItemDraw(){
+   item_drop_ = new Item(rand() % 6);
+   item_drop_->Sum(player_); //soma os status do item no player
+
+   std::chrono::seconds duration(3);  //usa a biblioteca chono pra definir os componentes pro loop de 2s
+   auto start_time = std::chrono::high_resolution_clock::now();
+
+   while (std::chrono::high_resolution_clock::now() - start_time < duration) {
+    Game();
+    Draw();
+    item_drop_->img_item_.setPosition(600,490);
+    window_->draw(item_drop_->img_item_);
+    window_->display();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+}
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
     player_.img_player_.setPosition(150,300);
@@ -118,15 +172,19 @@ void Rpg::SetAnimePlayer(){
 
     player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,70));
   }
+  
 }
 
-int Rpg::Events() {
+int Rpg::Events(){
   Event event;
+  pos_mouse_ = Mouse::getPosition(*window_);
+  mouse_coord_ = window_->mapPixelToCoords(pos_mouse_);
   pos_mouse_ = Mouse::getPosition(*window_);
   mouse_coord_ = window_->mapPixelToCoords(pos_mouse_);
 
   while (window_->pollEvent(event) && window_->isOpen()){
-    if (event.type == Event::Closed) {
+    if (event.type == Event::Closed){
+      window_->close();
       window_->close();
     }
     if(Mouse::isButtonPressed(Mouse::Left)){  
@@ -249,13 +307,18 @@ void Rpg::Draw() {
   window_->draw(*background);
   for(size_t i{}; i < buttons_.size(); i++){
     window_->draw(buttons_[i]);
+    window_->draw(buttons_[i]);
   }
   for(size_t i{}; i < cd_skills_.size(); i++){
     for(size_t j{}; j < cd_skills_[i].size(); j++){
       window_->draw(cd_skills_[i][j]);
     } 
+    for(size_t j{}; j < cd_skills_[i].size(); j++){
+      window_->draw(cd_skills_[i][j]);
+    } 
   }
   for(size_t i{}; i < player_status_.size(); i++){
+    window_->draw(player_status_[i]);
     window_->draw(player_status_[i]);
   }
   window_->draw(enemy_status_);
@@ -265,7 +328,7 @@ void Rpg::Draw() {
   window_->display();
 }
 
-void Rpg::Run() {
+void Rpg::Run(){
   float tam_x;
 
   while(window_->isOpen()){
@@ -273,8 +336,7 @@ void Rpg::Run() {
       Game();
       Draw();
 
-      if(turno % 2 == 1){
-
+      if(turno % 2){
         while(!Events() && window_->isOpen()){
           if(!window_->isOpen()){
             return;
@@ -284,9 +346,15 @@ void Rpg::Run() {
         }
       }else{
         if(enemys_.front().stats_.hp <= 0 ){
-          Enemy inimigo_novo;
+          player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
-          enemys_.push_back(inimigo_novo);
+
+          delete inimigo1_;
+          
+          ItemDraw();
+
+          inimigo1_ = new Enemy();
+          enemys_.push_back(*(inimigo1_));
           player_.Upar(20);
 
           tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
@@ -298,11 +366,9 @@ void Rpg::Run() {
           enemy_status_.setFillColor(Color::Red);
           enemy_status_.setPosition(Vector2f(369, 18));
           
-          cout << "Você derrotou o inimigo!" << endl;
-          cout << "O novo inimigo gerado aleatoriamente é um " << inimigo_novo.name_ << "." << endl;
-
           DrawMessages("You kill the enemy");
-
+          cout << "Você derrotou o inimigo!" << endl;
+          cout << "O novo inimigo gerado aleatoriamente é um " << enemys_[0].name_ << "." << endl;
         }else if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
@@ -332,7 +398,6 @@ void Rpg::Run() {
             window_->close();
           }
 
-
           tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
           if(tam_x > 461){tam_x = 461;}
           player_status_[0].setSize(Vector2f(tam_x,21));
@@ -347,3 +412,4 @@ void Rpg::Run() {
     }
   }
 }
+  

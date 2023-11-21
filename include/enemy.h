@@ -8,6 +8,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "boss.h"
+#include "item.h"
 
 using namespace std;
 using namespace sf;
