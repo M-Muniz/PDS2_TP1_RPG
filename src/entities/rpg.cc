@@ -192,6 +192,9 @@ int Rpg::Events(){
         if(enemys_.front().Def(player_.Atk())){
           cout << "O jogador acertou o ataque."<< endl;
           cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+          
+          float tam_x = 461*enemys_.front().stats_.hp/enemys_.front().stats_.hp_max;
+          enemy_status_.setSize(Vector2f(tam_x, 21));
 
           stringstream aux;
           string x;
@@ -322,9 +325,10 @@ void Rpg::Draw() {
     window_->draw(player_status_[i]);
   }
   window_->draw(enemy_status_);
-  DrawTexts();
   window_->draw(enemys_.front().img_enemy_);
   window_->draw(player_.img_player_);
+  
+  DrawTexts();
   window_->display();
 }
 
@@ -359,17 +363,14 @@ void Rpg::Run(){
 
           tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x, 21));
-          player_status_[0].setFillColor(Color::Green);
-          player_status_[0].setPosition(Vector2f(369, 738));
 
-          tam_x = 461*enemys_.front().stats_.hp/enemys_.front().stats_.hp_max;
-          enemy_status_.setSize(Vector2f(tam_x, 21));
-          enemy_status_.setFillColor(Color::Red);
-          enemy_status_.setPosition(Vector2f(369, 18));
+          enemy_status_.setSize(Vector2f(0, 21));
           
           DrawMessages("You kill the enemy");
           cout << "Você derrotou o inimigo!" << endl;
           cout << "O novo inimigo gerado aleatoriamente é um " << enemys_[0].name_ << "." << endl;
+
+          enemy_status_.setSize(Vector2f(461, 21));
         }else if(player_.Def(enemys_.front().Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
@@ -385,8 +386,6 @@ void Rpg::Run(){
 
           if(player_.stats_.hp <= 0){
             player_status_[0].setSize(Vector2f(0,21));
-            player_status_[0].setFillColor(Color::Green);
-            player_status_[0].setPosition(Vector2f(369, 738));
 
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
 
@@ -400,16 +399,17 @@ void Rpg::Run(){
           }
 
           tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
+
           if(tam_x > 461){tam_x = 461;}
+
           player_status_[0].setSize(Vector2f(tam_x,21));
-          player_status_[0].setFillColor(Color::Green);
-          player_status_[0].setPosition(Vector2f(369, 738));
         }else{
           cout << "Inimigo errou o golpe." << endl;
 
           DrawMessages("Enemy miss");
         }
       }
+      Draw();
     }
   }
 }
