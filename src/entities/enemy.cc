@@ -75,5 +75,14 @@ bool Enemy::Def(int atk_player){
   }
 
 }
-
+void Enemy::BuffaInimigo(int inimigos_mortos){
+  if(inimigos_mortos>=3){
+    int multiplicador = inimigos_mortos/3;
+    stats_.hp_max *= (1.05*multiplicador);
+    stats_.hp =stats_.hp_max;
+    stats_.atk *= (1.05*multiplicador);
+    stats_.def *= (1.05*multiplicador);
+    stats_.xp -=multiplicador;
+  }
+}
 Status Enemy::ReturnStatus(){return stats_;}

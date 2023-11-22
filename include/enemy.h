@@ -37,6 +37,12 @@ public:
   bool Def(int atk_player);
 
   /**
+   * @brief Aumenta os status desse inimigo baseado no numero de inimigos mortos.
+   * @param atk_player Numero de inimigos mortos.
+   */
+  void BuffaInimigo(int inimigos_mortos);
+
+  /**
    * @brief Retorna a struct de dados do inimigo.
    * @return A struct de dados do inimigo.
    */

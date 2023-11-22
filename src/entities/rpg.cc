@@ -334,7 +334,7 @@ void Rpg::Draw() {
 
 void Rpg::Run(){
   float tam_x;
-
+  int inimigos_mortos=0;
   while(window_->isOpen()){
     for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
       Game();
@@ -352,6 +352,7 @@ void Rpg::Run(){
         if(enemys_.front().stats_.hp <= 0 ){
           player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
+          inimigos_mortos++;
 
           delete inimigo1_;
           
@@ -359,6 +360,7 @@ void Rpg::Run(){
 
           inimigo1_ = new Enemy();
           enemys_.push_back(*(inimigo1_));
+          enemys_.front().BuffaInimigo(inimigos_mortos);
           player_.Upar(20);
 
           tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
