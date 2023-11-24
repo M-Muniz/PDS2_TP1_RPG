@@ -46,6 +46,8 @@ public:
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
   Item* item_drop_;
+  int animaçao_completa_enemy_;
+  int animaçao_completa_player_;
 
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 
@@ -74,7 +76,7 @@ public:
   /**
    * @brief Anima os objetos Enemy do jogo.
    */
-  void SetAnimeEnemy();
+  void SetAnimeEnemy(int largura,int altura,int frame,bool idle);
 
   /**
    * @brief Gerencia eventos do jogo que acontecem na interface gráfica.
@@ -101,7 +103,7 @@ public:
   /**
    * @brief Anima a janela do jogo.
    */
-  void Game();
+  void Game(int x_e,int y_e, int z_e,bool idle_e);
   /**
    * @brief Desenha os itens na tela
    */
@@ -113,6 +115,6 @@ public:
   /**
    * @brief Funçao generica pra realizar trocas de animaçoes dos inimigos
    */
-  void AnimacaoGenericaEnemy(string Png, int largura,int altura,int frame);
+  void AnimacaoGenericaEnemy(string Png);
 };
 #endif

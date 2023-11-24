@@ -9,9 +9,8 @@ Rpg::Rpg(Player jogador){
   window_->setFramerateLimit(100);
   
   inimigo1_ = new Enemy();
-  enemys_.push_back(*(inimigo1_));
   
-  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
+  cout << "Nome do inimigo gerado aleatoriamente: " << inimigo1_->name_<<endl;
   frame_e_ = 0;
   frame_p_ = 0;
 
@@ -89,62 +88,79 @@ Rpg::Rpg(Player jogador){
   font_.loadFromFile("fonts/super_legend_boy.ttf");
 }
 
-void Rpg::Game(){
+void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e){
   frame_p_ += 0.07;
   frame_e_ += 0.07;
   SetAnimePlayer();
-  SetAnimeEnemy();
+  SetAnimeEnemy(x_e,y_e,z_e,idle_e);
 }
 
-void Rpg::SetAnimeEnemy(){
-    
-     if(enemys_[0].name_ =="Sword Skeleton"){
-
-         enemys_[0].img_enemy_.setPosition(1050,320);
-
-         if(frame_e_ > 7){ 
-             frame_e_-=7;                     
-
+void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
+  if(idle==false){
+    largura/=frame;
+  }
+  if(inimigo1_->name_ =="Sword Skeleton"){
+    if (idle == true){
+      frame=7;
+      largura=67;
+      altura=59;
+      inimigo1_->img_enemy_.setPosition(1050,320);
+    }
+    if(frame_e_ > frame){ 
+      frame_e_-=frame;
+      animaçao_completa_enemy_=1;                     
+    }
+     inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+     }else if(inimigo1_->name_ =="Small Werewolf"||inimigo1_->name_ =="Big Werewolf"){
+        if (idle == true){
+          frame=8;
+          largura=80;
+          altura=59;
+          if(inimigo1_->name_ =="Small Werewolf"){
+            inimigo1_->img_enemy_.setPosition(1050,450);
+          }
+          if(inimigo1_->name_ =="Big Werewolf"){
+          inimigo1_->img_enemy_.setPosition(1200,270);
+          }
+        }
+        if(frame_e_ > frame){
+          frame_e_-=frame;
+          animaçao_completa_enemy_=1; 
+        }
+     inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+    }else if(inimigo1_->name_ =="Spear Skeleton"){
+        if (idle == true){
+        frame=7;
+        largura=67;
+        altura=84;
+        inimigo1_->img_enemy_.setPosition(1100,215);
+        }
+       if(frame_e_ > frame){
+            frame_e_ -= frame;
+            animaçao_completa_enemy_=1; 
          }
-     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
-     }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
-        if(enemys_[0].name_ =="Small Werewolf"){
-          enemys_[0].img_enemy_.setPosition(1050,450);
-        }
-        if(enemys_[0].name_ =="Big Werewolf"){
-          enemys_[0].img_enemy_.setPosition(1200,270);
-        }
-
-        if(frame_e_ > 8){
-          frame_e_-=8;
-        }
-     enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
-    }else if(enemys_[0].name_ =="Spear Skeleton"){
-       enemys_[0].img_enemy_.setPosition(1100,215);
-       if(frame_e_ > 7){
-            frame_e_ -= 7;
-         }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
+    inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
    }
 
  }
 
- void Rpg::ItemDraw(){
-   item_drop_ = new Item(rand() % 6);
-   item_drop_->Sum(player_); //soma os status do item no player
-
-   std::chrono::seconds duration(3);  //usa a biblioteca chono pra definir os componentes pro loop de 2s
-   auto start_time = std::chrono::high_resolution_clock::now();
-    item_drop_->img_item_.setPosition(600,490);
-   while (std::chrono::high_resolution_clock::now() - start_time < duration) {
-    Game();
+void Rpg::ItemDraw(){
+  item_drop_ = new Item(rand() % 6);
+  item_drop_->Sum(player_); //soma os status do item no player
+  item_drop_->img_item_.setPosition(600,490);
+  inimigo1_->SettaSprite(inimigo1_->ReturnSpriteMorte());
+  DadosAnimacao aux = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteMorte());
+  inimigo1_->img_enemy_.setPosition(1050,450);
+  frame_e_=0;
+  animaçao_completa_enemy_=0;
+  while(!animaçao_completa_enemy_){
+    Game(aux.largura,aux.altura,aux.frames,false);
     Draw();
     window_->draw(item_drop_->img_item_);
     window_->display();
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-    delete item_drop_;
-
+  }
+  int animaçao_completa_enemy_=0;
+  delete item_drop_; 
 }
 void Rpg::SetAnimePlayer(){
   if(player_.classe_ == 0){
@@ -189,17 +205,17 @@ int Rpg::Events(){
     }
     if(Mouse::isButtonPressed(Mouse::Left)){  
       if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
-        if(enemys_.front().Def(player_.Atk())){
+        if(inimigo1_->Def(player_.Atk())){
           cout << "O jogador acertou o ataque."<< endl;
-          cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+          cout << "Inimigo esta com " << inimigo1_->stats_.hp << " de vida restante." << endl;
           
-          float tam_x = 461*enemys_.front().stats_.hp/enemys_.front().stats_.hp_max;
+          float tam_x = 461*inimigo1_->stats_.hp/inimigo1_->stats_.hp_max;
           enemy_status_.setSize(Vector2f(tam_x, 21));
 
           stringstream aux;
           string x;
 
-          aux << enemys_.front().stats_.hp;
+          aux << inimigo1_->stats_.hp;
           aux >> x;
 
           DrawMessages("The enemy has " + x + " of HP.");
@@ -237,12 +253,6 @@ void Rpg::DrawMessages(string message){
   sleep(milliseconds(500));
 }
 
-void Rpg::AnimacaoGenericaEnemy(string Png,int largura,int altura,int frame){
-  enemys_.front().img_enemy_texture_.loadFromFile(Png);
-  enemys_.front().img_enemy_.setTexture(enemys_.front().img_enemy_texture_);
-  frame_e_=0;
-  enemys_[0].img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
-}
 void Rpg::DrawTexts(){
   player_name_.setString(player_.name_);
   player_name_.setCharacterSize(25);
@@ -300,7 +310,7 @@ void Rpg::DrawTexts(){
   texts_[3].setFillColor(Color::Black);
   texts_[3].setOutlineThickness(3);
   texts_[3].setOutlineColor(Color::Red);
-  texts_[3].setString(enemys_.front().name_);
+  texts_[3].setString(inimigo1_->name_);
 
   name_rect = texts_[3].getLocalBounds();
   texts_[3].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2), 60));
@@ -331,7 +341,7 @@ void Rpg::Draw() {
     window_->draw(player_status_[i]);
   }
   window_->draw(enemy_status_);
-  window_->draw(enemys_.front().img_enemy_);
+  window_->draw(inimigo1_->img_enemy_);
   window_->draw(player_.img_player_);
   
   DrawTexts();
@@ -343,7 +353,7 @@ void Rpg::Run(){
   int inimigos_mortos=0;
   while(window_->isOpen()){
     for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
-      Game();
+      Game(0,0,0,true);
       Draw();
 
       if(turno % 2){
@@ -351,38 +361,33 @@ void Rpg::Run(){
           if(!window_->isOpen()){
             return;
           }
-          Game();
+          Game(0,0,0,true);
           Draw();
         }
       }else{
-        if(enemys_.front().stats_.hp <= 0 ){
-          player_.Upar(enemys_.front().stats_.xp);
-          enemys_.pop_back();
+        if(inimigo1_->stats_.hp <= 0 ){
+          player_.Upar(inimigo1_->stats_.xp);
           inimigos_mortos++;
-
-          delete inimigo1_;
-          
           ItemDraw();
-
+          inimigo1_->BuffaInimigo(inimigos_mortos);
+          player_.Upar(20); 
+          delete inimigo1_;
           inimigo1_ = new Enemy();
-          enemys_.push_back(*(inimigo1_));
-          enemys_.front().BuffaInimigo(inimigos_mortos);
-          player_.Upar(20);
-
           tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x, 21));
 
           enemy_status_.setSize(Vector2f(0, 21));
+
           
           DrawMessages("You kill the enemy");
           cout << "Você derrotou o inimigo!" << endl;
-          cout << "O novo inimigo gerado aleatoriamente é um " << enemys_[0].name_ << "." << endl;
+          cout << "O novo inimigo gerado aleatoriamente é um " << inimigo1_->name_ << "." << endl;
 
           enemy_status_.setSize(Vector2f(461, 21));
-        }else if(player_.Def(enemys_.front().Atk())){
+        }else if(player_.Def(inimigo1_->Atk())){
           cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
           cout << " de vida restante." << endl;
-          cout << "Inimigo esta com " << enemys_.front().stats_.hp << " de vida restante." << endl;
+          cout << "Inimigo esta com " << inimigo1_->stats_.hp << " de vida restante." << endl;
 
           stringstream aux;
           string x;

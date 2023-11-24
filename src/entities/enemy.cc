@@ -86,6 +86,7 @@ void Enemy::BuffaInimigo(int inimigos_mortos){
   }
 }
 Status Enemy::ReturnStatus(){return stats_;}
+
 string Enemy::ReturnSpriteMorte(){
   if(name_ == "Spear Skeleton"){
     return "resources/spear_skeleton/Dead.png";
@@ -95,4 +96,34 @@ string Enemy::ReturnSpriteMorte(){
     return "resources/warewolf/sprite_warewolf_dead.png";
   }
   return " " ; 
+}
+void Enemy::SettaSprite(string png){
+  img_enemy_texture_.loadFromFile(png);
+  img_enemy_.setTexture(img_enemy_texture_);
+   if(name_ == "Spear Skeleton"){
+    img_enemy_.setScale(-5,5);
+  }else if(name_ == "Sword Skeleton"){
+    img_enemy_.setScale(-5,5);
+  }else if(name_ == "Big Werewolf"){
+    img_enemy_.setScale(-6,6);
+  }else if (name_ == "Small Werewolf"){
+    img_enemy_.setScale(-3,3);
+  }
+  return;
+}
+DadosAnimacao Enemy::ReturnDadosSprite(string png){
+   if(name_ == "Spear Skeleton"){
+    if(png=="resources/spear_skeleton/Dead.png"){
+      DadosAnimacao aux{190,52,2};
+    }
+  }else if(name_ == "Sword Skeleton"){
+    if(png=="resources/sword_skeleton/Dead.png"){
+      DadosAnimacao aux{190,52,2};
+    }
+  }else if(name_ == "Big Werewolf" || name_ == "Small Werewolf"){
+    if(png=="resources/warewolf/sprite_warewolf_dead.png"){
+      DadosAnimacao aux{190,52,2};
+      return aux;
+    }
+  }
 }

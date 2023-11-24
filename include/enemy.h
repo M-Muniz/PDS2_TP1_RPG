@@ -47,8 +47,21 @@ public:
    * @return A struct de dados do inimigo.
    */
   Status ReturnStatus();
-
+  /**
+   * @brief Retorna path relativo da animaçao de morte.
+   * @return O path relativo da animaçao de morte.
+   */
   string ReturnSpriteMorte();
+  /**
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
+   */
+  DadosAnimacao ReturnDadosSprite(string png);
+  /**
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
+   */
+  void SettaSprite(string Png);
 
 private:
   Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */
