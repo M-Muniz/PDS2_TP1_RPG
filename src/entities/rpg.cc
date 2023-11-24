@@ -135,15 +135,15 @@ void Rpg::SetAnimeEnemy(){
 
    std::chrono::seconds duration(3);  //usa a biblioteca chono pra definir os componentes pro loop de 2s
    auto start_time = std::chrono::high_resolution_clock::now();
-
+    item_drop_->img_item_.setPosition(600,490);
    while (std::chrono::high_resolution_clock::now() - start_time < duration) {
     Game();
     Draw();
-    item_drop_->img_item_.setPosition(600,490);
     window_->draw(item_drop_->img_item_);
     window_->display();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+    delete item_drop_;
 
 }
 void Rpg::SetAnimePlayer(){
@@ -237,6 +237,12 @@ void Rpg::DrawMessages(string message){
   sleep(milliseconds(500));
 }
 
+void Rpg::AnimacaoGenericaEnemy(string Png,int largura,int altura,int frame){
+  enemys_.front().img_enemy_texture_.loadFromFile(Png);
+  enemys_.front().img_enemy_.setTexture(enemys_.front().img_enemy_texture_);
+  frame_e_=0;
+  enemys_[0].img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+}
 void Rpg::DrawTexts(){
   player_name_.setString(player_.name_);
   player_name_.setCharacterSize(25);

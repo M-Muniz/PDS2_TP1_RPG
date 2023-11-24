@@ -69,6 +69,10 @@ public:
    * @brief Retorna o nome do Player.
    */
   string Name();
+
+  string ReturnSpriteAttack();
+
+
   
 private:
   int classe_; /**< Classe do Player. */

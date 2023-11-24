@@ -37,7 +37,7 @@ Enemy::Enemy(){
     stats_.agi = 5;
     stats_.mp = 0;
     stats_.xp = 30;
-    img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
+    img_enemy_texture_.loadFromFile("resources/warewolf/sprite_warewolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
     name_ = "Big Werewolf";
     img_enemy_.setScale(-6,6);
@@ -86,3 +86,13 @@ void Enemy::BuffaInimigo(int inimigos_mortos){
   }
 }
 Status Enemy::ReturnStatus(){return stats_;}
+string Enemy::ReturnSpriteMorte(){
+  if(name_ == "Spear Skeleton"){
+    return "resources/spear_skeleton/Dead.png";
+  }else if(name_ == "Sword Skeleton"){
+    return "resources/sword_skeleton/Dead.png";
+  }else if(name_ == "Big Werewolf"||name_ == "Small Werewolf"){
+    return "resources/warewolf/sprite_warewolf_dead.png";
+  }
+  return " " ; 
+}

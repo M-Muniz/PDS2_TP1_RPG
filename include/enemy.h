@@ -48,6 +48,8 @@ public:
    */
   Status ReturnStatus();
 
+  string ReturnSpriteMorte();
+
 private:
   Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */
   string name_; /**< Nome do inimigo. */

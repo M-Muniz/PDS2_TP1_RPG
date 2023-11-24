@@ -84,3 +84,13 @@ void Player::Upar(int xp){
 }
 
 Status Player::ReturnStatus(){return stats_;}
+
+string Player::ReturnSpriteAttack(){
+  if (classe_ == 0){
+    return "resources/knight/sprite_knight_atk1.png";
+  }else if(classe_ == 1){
+    return" ";
+  }
+  return "resources/samurai/sprite_samurai_atk1.png";
+  
+}

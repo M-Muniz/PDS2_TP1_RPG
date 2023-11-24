@@ -106,5 +106,13 @@ public:
    * @brief Desenha os itens na tela
    */
   void ItemDraw();
+    /**
+   * @brief Funçao generica pra realizar trocas de animaçoes do jogador
+   */
+  void AnimacaoGenericaPlayer();
+  /**
+   * @brief Funçao generica pra realizar trocas de animaçoes dos inimigos
+   */
+  void AnimacaoGenericaEnemy(string Png, int largura,int altura,int frame);
 };
 #endif
