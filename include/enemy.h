@@ -1,9 +1,6 @@
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
-class Skill;
-class Player;
-
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -44,19 +41,6 @@ public:
    * @return A struct de dados do inimigo.
    */
   Status ReturnStatus();
-
-  /**
-   * @brief Reduz Hp do inimigo.
-   * @param qtd Quantidade que será reduzida.
-  */
- void ReduzHp(int qtd);
-
-   /**
-   * @brief Reduz defesa do inimigo.
-   * @param qtd Quantidade que será reduzida.
-   * @param turnos Quantos turnos dura o efeito.
-  */
- void ReduzDef(int qtd, int turnos);
 
 private:
   Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */

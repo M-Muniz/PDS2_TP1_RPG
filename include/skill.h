@@ -1,9 +1,6 @@
 #ifndef SKILL_H_
 #define SKILL_H_
 
-class Enemy;
-class Player;
-
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -36,7 +33,7 @@ public:
    * @param classe O valor da classe do jogador ou do chefe (Boss).
    * @param index O valor do indexador da skill (Para gerar skills diferentes).
    */
-  Skill(int classe, int index, Player* player, Enemy* enemy);
+  Skill(int classe, int index);
 
   /**
    * @brief Construtor vazio da classe Skill.
@@ -48,8 +45,6 @@ private:
   Attributes attributes_; /**< Estrutura de dados com os atributos da Skill. */
   Texture img_skill_texture_; /**< Textura para importar para o Sprite. */
   Sprite img_skill_; /**< Imagem da Skill para a interface gráfica. */
-  Player* player_ref; /**< Referencia o jogador. */
-  Enemy* enemy_ref; /**< Referencia o inimigo. */
 };
 
 #endif
