@@ -37,7 +37,7 @@ Skill::Skill(int classe, int index) {
         }
     } else if (classe == 4) { // Boss
         if (index == 0){
-            attributes_.hp = -50;  // Diminui a vida do jogador consideravelmente
+            attributes_.hp = -50;  // Diminui a vida do jogador consideravelmente (um tanto bao)
             img_skill_texture_.loadFromFile("resources/boss/skill_boss.png"); //nao temos ainda
         }
     }
