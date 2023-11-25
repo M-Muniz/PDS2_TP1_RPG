@@ -9,7 +9,7 @@ Player::Player(string nome, int classe){
     stats_.atk = 20;
     stats_.def = 30;
     stats_.agi = 15;
-    stats_.mp = 20;
+    stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }else if(classe == 1){ // Classe Mago
@@ -18,7 +18,7 @@ Player::Player(string nome, int classe){
     stats_.atk = 30;
     stats_.def = 20;
     stats_.agi = 20;
-    stats_.mp = 30;
+    stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }else if(classe == 2){ // Classe Samurai
@@ -27,7 +27,7 @@ Player::Player(string nome, int classe){
     stats_.atk = 25;
     stats_.def = 20;
     stats_.agi = 30;
-    stats_.mp = 20;
+    stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }
@@ -43,6 +43,9 @@ Player::Player(string nome, int classe){
   for(int i = 0; i < 3; i++){
     Skill aux(classe, i);
     skills_.push_back(aux);
+    for(int j = 0; j < 3; j++){
+      skills_cd_[i].push_back(true);
+    }
   }
 }
 
@@ -82,5 +85,7 @@ void Player::Upar(int xp){
 
   return;
 }
+
+Skill Player::UserSkills(int index){return skills_[index];}
 
 Status Player::ReturnStatus(){return stats_;}

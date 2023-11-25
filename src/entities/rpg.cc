@@ -97,34 +97,37 @@ void Rpg::Game(){
 }
 
 void Rpg::SetAnimeEnemy(){
-  if(enemys_[0].name_ == "Sword Skeleton"){
-    enemys_[0].img_enemy_.setPosition(1050,320);
+     if(enemys_[0].name_ =="Sword Skeleton"){
 
     if(frame_e_ > 7){ 
         frame_e_-=7;                     
 
-    }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
-  }else if(enemys_[0].name_ == "Small Werewolf"||enemys_[0].name_ == "Big Werewolf"){
-    if(enemys_[0].name_ == "Small Werewolf"){
-      enemys_[0].img_enemy_.setPosition(1050,450);
-    }
-    if(enemys_[0].name_ == "Big Werewolf"){
-      enemys_[0].img_enemy_.setPosition(1200,270);
-    }
+         if(frame_e_ > 7){ 
+             frame_e_ -= 7;                     
+         }
+     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
+     }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
+        if(enemys_[0].name_ =="Small Werewolf"){
+          enemys_[0].img_enemy_.setPosition(1050,450);
+        }
+        if(enemys_[0].name_ =="Big Werewolf"){
+          enemys_[0].img_enemy_.setPosition(1200,270);
+        }
 
-    if(frame_e_ > 8){
-      frame_e_-=8;
-    }
-    enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
-  }else if(enemys_[0].name_ == "Spear Skeleton"){
-    enemys_[0].img_enemy_.setPosition(1100,215);
-    if(frame_e_ > 7){
-      frame_e_ -= 7;
-    }
+        if(frame_e_ > 8){
+          frame_e_-=8;
+        }
+     enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
+    }else if(enemys_[0].name_ =="Spear Skeleton"){
+       enemys_[0].img_enemy_.setPosition(1100,215);
+       if(frame_e_ > 7){
+            frame_e_ -= 7;
+         }
     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
   }
 }
+
+ }
 
  void Rpg::ItemDraw(){
    item_drop_ = new Item(rand() % 6);
@@ -136,9 +139,7 @@ void Rpg::SetAnimeEnemy(){
    while (std::chrono::high_resolution_clock::now() - start_time < duration) {
     Game();
     Draw();
-    
-    FloatRect rect = item_drop_->img_item_.getLocalBounds();
-    item_drop_->img_item_.setPosition((window_->getSize().x - rect.width) / 2,490);
+    item_drop_->img_item_.setPosition(600,490);
     window_->draw(item_drop_->img_item_);
     window_->display();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -208,6 +209,106 @@ int Rpg::Events(){
           DrawMessages("You miss");
         }
         return 1;
+      }else if(buttons_[1].getGlobalBounds().contains(mouse_coord_)){ // Skill I
+        cout << "Player usou a skill 1" << endl;
+        bool test_cd_ = true;
+        for(int i = 0; i < 3; i++){
+          if(!player_.skills_cd_[0][i]){
+            test_cd_ = false;
+          }
+        }
+        if(player_.classe_ != 3){ // Mago ou Cavaleiro usaram a skill
+          if(player_.stats_.mp >= player_.UserSkills(0).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
+            if(player_.classe_ == 1){
+              player_.stats_.hp += player_.UserSkills(0).attributes_.hp;
+              cout << "Knight bufou a vida" << endl;
+            }else if(player_.classe_ == 2){
+              player_.stats_.def += player_.UserSkills(0).attributes_.def;
+              cout << "Mage bufou a defesa" << endl;
+            }
+            player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+
+            player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+          }else{ // Caso CD ou Mana não forem suficientes
+            cout << "Não foi possível usar a skill" << endl;
+            DrawMessages("Skill isn't ready, you miss your turn");
+          }
+          for(int i = 0; i < 3; i++){
+            cd_skills_[0][i].setFillColor(Color::Red);
+          }
+        }else if(test_cd_){ // Samurai usou a skill
+          cout << "Samurai bufou a mana" << endl;
+          player_.stats_.mp += player_.UserSkills(0).attributes_.mp;
+
+          for(int i = 0; i < 3; i++){
+            cd_skills_[0][i].setFillColor(Color::Red);
+          }
+        }else{ // CD não era o suficiente para o Samurai
+          cout << "Não foi possível usar a skill" << endl;
+          DrawMessages("Skill isn't ready, you miss your turn");
+        }
+
+        return 1;
+      }else if(buttons_[2].getGlobalBounds().contains(mouse_coord_)){ // Skill 2
+        cout << "Player usou a skill 2" << endl;
+        bool test_cd_ = true;
+        for(int i = 0; i < 3; i++){
+          if(!player_.skills_cd_[1][i]){
+            test_cd_ = false;
+          }
+        }
+
+        if(player_.stats_.mp >= player_.UserSkills(1).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
+          if(player_.classe_ == 1){
+            player_.stats_.agi += player_.UserSkills(1).attributes_.agi;
+            enemys_.front().stats_.hp += player_.UserSkills(1).attributes_.hp;
+            cout << "Knight bufou a agilidade e causou dano" << endl;
+          }else{
+            enemys_.front().stats_.hp += player_.UserSkills(1).attributes_.hp;
+            cout << "Mage/Samurai causou dano" << endl;
+          }
+          player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
+          
+          for(int i = 0; i < 3; i++){
+            cd_skills_[1][i].setFillColor(Color::Red);
+          }
+
+          player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+        }else{ // Caso CD ou Mana não forem suficientes
+          cout << "Não foi possível usar a skill" << endl;
+          DrawMessages("Skill isn't ready, you miss your turn");
+        }
+
+        return 1;
+      }else if(buttons_[3].getGlobalBounds().contains(mouse_coord_)){ // Skill 3
+        cout << "Player usou a skill 3" << endl;
+        bool test_cd_ = true;
+        for(int i = 0; i < 3; i++){
+          if(!player_.skills_cd_[2][i]){
+            test_cd_ = false;
+          }
+        }
+
+        if(player_.stats_.mp >= player_.UserSkills(2).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
+          if(player_.classe_ == 3){
+            enemys_.front().stats_.hp += player_.UserSkills(2).attributes_.hp;
+            enemys_.front().stats_.def += player_.UserSkills(2).attributes_.def;
+            cout << "Samurai causou dano e reduziu a defesa do inimigo" << endl;
+          }else{
+            enemys_.front().stats_.hp += player_.UserSkills(2).attributes_.hp;
+            cout << "Mage/Knight causou dano" << endl;
+          }
+          player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+          for(int i = 0; i < 3; i++){
+            cd_skills_[2][i].setFillColor(Color::Red);
+          }
+          player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+        }else{ // Caso CD ou Mana não forem suficientes
+          cout << "Não foi possível usar a skill" << endl;
+          DrawMessages("Skill isn't ready, you miss your turn");
+        }
+
+        return 1;
       }
     }
   }
@@ -223,7 +324,7 @@ void Rpg::DrawMessages(string message){
   text_message.setOutlineThickness(3);
   text_message.setString(message);
 
-  if(message == "Seu jogador morreu. Game Over."){
+  if(message == "Your character die. Game Over."){
     text_message.setCharacterSize(30);
   }
 
@@ -340,6 +441,18 @@ void Rpg::Run(){
       Draw();
 
       if(turno % 2){
+        for(int i = 0; i < 3; i++){ // Reseta o CD das skills (1 ponto de cooldown por turno do Player)
+          for(int j = 0; j < 3; j++){
+            if(!player_.skills_cd_[i][j]){
+              player_.skills_cd_[i][j] = true;
+              cd_skills_[i][j].setFillColor(Color::Green);
+              break;
+            }
+          }
+        }
+
+        player_.stats_.mp += 5; // Regeneração natural de mana do Player
+
         while(!Events() && window_->isOpen()){
           if(!window_->isOpen()){
             return;
@@ -351,10 +464,10 @@ void Rpg::Run(){
         if(enemys_.front().stats_.hp <= 0 ){
           player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
-          
-          ItemDraw();
 
           delete inimigo1_;
+          
+          ItemDraw();
 
           inimigo1_ = new Enemy();
           enemys_.push_back(*(inimigo1_));
@@ -390,7 +503,7 @@ void Rpg::Run(){
 
             window_->clear();
 
-            DrawMessages("Seu jogador morreu. Game Over.");
+            DrawMessages("Your character die. Game Over.");
 
             sleep(seconds(5));
 

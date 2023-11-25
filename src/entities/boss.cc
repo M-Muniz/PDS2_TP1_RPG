@@ -34,4 +34,3 @@ bool Boss::Def(int atk_player){
 }
 
 Status Boss::ReturnStatus(){return stats_;}
-
