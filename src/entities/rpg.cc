@@ -89,8 +89,8 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e){
-  frame_p_ += 0.07;
-  frame_e_ += 0.07;
+  frame_p_ += 0.05;
+  frame_e_ += 0.05;
   SetAnimePlayer();
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
 }
@@ -150,7 +150,6 @@ void Rpg::ItemDraw(){
   item_drop_->img_item_.setPosition(600,490);
   inimigo1_->SettaSprite(inimigo1_->ReturnSpriteMorte());
   DadosAnimacao aux = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteMorte());
-  inimigo1_->img_enemy_.setPosition(1050,450);
   frame_e_=0;
   animaçao_completa_enemy_=0;
   while(!animaçao_completa_enemy_){
