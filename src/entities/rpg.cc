@@ -89,8 +89,8 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p){
-  frame_p_ += 0.05;
-  frame_e_ += 0.05;
+  frame_p_ += 0.10;
+  frame_e_ += 0.10;
   SetAnimePlayer(x_p,y_p,z_e,idle_p);
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
 }
@@ -236,8 +236,9 @@ int Rpg::Events(){
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
-          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
-
+          if(inimigo1_->stats_.hp>0){
+            inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+          }
           cout << "O jogador acertou o ataque."<< endl;
           cout << "Inimigo esta com " << inimigo1_->stats_.hp << " de vida restante." << endl;
           
@@ -252,6 +253,19 @@ int Rpg::Events(){
 
           DrawMessages("The enemy has " + x + " of HP.");
         }else{
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteDef());
+          player_.SettaSprite(player_.ReturnSpriteAtk());
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
+          DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteDef());
+          animaçao_completa_player_=0;
+          frame_e_=0;
+          frame_p_=0;
+          while(!animaçao_completa_player_){
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
           cout << "O jogador errou o ataque." <<endl;
 
           DrawMessages("You miss");
@@ -439,7 +453,14 @@ void Rpg::Run(){
 
           if(player_.stats_.hp <= 0){
             player_status_[0].setSize(Vector2f(0,21));
-
+            player_.SettaSprite(player_.ReturnSpriteMorte());
+            DadosAnimacao aux = player_.ReturnDadosSprite(player_.ReturnSpriteMorte());
+            animaçao_completa_player_=0;
+            frame_p_=0;
+            while(!animaçao_completa_player_){
+              Game(0,0,0,true,aux.largura,aux.altura,aux.frames,true);
+              Draw();
+            }
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
 
             window_->clear();
@@ -457,6 +478,19 @@ void Rpg::Run(){
 
           player_status_[0].setSize(Vector2f(tam_x,21));
         }else{
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteAtk());
+          player_.SettaSprite(player_.ReturnSpriteDef());
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
+          DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteAtk());
+          animaçao_completa_enemy_=0;
+          frame_e_=0;
+          frame_p_=0;
+          while(!animaçao_completa_enemy_){
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
           cout << "Inimigo errou o golpe." << endl;
 
           DrawMessages("Enemy miss");

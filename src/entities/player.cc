@@ -135,43 +135,55 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
   if (classe_ == 0){
     if(png == "resources/knight/sprite_knight_atk1.png"){
       aux={555,75,5};
+      img_player_.setPosition(150,300);
       return aux;
     }else if(png == "resources/knight/sprite_knight_protect.png"){
       aux={45,61,1};
+      img_player_.setPosition(150,300);
       return aux;
     }else if(png == "resources/knight/sprite_knight_hurt.png"){
       aux={106,61,2};
+      img_player_.setPosition(150,300);
       return aux;
     }else if(png == "resources/knight/sprite_knight_dead.png"){
       aux={480,60,6};
+      img_player_.setPosition(150,300);
       return aux;
     }
   }else if(classe_ == 1 ){
     if(png == "resources/mage/sprite_mage_atk2.png"){
       aux={990,74,9};
+      img_player_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_protect.png"){
       aux={348,87,4};
+      img_player_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_hurt.png"){
       aux={132,59,2};
+      img_player_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_dead.png"){
       aux={340,59,4};
+      img_player_.setPosition(125,285);
       return aux;
     }
   }else if(classe_ == 2){
     if(png == "resources/samurai/sprite_samurai_atk1.png"){
       aux={575,67,5};
+      img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_protection.png"){
       aux={345,70,5};
+      img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_hurt.png"){
       aux={210,70,3};
+      img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_dead.png"){
       aux={480,67,6};
+      img_player_.setPosition(110,265);
       return aux;
     }
   }
