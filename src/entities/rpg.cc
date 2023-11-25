@@ -97,37 +97,34 @@ void Rpg::Game(){
 }
 
 void Rpg::SetAnimeEnemy(){
-    
-     if(enemys_[0].name_ =="Sword Skeleton"){
+  if(enemys_[0].name_ == "Sword Skeleton"){
+    enemys_[0].img_enemy_.setPosition(1050,320);
 
-         enemys_[0].img_enemy_.setPosition(1050,320);
+    if(frame_e_ > 7){ 
+        frame_e_-=7;                     
 
-         if(frame_e_ > 7){ 
-             frame_e_-=7;                     
+    }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
+  }else if(enemys_[0].name_ == "Small Werewolf"||enemys_[0].name_ == "Big Werewolf"){
+    if(enemys_[0].name_ == "Small Werewolf"){
+      enemys_[0].img_enemy_.setPosition(1050,450);
+    }
+    if(enemys_[0].name_ == "Big Werewolf"){
+      enemys_[0].img_enemy_.setPosition(1200,270);
+    }
 
-         }
-     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,59));
-     }else if(enemys_[0].name_ =="Small Werewolf"||enemys_[0].name_ =="Big Werewolf"){
-        if(enemys_[0].name_ =="Small Werewolf"){
-          enemys_[0].img_enemy_.setPosition(1050,450);
-        }
-        if(enemys_[0].name_ =="Big Werewolf"){
-          enemys_[0].img_enemy_.setPosition(1200,270);
-        }
-
-        if(frame_e_ > 8){
-          frame_e_-=8;
-        }
-     enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
-    }else if(enemys_[0].name_ =="Spear Skeleton"){
-       enemys_[0].img_enemy_.setPosition(1100,215);
-       if(frame_e_ > 7){
-            frame_e_ -= 7;
-         }
+    if(frame_e_ > 8){
+      frame_e_-=8;
+    }
+    enemys_[0].img_enemy_.setTextureRect(IntRect(80*(int)frame_e_,0,80,59));
+  }else if(enemys_[0].name_ == "Spear Skeleton"){
+    enemys_[0].img_enemy_.setPosition(1100,215);
+    if(frame_e_ > 7){
+      frame_e_ -= 7;
+    }
     enemys_[0].img_enemy_.setTextureRect(IntRect(67*(int)frame_e_,0,67,84));
-   }
-
- }
+  }
+}
 
  void Rpg::ItemDraw(){
    item_drop_ = new Item(rand() % 6);
@@ -139,7 +136,9 @@ void Rpg::SetAnimeEnemy(){
    while (std::chrono::high_resolution_clock::now() - start_time < duration) {
     Game();
     Draw();
-    item_drop_->img_item_.setPosition(600,490);
+    
+    FloatRect rect = item_drop_->img_item_.getLocalBounds();
+    item_drop_->img_item_.setPosition((window_->getSize().x - rect.width) / 2,490);
     window_->draw(item_drop_->img_item_);
     window_->display();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -352,10 +351,10 @@ void Rpg::Run(){
         if(enemys_.front().stats_.hp <= 0 ){
           player_.Upar(enemys_.front().stats_.xp);
           enemys_.pop_back();
-
-          delete inimigo1_;
           
           ItemDraw();
+
+          delete inimigo1_;
 
           inimigo1_ = new Enemy();
           enemys_.push_back(*(inimigo1_));
