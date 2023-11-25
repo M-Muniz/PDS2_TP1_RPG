@@ -67,6 +67,11 @@ public:
    * @return O path relativo da animaçao de hurt.
    */
   string ReturnSpriteTomou();
+   /**
+   * @brief Retorna path relativo da animaçao de idle.
+   * @return O path relativo da animaçao de idle.
+   */
+  string ReturnSpriteIdle();
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
    * @return Os dados daquele sprite especifico.

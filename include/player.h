@@ -76,6 +76,11 @@ public:
    * @return O path relativo da animaçao de ataque.
    */
   string ReturnSpriteAtk();
+   /**
+   * @brief Retorna path relativo da animaçao de idle.
+   * @return O path relativo da animaçao de idle.
+   */
+  string ReturnSpriteIdle();
     /**
    * @brief Retorna path relativo da animaçao de defesa.
    * @return O path relativo da animaçao de defesa.

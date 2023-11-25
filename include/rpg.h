@@ -71,7 +71,7 @@ public:
   /**
    * @brief Anima os objetos Player do jogo.
    */
-  void SetAnimePlayer();
+  void SetAnimePlayer(int largura,int altura,int frame,bool idle);
 
   /**
    * @brief Anima os objetos Enemy do jogo.
@@ -103,7 +103,7 @@ public:
   /**
    * @brief Anima a janela do jogo.
    */
-  void Game(int x_e,int y_e, int z_e,bool idle_e);
+  void Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p);
   /**
    * @brief Desenha os itens na tela
    */

@@ -88,10 +88,10 @@ Rpg::Rpg(Player jogador){
   font_.loadFromFile("fonts/super_legend_boy.ttf");
 }
 
-void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e){
+void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p){
   frame_p_ += 0.05;
   frame_e_ += 0.05;
-  SetAnimePlayer();
+  SetAnimePlayer(x_p,y_p,z_e,idle_p);
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
 }
 
@@ -153,39 +153,58 @@ void Rpg::ItemDraw(){
   frame_e_=0;
   animaçao_completa_enemy_=0;
   while(!animaçao_completa_enemy_){
-    Game(aux.largura,aux.altura,aux.frames,false);
+    Game(aux.largura,aux.altura,aux.frames,false,0,0,0,true);
     Draw();
     window_->draw(item_drop_->img_item_);
     window_->display();
   }
-  int animaçao_completa_enemy_=0;
   delete item_drop_; 
 }
-void Rpg::SetAnimePlayer(){
+void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
+  if(idle == false){
+    largura/=frame;
+  }
   if(player_.classe_ == 0){
-    player_.img_player_.setPosition(150,300);
+    if(idle == true){
+      largura=67;
+      altura=64;
+      frame=4;
+      player_.img_player_.setPosition(150,300);
+    }
+    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
 
-    if (frame_p_ > 4){
-        frame_p_ -= 4;
+    if (frame_p_ > frame){
+      frame_p_ -= frame;
+      animaçao_completa_player_=1;
     }
 
-    player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,64));
-  }else if(player_.classe_ == 1){
-    player_.img_player_.setPosition(125,285);    
-
-    if(frame_p_ > 8){
-        frame_p_ -= 8;
+  }else if(player_.classe_ == 1){    
+    if(idle == true){
+      largura=67;
+      altura=67;
+      frame=8;
+      player_.img_player_.setPosition(125,285);
+    }
+    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));    
+    if(frame_p_ > frame){
+      frame_p_ -= frame;
+      animaçao_completa_player_=1;
     }
 
-    player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,67));
+    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
   }else if(player_.classe_ == 2){
-    player_.img_player_.setPosition(110,265);
-
-    if(frame_p_ > 6){
-        frame_p_ -= 6;
+    if(idle == true){
+      largura=67;
+      altura=70;
+      frame=6;
+      player_.img_player_.setPosition(110,265);
+    }
+    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
+    if(frame_p_ > frame){
+      frame_p_ -= frame;
+      animaçao_completa_player_=1;
     }
 
-    player_.img_player_.setTextureRect(IntRect(67*(int)frame_p_,0,67,70));
   }
   
 }
@@ -205,6 +224,20 @@ int Rpg::Events(){
     if(Mouse::isButtonPressed(Mouse::Left)){  
       if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
         if(inimigo1_->Def(player_.Atk())){
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+          player_.SettaSprite(player_.ReturnSpriteAtk());
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
+          DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+          animaçao_completa_player_=0;
+          frame_e_=0;
+          frame_p_=0;
+          while(!animaçao_completa_player_){
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+
           cout << "O jogador acertou o ataque."<< endl;
           cout << "Inimigo esta com " << inimigo1_->stats_.hp << " de vida restante." << endl;
           
@@ -352,15 +385,14 @@ void Rpg::Run(){
   int inimigos_mortos=0;
   while(window_->isOpen()){
     for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
-      Game(0,0,0,true);
+      Game(0,0,0,true,0,0,0,true);
       Draw();
-
       if(turno % 2){
         while(!Events() && window_->isOpen()){
           if(!window_->isOpen()){
             return;
           }
-          Game(0,0,0,true);
+          Game(0,0,0,true,0,0,0,true);
           Draw();
         }
       }else{
@@ -384,10 +416,19 @@ void Rpg::Run(){
 
           enemy_status_.setSize(Vector2f(461, 21));
         }else if(player_.Def(inimigo1_->Atk())){
-          cout << "Inimigo acertou o golpe. O player esta com " << player_.stats_.hp;
-          cout << " de vida restante." << endl;
-          cout << "Inimigo esta com " << inimigo1_->stats_.hp << " de vida restante." << endl;
-
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteAtk());
+          player_.SettaSprite(player_.ReturnSpriteTomou());
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
+          DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteAtk());
+          animaçao_completa_enemy_=0;
+          frame_e_=0;
+          frame_p_=0;
+          while(!animaçao_completa_enemy_){
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
           stringstream aux;
           string x;
 
