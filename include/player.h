@@ -69,6 +69,36 @@ public:
    * @brief Retorna o nome do Player.
    */
   string Name();
+
+  string ReturnSpriteMorte();
+    /**
+   * @brief Retorna path relativo da animaçao de ataque.
+   * @return O path relativo da animaçao de ataque.
+   */
+  string ReturnSpriteAtk();
+    /**
+   * @brief Retorna path relativo da animaçao de defesa.
+   * @return O path relativo da animaçao de defesa.
+   */
+  string ReturnSpriteDef();
+    /**
+   * @brief Retorna path relativo da animaçao de hurt.
+   * @return O path relativo da animaçao de hurt.
+   */
+  string ReturnSpriteTomou();
+  /**
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
+   */
+  DadosAnimacao ReturnDadosSprite(string png);
+  /**
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
+   */
+  void SettaSprite(string Png);
+
+
+
   
 private:
   int classe_; /**< Classe do Player. */

@@ -16,12 +16,13 @@ int main(){
   
   Player jogador(menu->ReturnName(), menu->ReturnClass());
 
-  delete menu;
-
   Rpg* jogo = new Rpg(jogador);
   
   jogo->Run();
   
+  menu->~Menu();
+  delete menu;
+
   delete jogo;
 
   menu = nullptr;

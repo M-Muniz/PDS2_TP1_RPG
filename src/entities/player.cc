@@ -54,8 +54,10 @@ bool Player::Def(int atk_enemy){
 
   int x = rand() % 100;
 
-  if (x + stats_.agi < 65){ // Player não desviou
+  if (x + stats_.agi < 80){ // Player não desviou
     stats_.hp -= (atk_enemy - stats_.def);
+
+    if(stats_.hp < 0){stats_.hp = 0;}
         
     return 1;
   }else{ // Player desviou
@@ -66,17 +68,38 @@ bool Player::Def(int atk_enemy){
 void Player::Upar(int xp){
   stats_.xp += xp;
 
-  if(stats_.xp > 100){
+  if(stats_.xp >= 100){
     stats_.hp_max += 15;
     stats_.hp = stats_.hp_max;
     stats_.atk += 5;
     stats_.def += 5;
     stats_.agi += 5;
     stats_.mp += 15; 
-    stats_.xp=0;
+    stats_.xp -= 100;
+
+    cout << "Você subiu de nível!" << endl;
   }
-    
+
   return;
 }
 
 Status Player::ReturnStatus(){return stats_;}
+
+string Player::ReturnSpriteMorte(){
+
+}
+string Player::ReturnSpriteAtk(){
+
+}
+string Player::ReturnSpriteTomou(){
+
+}
+string Player::ReturnSpriteDef(){
+
+}
+void Player::SettaSprite(string png){
+
+}
+DadosAnimacao Player::ReturnDadosSprite(string png){
+  
+}

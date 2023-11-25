@@ -15,6 +15,15 @@ using namespace std;
 using namespace sf;
 
 /**
+ * @brief Estrutura de dados para a animaçao
+ */
+
+struct DadosAnimacao{
+  int largura;
+  int altura;
+  int frames;
+};
+/**
  * @brief Estrutura de dados para armezenas os status do objeto.
  */
 struct Status {
@@ -45,9 +54,9 @@ public:
 
   /**
    * @brief Recebe o valor de ataque do jogador e subtrai da vida com base na defesa e esquiva do chefe (boss).
-   * @param Atk_player O valor de ataque do jogador.
+   * @param atk_player O valor de ataque do jogador.
    */
-  bool Def(int Atk_player);
+  bool Def(int atk_player);
 
   /**
    * @brief Retorna a struct de dados do chefe (boss).
@@ -60,7 +69,7 @@ public:
    * @param Index O índice da habilidade desejada.
    * @return A habilidade do chefe (boss) correspondente ao índice.
    */
-  Skill BossSkills(int Index);
+  Skill BossSkills(int index);
 
 private:
   /**
