@@ -37,7 +37,7 @@ Enemy::Enemy(){
     stats_.agi = 5;
     stats_.mp = 0;
     stats_.xp = 30;
-    img_enemy_texture_.loadFromFile("resources/black_wolf/sprite_blackwolf_default.png");
+    img_enemy_texture_.loadFromFile("resources/warewolf/sprite_warewolf_default.png");
     img_enemy_.setTexture(img_enemy_texture_);
     name_ = "Big Werewolf";
     img_enemy_.setScale(-6,6);
