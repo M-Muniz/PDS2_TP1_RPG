@@ -106,11 +106,11 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
       altura=59;
       inimigo1_->img_enemy_.setPosition(1050,320);
     }
+    inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){ 
       frame_e_-=frame;
       animaçao_completa_enemy_=1;                     
     }
-     inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
      }else if(inimigo1_->name_ =="Small Werewolf"||inimigo1_->name_ =="Big Werewolf"){
         if (idle == true){
           frame=8;
@@ -123,24 +123,24 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
           inimigo1_->img_enemy_.setPosition(1200,270);
           }
         }
+        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
         if(frame_e_ > frame){
           frame_e_-=frame;
           animaçao_completa_enemy_=1; 
         }
-     inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
-    }else if(inimigo1_->name_ =="Spear Skeleton"){
+      }else if(inimigo1_->name_ =="Spear Skeleton"){
         if (idle == true){
         frame=7;
         largura=67;
         altura=84;
         inimigo1_->img_enemy_.setPosition(1100,215);
         }
-       if(frame_e_ > frame){
-            frame_e_ -= frame;
-            animaçao_completa_enemy_=1; 
-         }
-    inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
-   }
+        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+        if(frame_e_ > frame){
+          frame_e_ -= frame;
+          animaçao_completa_enemy_=1; 
+        }
+      }
 
  }
 
