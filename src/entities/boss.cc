@@ -14,7 +14,7 @@ Boss::Boss(){
   img_boss_.setTexture(img_boss_texture_);
     
   for(int i = 0; i < 3; i++){
-    Skill aux(4, i, nullptr, nullptr);
+    Skill aux(4, i);
     skills_.push_back(aux);
   }
 }
@@ -34,4 +34,3 @@ bool Boss::Def(int atk_player){
 }
 
 Status Boss::ReturnStatus(){return stats_;}
-

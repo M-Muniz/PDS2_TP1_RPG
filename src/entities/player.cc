@@ -41,25 +41,9 @@ Player::Player(string nome, int classe){
   classe_ = classe;
 
   for(int i = 0; i < 3; i++){
-    Skill aux(classe, i, nullptr, nullptr);
+    Skill aux(classe, i);
     skills_.push_back(aux);
   }
-}
-
-void Player::AumentaHp(int qtd){
-  stats_.hp += qtd;
-}
-
-void Player::AumentaDef(int qtd, int turnos){
-  //tem que implementar a logica de defesa por numero de turnos
-}
-
-void Player::AumentaMp(int qtd){
-  stats_.mp += qtd;
-}
-
-void Player::AumentaAgi(int qtd, int turnos){
-  //tem que implementar a logica de agilidade por numero de turnos
 }
 
 string Player::Name(){return name_;}
@@ -72,6 +56,8 @@ bool Player::Def(int atk_enemy){
 
   if (x + stats_.agi < 80){ // Player não desviou
     stats_.hp -= (atk_enemy - stats_.def);
+
+    if(stats_.hp < 0){stats_.hp = 0;}
         
     return 1;
   }else{ // Player desviou
@@ -82,16 +68,18 @@ bool Player::Def(int atk_enemy){
 void Player::Upar(int xp){
   stats_.xp += xp;
 
-  if(stats_.xp > 100){
+  if(stats_.xp >= 100){
     stats_.hp_max += 15;
     stats_.hp = stats_.hp_max;
     stats_.atk += 5;
     stats_.def += 5;
     stats_.agi += 5;
     stats_.mp += 15; 
-    stats_.xp=0;
+    stats_.xp -= 100;
+
+    cout << "Você subiu de nível!" << endl;
   }
-    
+
   return;
 }
 
