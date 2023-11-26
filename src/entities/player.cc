@@ -135,7 +135,7 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
   if (classe_ == 0){
     if(png == "resources/knight/sprite_knight_atk1.png"){
       aux={555,75,5};
-      img_player_.setPosition(150,300);
+      img_player_.setPosition(200,291);
       return aux;
     }else if(png == "resources/knight/sprite_knight_protect.png"){
       aux={45,61,1};

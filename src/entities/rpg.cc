@@ -172,7 +172,6 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       player_.img_player_.setPosition(150,300);
     }
     player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
-
     if (frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
@@ -204,9 +203,7 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
     }
-
   }
-  
 }
 
 int Rpg::Events(){
@@ -232,8 +229,8 @@ int Rpg::Events(){
           frame_e_=0;
           frame_p_=0;
           while(!animaçao_completa_player_){
-            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
           if(inimigo1_->stats_.hp>0){
@@ -261,8 +258,8 @@ int Rpg::Events(){
           frame_e_=0;
           frame_p_=0;
           while(!animaçao_completa_player_){
-            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
@@ -431,12 +428,16 @@ void Rpg::Run(){
           enemy_status_.setSize(Vector2f(461, 21));
         }else if(player_.Def(inimigo1_->Atk())){
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteAtk());
-          player_.SettaSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteAtk());
           animaçao_completa_enemy_=0;
           frame_e_=0;
           frame_p_=0;
+          while(frame_e_<(aux_e.frames-aux_p.frames)){
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,0,0,0,true);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteTomou());
           while(!animaçao_completa_enemy_){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
@@ -459,7 +460,7 @@ void Rpg::Run(){
             frame_p_=0;
             while(!animaçao_completa_player_){
               Game(0,0,0,true,aux.largura,aux.altura,aux.frames,true);
-              Draw();
+              Draw();  
             }
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
 
@@ -479,16 +480,21 @@ void Rpg::Run(){
           player_status_[0].setSize(Vector2f(tam_x,21));
         }else{
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteAtk());
-          player_.SettaSprite(player_.ReturnSpriteDef());
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
           DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteAtk());
           animaçao_completa_enemy_=0;
           frame_e_=0;
           frame_p_=0;
+          while(frame_e_<(aux_e.frames-aux_p.frames)){
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,0,0,0,true);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteDef());
           while(!animaçao_completa_enemy_){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
           }
+          Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
           player_.SettaSprite(player_.ReturnSpriteIdle());
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
           cout << "Inimigo errou o golpe." << endl;
