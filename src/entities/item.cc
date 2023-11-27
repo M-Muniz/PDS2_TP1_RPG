@@ -69,6 +69,9 @@ void Item::Sum(Player& usr){
   usr.stats_.atk += attributes_.atk;
   usr.stats_.def += attributes_.def;
   usr.stats_.mp += attributes_.mp;
+  if(usr.stats_.mp > 100){
+  usr.stats_.mp = 100;
+  }
   usr.stats_.xp += attributes_.xp;
   usr.stats_.agi += attributes_.agi;
 }
