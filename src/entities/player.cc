@@ -8,7 +8,7 @@ Player::Player(string nome, int classe){
     stats_.hp = stats_.hp_max;
     stats_.atk = 1;
     stats_.def = 30;
-    stats_.agi = 0;
+    stats_.agi = 15;
     stats_.mp = 20;
     img_player_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
     img_player_.setTexture(img_player_texture_);

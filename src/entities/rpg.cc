@@ -106,11 +106,11 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
       altura=59;
       inimigo1_->img_enemy_.setPosition(1050,320);
     }
-    inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){ 
       frame_e_-=frame;
       animaçao_completa_enemy_=1;                     
     }
+    inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
      }else if(inimigo1_->name_ =="Small Werewolf"||inimigo1_->name_ =="Big Werewolf"){
         if (idle == true){
           frame=8;
@@ -123,11 +123,11 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
           inimigo1_->img_enemy_.setPosition(1200,270);
           }
         }
-        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
         if(frame_e_ > frame){
           frame_e_-=frame;
           animaçao_completa_enemy_=1; 
         }
+        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
       }else if(inimigo1_->name_ =="Spear Skeleton"){
         if (idle == true){
         frame=7;
@@ -135,10 +135,10 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
         altura=84;
         inimigo1_->img_enemy_.setPosition(1100,215);
         }
-        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
         if(frame_e_ > frame){
           frame_e_ -= frame;
           animaçao_completa_enemy_=1; 
+          inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
         }
       }
 
@@ -152,7 +152,7 @@ void Rpg::ItemDraw(){
   DadosAnimacao aux = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteMorte());
   frame_e_=0;
   animaçao_completa_enemy_=0;
-  while(!animaçao_completa_enemy_){
+  while(frame_e_ < (aux.frames - 0.10)){
     Game(aux.largura,aux.altura,aux.frames,false,0,0,0,true);
     Draw();
     window_->draw(item_drop_->img_item_);
@@ -171,11 +171,11 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       frame=4;
       player_.img_player_.setPosition(150,300);
     }
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
     if (frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
     }
+    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
 
   }else if(player_.classe_ == 1){    
     if(idle == true){
@@ -183,13 +183,11 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       altura=67;
       frame=8;
       player_.img_player_.setPosition(125,285);
-    }
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));    
+    }    
     if(frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
     }
-
     player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
   }else if(player_.classe_ == 2){
     if(idle == true){
@@ -198,11 +196,11 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       frame=6;
       player_.img_player_.setPosition(110,265);
     }
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
     if(frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
     }
+    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
   }
 }
 
@@ -221,7 +219,7 @@ int Rpg::Events(){
     if(Mouse::isButtonPressed(Mouse::Left)){  
       if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
         if(inimigo1_->Def(player_.Atk())){
-          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
+          /*DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
           DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
           animaçao_completa_player_=0;
           frame_p_=0;
@@ -237,7 +235,7 @@ int Rpg::Events(){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
-          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());*/
           float tam_x = 461*inimigo1_->stats_.hp/inimigo1_->stats_.hp_max;
           enemy_status_.setSize(Vector2f(tam_x, 21));
           stringstream aux;
@@ -477,7 +475,6 @@ void Rpg::Run(){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
           }
-          Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
           player_.SettaSprite(player_.ReturnSpriteIdle());
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
           cout << "Inimigo errou o golpe." << endl;
