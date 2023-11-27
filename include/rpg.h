@@ -54,7 +54,12 @@ public:
    * @brief Construtor da classe Rpg.
    */
   Rpg(Player jogador);
-    
+  
+  /**
+   * @brief Destrutor da classe Rpg.
+   */
+  ~Rpg();
+
   /**
    * @brief Inicia o jogo de RPG.
    */
