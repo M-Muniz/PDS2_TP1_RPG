@@ -233,8 +233,8 @@ int Rpg::Events(){
           frame_e_=0;
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
           while(!animaçao_completa_player_){
-            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
+            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());

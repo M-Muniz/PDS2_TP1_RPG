@@ -121,7 +121,7 @@ string Enemy::ReturnSpriteDef(){
   if(name_ == "Spear Skeleton"){
     return "resources/sword_skeleton/sprite_swordskeleton_protect.png";
   }else if(name_ == "Sword Skeleton"){
-    return "resources/sword_skeleton/sprite_swordskeleton_dead.png";
+    return "resources/sword_skeleton/sprite_swordskeleton_protect.png";
   }else if(name_ == "Big Werewolf"||name_ == "Small Werewolf"){
     return "resources/warewolf/sprite_warewolf_protect.png";
   }
