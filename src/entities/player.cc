@@ -6,7 +6,7 @@ Player::Player(string nome, int classe){
   if(classe == 0){ // Classe Guerreiro
     stats_.hp_max = 110;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 20;
+    stats_.atk = 1;
     stats_.def = 30;
     stats_.agi = 0;
     stats_.mp = 20;
