@@ -11,7 +11,7 @@ Rpg::Rpg(Player jogador){
   inimigo1_ = new Enemy();
   enemys_.push_back(*(inimigo1_));
   
-  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_<<endl;
+  cout << "Nome do inimigo gerado aleatoriamente: " << enemys_[0].name_ << endl;
   frame_e_ = 0;
   frame_p_ = 0;
 
@@ -48,15 +48,15 @@ Rpg::Rpg(Player jogador){
   cd_skills_.resize(3);
 
   for(size_t i{}; i < cd_skills_.size(); i++){
-      cd_skills_[i].resize(3);
+    cd_skills_[i].resize(3);
   }
 
   for(size_t i{}; i < cd_skills_.size(); i++){
-      for(size_t j{}; j < cd_skills_[i].size(); j++){
-          cd_skills_[i][j].setSize(Vector2f(7,7));
-          cd_skills_[i][j].setFillColor(Color::Green);
-          cd_skills_[i][j].setOutlineThickness(0);
-      }
+    for(size_t j{}; j < cd_skills_[i].size(); j++){
+      cd_skills_[i][j].setSize(Vector2f(7,7));
+      cd_skills_[i][j].setFillColor(Color::Green);
+      cd_skills_[i][j].setOutlineThickness(0);
+    }
   }
 
   cd_skills_[0][0].setPosition(Vector2f(931.5,750));
@@ -215,12 +215,12 @@ int Rpg::Events(){
             test_cd_ = false;
           }
         }
-        if(player_.classe_ != 3){ // Mago ou Cavaleiro usaram a skill
+        if(player_.classe_ != 2){ // Mago ou Cavaleiro usaram a skill
           if(player_.stats_.mp >= player_.UserSkills(0).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
-            if(player_.classe_ == 1){
+            if(player_.classe_ == 0){
               player_.stats_.hp += player_.UserSkills(0).attributes_.hp;
               cout << "Knight bufou a vida" << endl;
-            }else if(player_.classe_ == 2){
+            }else if(player_.classe_ == 1){
               player_.stats_.def += player_.UserSkills(0).attributes_.def;
               cout << "Mage bufou a defesa" << endl;
             }
@@ -233,6 +233,7 @@ int Rpg::Events(){
           }
           for(int i = 0; i < 3; i++){
             cd_skills_[0][i].setFillColor(Color::Red);
+            player_.skills_cd_[0][i] = false;
           }
         }else if(test_cd_){ // Samurai usou a skill
           cout << "Samurai bufou a mana" << endl;
@@ -240,6 +241,7 @@ int Rpg::Events(){
 
           for(int i = 0; i < 3; i++){
             cd_skills_[0][i].setFillColor(Color::Red);
+            player_.skills_cd_[0][i] = false;
           }
         }else{ // CD não era o suficiente para o Samurai
           cout << "Não foi possível usar a skill" << endl;
@@ -257,7 +259,7 @@ int Rpg::Events(){
         }
 
         if(player_.stats_.mp >= player_.UserSkills(1).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
-          if(player_.classe_ == 1){
+          if(player_.classe_ == 0){
             player_.stats_.agi += player_.UserSkills(1).attributes_.agi;
             enemys_.front().stats_.hp += player_.UserSkills(1).attributes_.hp;
             cout << "Knight bufou a agilidade e causou dano" << endl;
@@ -269,6 +271,7 @@ int Rpg::Events(){
           
           for(int i = 0; i < 3; i++){
             cd_skills_[1][i].setFillColor(Color::Red);
+            player_.skills_cd_[1][i] = false;
           }
 
           player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
@@ -288,7 +291,7 @@ int Rpg::Events(){
         }
 
         if(player_.stats_.mp >= player_.UserSkills(2).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
-          if(player_.classe_ == 3){
+          if(player_.classe_ == 2){
             enemys_.front().stats_.hp += player_.UserSkills(2).attributes_.hp;
             enemys_.front().stats_.def += player_.UserSkills(2).attributes_.def;
             cout << "Samurai causou dano e reduziu a defesa do inimigo" << endl;
@@ -299,6 +302,7 @@ int Rpg::Events(){
           player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
           for(int i = 0; i < 3; i++){
             cd_skills_[2][i].setFillColor(Color::Red);
+            player_.skills_cd_[2][i] = false;
           }
           player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
         }else{ // Caso CD ou Mana não forem suficientes
@@ -450,6 +454,7 @@ void Rpg::Run(){
         }
 
         player_.stats_.mp += 5; // Regeneração natural de mana do Player
+        if(player_.stats_.mp <= 100){player_.stats_.mp = 100;}
 
         while(!Events() && window_->isOpen()){
           if(!window_->isOpen()){

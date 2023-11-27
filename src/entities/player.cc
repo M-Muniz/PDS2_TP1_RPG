@@ -31,7 +31,6 @@ Player::Player(string nome, int classe){
     img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }
-    
   img_player_.setScale(5,5);
 
   stats_.xp = 0;
@@ -39,6 +38,8 @@ Player::Player(string nome, int classe){
   name_ = nome;
 
   classe_ = classe;
+
+  skills_cd_.resize(3);
 
   for(int i = 0; i < 3; i++){
     Skill aux(classe, i);
