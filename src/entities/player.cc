@@ -17,16 +17,16 @@ Player::Player(string nome, int classe){
     stats_.hp = stats_.hp_max;
     stats_.atk = 1;
     stats_.def = 20;
-    stats_.agi = 0;
+    stats_.agi = 100;
     stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }else if(classe == 2){ // Classe Samurai
-    stats_.hp_max = 80;
+    stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 25;
+    stats_.atk = 1;
     stats_.def = 20;
-    stats_.agi = 30;
+    stats_.agi = 100;
     stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
     img_player_.setTexture(img_player_texture_);
