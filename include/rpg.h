@@ -40,9 +40,8 @@ public:
   Font font_; /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
-  vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
+  Enemy* inimigo1_; /**< Enemy. */
   vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
-  Enemy* inimigo1_;
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
   Item* item_drop_;
