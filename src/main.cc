@@ -18,11 +18,11 @@ int main(){
 
   Rpg* jogo = new Rpg(jogador);
   
-  jogo->Run();
-  
-  menu->~Menu();
   delete menu;
 
+  jogo->Run();
+  
+  delete jogo;
 
   menu = nullptr;
   jogo = nullptr;
