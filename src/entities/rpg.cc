@@ -273,7 +273,7 @@ int Rpg::Events(){
           DrawMessages("You miss");
         }
         return 1;
-      }else if(buttons_[1].getGlobalBounds().contains(mouse_coord_)){ // Skill I
+      }/*else if(buttons_[1].getGlobalBounds().contains(mouse_coord_)){ // Skill I
         cout << "Player usou a skill 1" << endl;
         bool test_cd_ = true;
         for(int i = 0; i < 3; i++){
@@ -378,7 +378,7 @@ int Rpg::Events(){
         }
 
         return 1;
-      }
+      }*/
     }
   }
   return 0;
@@ -605,15 +605,16 @@ void Rpg::Run(){
           player_status_[0].setSize(Vector2f(tam_x,21));
         }else{
           inimigo1_->SettaSprite(inimigo1_->ReturnSpriteAtk());
-          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
           DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteAtk());
           animaçao_completa_enemy_=0;
           frame_e_=0;
           frame_p_=0;
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
           while(frame_e_<(aux_e.frames-aux_p.frames)){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,0,0,0,true);
             Draw();
           }
+          aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
           player_.SettaSprite(player_.ReturnSpriteDef());
           while(!animaçao_completa_enemy_){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);

@@ -23,7 +23,6 @@ int main(){
   menu->~Menu();
   delete menu;
 
-  delete jogo;
 
   menu = nullptr;
   jogo = nullptr;

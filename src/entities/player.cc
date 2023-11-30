@@ -8,16 +8,16 @@ Player::Player(string nome, int classe){
     stats_.hp = stats_.hp_max;
     stats_.atk = 1;
     stats_.def = 30;
-    stats_.agi = 15;
+    stats_.agi = 100;
     stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }else if(classe == 1){ // Classe Mago
-    stats_.hp_max = 95;
+    stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 30;
+    stats_.atk = 1;
     stats_.def = 20;
-    stats_.agi = 20;
+    stats_.agi = 0;
     stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
     img_player_.setTexture(img_player_texture_);
@@ -138,6 +138,7 @@ void Player::SettaSprite(string png){
   img_player_.setTexture(img_player_texture_);
   img_player_.setScale(5,5);
 }
+//player c o Y aumenta 
 DadosAnimacao Player::ReturnDadosSprite(string png){
   DadosAnimacao aux;
   if (classe_ == 0){
@@ -165,11 +166,11 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }else if(png == "resources/mage/sprite_mage_protect.png"){
       aux={348,87,4};
-      img_player_.setPosition(125,285);
+      img_player_.setPosition(125,165);
       return aux;
     }else if(png == "resources/mage/sprite_mage_hurt.png"){
       aux={132,59,2};
-      img_player_.setPosition(125,285);
+      img_player_.setPosition(125,265);
       return aux;
     }else if(png == "resources/mage/sprite_mage_dead.png"){
       aux={340,59,4};
