@@ -6,7 +6,7 @@ Player::Player(string nome, int classe){
   if(classe == 0){ // Classe Guerreiro
     stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 1;
+    stats_.atk = 35;
     stats_.def = 30;
     stats_.agi = 100;
     stats_.mp = 100;
@@ -15,7 +15,7 @@ Player::Player(string nome, int classe){
   }else if(classe == 1){ // Classe Mago
     stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 1;
+    stats_.atk = 55;
     stats_.def = 20;
     stats_.agi = 100;
     stats_.mp = 100;
@@ -24,8 +24,8 @@ Player::Player(string nome, int classe){
   }else if(classe == 2){ // Classe Samurai
     stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 1;
-    stats_.def = 20;
+    stats_.atk = 45;
+    stats_.def = 25;
     stats_.agi = 100;
     stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
@@ -196,4 +196,5 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }
   }
+  return DadosAnimacao{0,0,0};
 } 

@@ -242,5 +242,6 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
       return aux;
     }
   }
+  return DadosAnimacao{0,0,0};
 }
 
