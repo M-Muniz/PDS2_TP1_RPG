@@ -75,6 +75,9 @@ bool Enemy::Def(int atk_player){
   }
 
 }
+
+
+Status Enemy::ReturnStatus(){return stats_;}
 void Enemy::BuffaInimigo(int inimigos_mortos){
   if(inimigos_mortos>=3){
     int multiplicador = inimigos_mortos/3;
@@ -241,3 +244,4 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
     }
   }
 }
+
