@@ -223,162 +223,15 @@ int Rpg::Events(){
       window_->close();
     }
     if(Mouse::isButtonPressed(Mouse::Left)){  
-      if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){
-        if(inimigo1_->Def(player_.Atk())){
-          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
-          player_.SettaSprite(player_.ReturnSpriteAtk());
-          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
-
-          DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
-          animaçao_completa_player_=0;
-          frame_e_=0;
-          frame_p_=0;
-          while(!animaçao_completa_player_){
-            Draw();
-            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
-          }
-          player_.SettaSprite(player_.ReturnSpriteIdle());
-          if(inimigo1_->stats_.hp>0){
-            inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
-          }
-          cout << "O jogador acertou o ataque."<< endl;
-          cout << "Inimigo esta com " << inimigo1_->stats_.hp << " de vida restante." << endl;
-          
-          float tam_x = 461*inimigo1_->stats_.hp/inimigo1_->stats_.hp_max;
-          enemy_status_.setSize(Vector2f(tam_x, 21));
-
-          stringstream aux;
-          string x;
-
-          aux << inimigo1_->stats_.hp;
-          aux >> x;
-
-          DrawMessages("The enemy has " + x + " of HP.");
-        }else{
-          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteDef());
-          player_.SettaSprite(player_.ReturnSpriteAtk());
-          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
-          DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteDef());
-          animaçao_completa_player_=0;
-          frame_e_=0;
-          frame_p_=0;
-          while(!animaçao_completa_player_){
-            Draw();
-            Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
-          }
-          player_.SettaSprite(player_.ReturnSpriteIdle());
-          inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
-          cout << "O jogador errou o ataque." <<endl;
-
-          DrawMessages("You miss");
-        }
-        return 1;
-      }/*else if(buttons_[1].getGlobalBounds().contains(mouse_coord_)){ // Skill I
-        cout << "Player usou a skill 1" << endl;
-        bool test_cd_ = true;
-        for(int i = 0; i < 3; i++){
-          if(!player_.skills_cd_[0][i]){
-            test_cd_ = false;
-          }
-        }
-        if(player_.classe_ != 2){ // Mago ou Cavaleiro usaram a skill
-          if(player_.stats_.mp >= player_.UserSkills(0).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
-            if(player_.classe_ == 0){
-              player_.stats_.hp += player_.UserSkills(0).attributes_.hp;
-              cout << "Knight bufou a vida" << endl;
-            }else if(player_.classe_ == 1){
-              player_.stats_.def += player_.UserSkills(0).attributes_.def;
-              cout << "Mage bufou a defesa" << endl;
-            }
-            player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
-
-            player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
-          }else{ // Caso CD ou Mana não forem suficientes
-            cout << "Não foi possível usar a skill" << endl;
-            DrawMessages("Skill isn't ready, you miss your turn");
-          }
-          for(int i = 0; i < 3; i++){
-            cd_skills_[0][i].setFillColor(Color::Red);
-            player_.skills_cd_[0][i] = false;
-          }
-        }else if(test_cd_){ // Samurai usou a skill
-          cout << "Samurai bufou a mana" << endl;
-          player_.stats_.mp += player_.UserSkills(0).attributes_.mp;
-
-          for(int i = 0; i < 3; i++){
-            cd_skills_[0][i].setFillColor(Color::Red);
-            player_.skills_cd_[0][i] = false;
-          }
-        }else{ // CD não era o suficiente para o Samurai
-          cout << "Não foi possível usar a skill" << endl;
-          DrawMessages("Skill isn't ready, you miss your turn");
-        }
-
-        return 1;
+      if(buttons_[0].getGlobalBounds().contains(mouse_coord_)){ // Ataque básico
+        return 1; 
+      }else if(buttons_[1].getGlobalBounds().contains(mouse_coord_)){ // Skill I
+        return 2;
       }else if(buttons_[2].getGlobalBounds().contains(mouse_coord_)){ // Skill 2
-        cout << "Player usou a skill 2" << endl;
-        bool test_cd_ = true;
-        for(int i = 0; i < 3; i++){
-          if(!player_.skills_cd_[1][i]){
-            test_cd_ = false;
-          }
-        }
-
-        if(player_.stats_.mp >= player_.UserSkills(1).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
-          if(player_.classe_ == 0){
-            player_.stats_.agi += player_.UserSkills(1).attributes_.agi;
-            enemys_.front().stats_.hp += player_.UserSkills(1).attributes_.hp;
-            cout << "Knight bufou a agilidade e causou dano" << endl;
-          }else{
-            enemys_.front().stats_.hp += player_.UserSkills(1).attributes_.hp;
-            cout << "Mage/Samurai causou dano" << endl;
-          }
-          player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
-          
-          for(int i = 0; i < 3; i++){
-            cd_skills_[1][i].setFillColor(Color::Red);
-            player_.skills_cd_[1][i] = false;
-          }
-
-          player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
-        }else{ // Caso CD ou Mana não forem suficientes
-          cout << "Não foi possível usar a skill" << endl;
-          DrawMessages("Skill isn't ready, you miss your turn");
-        }
-
-        return 1;
+        return 3;
       }else if(buttons_[3].getGlobalBounds().contains(mouse_coord_)){ // Skill 3
-        cout << "Player usou a skill 3" << endl;
-        bool test_cd_ = true;
-        for(int i = 0; i < 3; i++){
-          if(!player_.skills_cd_[2][i]){
-            test_cd_ = false;
-          }
-        }
-
-        if(player_.stats_.mp >= player_.UserSkills(2).attributes_.mp && test_cd_){ // Testa se CD e Mana estão ok
-          if(player_.classe_ == 2){
-            enemys_.front().stats_.hp += player_.UserSkills(2).attributes_.hp;
-            enemys_.front().stats_.def += player_.UserSkills(2).attributes_.def;
-            cout << "Samurai causou dano e reduziu a defesa do inimigo" << endl;
-          }else{
-            enemys_.front().stats_.hp += player_.UserSkills(2).attributes_.hp;
-            cout << "Mage/Knight causou dano" << endl;
-          }
-          player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
-          for(int i = 0; i < 3; i++){
-            cd_skills_[2][i].setFillColor(Color::Red);
-            player_.skills_cd_[2][i] = false;
-          }
-          player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
-        }else{ // Caso CD ou Mana não forem suficientes
-          cout << "Não foi possível usar a skill" << endl;
-          DrawMessages("Skill isn't ready, you miss your turn");
-
-        }
-
-        return 1;
-      }*/
+        return 4;
+      }
     }
   }
   return 0;
@@ -404,7 +257,6 @@ void Rpg::DrawMessages(string message){
   window_->display();
 
   //sleep(milliseconds(500));
-
 }
 
 void Rpg::DrawTexts(){
@@ -523,9 +375,25 @@ void Rpg::Run(){
         }
         player_.stats_.mp += 5; // Regeneração natural de mana do Player
         if(player_.stats_.mp <= 100){player_.stats_.mp = 100;}
-        while(!Events() && window_->isOpen()){
+
+        int evento = 0;
+
+        while(!evento){
           if(!window_->isOpen()){
             return;
+          }
+
+          evento = Events();
+
+          switch (evento){
+            case 1: // Ataque básico
+              break;
+            case 2: // Skill I
+              break;
+            case 3: // Skill II
+              break;
+            case 4: // Skill III
+              break;
           }
 
           Game(0,0,0,true,0,0,0,true);
