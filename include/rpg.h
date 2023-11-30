@@ -60,7 +60,9 @@ public:
   /**
    * @brief Destrutor da classe Rpg.
    */
-  ~Rpg();
+  ~Rpg(){
+    delete inimigo1_;
+  };
 
   /**
    * @brief Inicia o jogo de RPG.
