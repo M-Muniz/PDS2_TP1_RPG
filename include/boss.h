@@ -15,6 +15,15 @@ using namespace std;
 using namespace sf;
 
 /**
+ * @brief Estrutura de dados para a animaçao
+ */
+
+struct DadosAnimacao{
+  int largura;
+  int altura;
+  int frames;
+};
+/**
  * @brief Estrutura de dados para armezenas os status do objeto.
  */
 struct Status {

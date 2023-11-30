@@ -37,10 +37,51 @@ public:
   bool Def(int atk_player);
 
   /**
+   * @brief Aumenta os status desse inimigo baseado no numero de inimigos mortos.
+   * @param atk_player Numero de inimigos mortos.
+   */
+  void BuffaInimigo(int inimigos_mortos);
+
+  /**
    * @brief Retorna a struct de dados do inimigo.
    * @return A struct de dados do inimigo.
    */
   Status ReturnStatus();
+  /**
+   * @brief Retorna path relativo da animaçao de morte.
+   * @return O path relativo da animaçao de morte.
+   */
+  string ReturnSpriteMorte();
+    /**
+   * @brief Retorna path relativo da animaçao de ataque.
+   * @return O path relativo da animaçao de ataque.
+   */
+  string ReturnSpriteAtk();
+    /**
+   * @brief Retorna path relativo da animaçao de defesa.
+   * @return O path relativo da animaçao de defesa.
+   */
+  string ReturnSpriteDef();
+    /**
+   * @brief Retorna path relativo da animaçao de hurt.
+   * @return O path relativo da animaçao de hurt.
+   */
+  string ReturnSpriteTomou();
+   /**
+   * @brief Retorna path relativo da animaçao de idle.
+   * @return O path relativo da animaçao de idle.
+   */
+  string ReturnSpriteIdle();
+  /**
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
+   */
+  DadosAnimacao ReturnDadosSprite(string png);
+  /**
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
+   */
+  void SettaSprite(string Png);
 
 private:
   Status stats_; /**< Estrutura de dados que armazena os status do inimigo. */
