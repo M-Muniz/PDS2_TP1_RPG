@@ -4,7 +4,7 @@ Player::Player(){}
 
 Player::Player(string nome, int classe){
   if(classe == 0){ // Classe Guerreiro
-    stats_.hp_max = 110;
+    stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
     stats_.atk = 1;
     stats_.def = 30;
@@ -92,7 +92,6 @@ Skill Player::UserSkills(int index){return skills_[index];}
 
 Status Player::ReturnStatus(){return stats_;}
 
-Status Player::ReturnStatus(){return stats_;}
 
 string Player::ReturnSpriteMorte(){
   if (classe_ == 0){
@@ -144,7 +143,7 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
   if (classe_ == 0){
     if(png == "resources/knight/sprite_knight_atk1.png"){
       aux={555,75,5};
-      img_player_.setPosition(250,291);
+      img_player_.setPosition(260,260);
       return aux;
     }else if(png == "resources/knight/sprite_knight_protect.png"){
       aux={45,61,1};

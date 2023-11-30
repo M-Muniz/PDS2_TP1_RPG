@@ -88,8 +88,8 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p){
-  frame_p_ += 0.035;
-  frame_e_ += 0.035;
+  frame_p_ += 0.1;
+  frame_e_ += 0.1;
   SetAnimePlayer(x_p,y_p,z_p,idle_p);
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
 }
@@ -505,7 +505,7 @@ void Rpg::Draw() {
 
 void Rpg::Run(){
   float tam_x;
-  int inimigos_mortos=0
+  int inimigos_mortos=0;
   while(window_->isOpen()){
     for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
       Game(0,0,0,true,0,0,0,true);
@@ -583,7 +583,7 @@ void Rpg::Run(){
             animaçao_completa_player_=0;
             frame_p_=0;
             while(!animaçao_completa_player_){
-              Game(0,0,0,true,aux.largura,aux.altura,aux.frames,true);
+              Game(0,0,0,true,aux.largura,aux.altura,aux.frames,false);
               Draw();  
             }
             cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;

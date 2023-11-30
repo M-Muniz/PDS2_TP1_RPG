@@ -88,7 +88,6 @@ void Enemy::BuffaInimigo(int inimigos_mortos){
     stats_.xp -=multiplicador;
   }
 }
-Status Enemy::ReturnStatus(){return stats_;}
 
 string Enemy::ReturnSpriteMorte(){
   if(name_ == "Spear Skeleton"){
@@ -229,7 +228,7 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
       if(name_ == "Big Werewolf"){
         img_enemy_.setPosition(1200,260);
       }else{
-        img_enemy_.setPosition(1000,350);
+        img_enemy_.setPosition(1000,400);
       }
       return aux;
     }
