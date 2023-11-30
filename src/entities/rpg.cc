@@ -157,6 +157,8 @@ void Rpg::ItemDraw(){
   while(!animaçao_completa_enemy_){
     Game(aux.largura,aux.altura,aux.frames,false,0,0,0,true);
     Draw();
+    FloatRect rect = item_drop_->img_item_.getLocalBounds();
+    item_drop_->img_item_.setPosition((window_->getSize().x - rect.width) / 2,490);
     window_->draw(item_drop_->img_item_);
     window_->display();
   }
@@ -409,7 +411,7 @@ void Rpg::Run(){
           Game(0,0,0,true,0,0,0,true);
           Draw();
         }
-      }else{
+
         if(inimigo1_->stats_.hp <= 0 ){
           player_.Upar(inimigo1_->stats_.xp);
           inimigos_mortos++;
