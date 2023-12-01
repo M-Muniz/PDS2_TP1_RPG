@@ -101,6 +101,8 @@ string Player::ReturnSpriteMorte(){
   }
   return "resources/samurai/sprite_samurai_dead.png";
 }
+
+
 string Player::ReturnSpriteAtk(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_atk1.png";
@@ -109,6 +111,8 @@ string Player::ReturnSpriteAtk(){
   }
   return "resources/samurai/sprite_samurai_atk1.png";
 } 
+
+
 string Player::ReturnSpriteTomou(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_hurt.png";
@@ -117,6 +121,8 @@ string Player::ReturnSpriteTomou(){
   }
   return "resources/samurai/sprite_samurai_hurt.png";
 }
+
+
 string Player::ReturnSpriteDef(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_protect.png";
@@ -125,6 +131,8 @@ string Player::ReturnSpriteDef(){
   }
   return "resources/samurai/sprite_samurai_protection.png";
 }
+
+
 string Player::ReturnSpriteIdle(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_default.png";
@@ -133,12 +141,54 @@ string Player::ReturnSpriteIdle(){
   }
   return "resources/samurai/sprite_samurai_default.png";
 }
+string Player::ReturnSpriteSkill(int index){
+  if (classe_ == 0){
+    switch (index){
+    case 0:
+      return "resources/knight/sprite_knight_pray.png";
+      break;
+    case 1:
+      return "resources/knight/sprite_knight_atk2.png";
+      break;
+    case 2: 
+      return "resources/knight/sprite_knight_atk3.png";
+      break;
+    }
+  }else if (classe_ == 1){
+    switch (index){
+    case 0:
+      return "resources/mage/sprite_mage_arrow.png";
+      break;
+    case 1:
+      return "resources/mage/sprite_mage_atk1.png";
+      break;
+    case 2: 
+      return "resources/mage/sprite_mage_sphere.png";
+      //combinar com a resources/mage/sprite_mage_sphere_charge.png
+      break;
+    }
+  }else{
+    switch (index){
+    case 0:
+      return "resources/samurai/sprite_samurai_focus.png";
+      break;
+    case 1:
+      return "resources/samurai/sprite_samurai_atk2.png";
+      break;
+    case 2: 
+      return "resources/samurai/sprite_samurai_atk3.png";
+      break;
+    }
+  }
+}
+
 void Player::SettaSprite(string png){
   img_player_texture_.loadFromFile(png);
   img_player_.setTexture(img_player_texture_);
   img_player_.setScale(5,5);
 }
-//player c o Y aumenta 
+
+
 DadosAnimacao Player::ReturnDadosSprite(string png){
   DadosAnimacao aux;
   if (classe_ == 0){
