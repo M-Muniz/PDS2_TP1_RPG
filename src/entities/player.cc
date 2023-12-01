@@ -210,15 +210,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       img_player_.setPosition(150,300);
       return aux;
     }else if(png == "resources/knight/sprite_knight_pray.png"){
-      aux={480,60,6};
+      aux={250,74,5};
       img_player_.setPosition(150,300);
       return aux;
     }else if(png == "resources/knight/sprite_knight_atk2.png"){
-      aux={480,60,6};
+      aux={424,76,4};
       img_player_.setPosition(150,300);
       return aux;
     }else if(png == "resources/knight/sprite_knight_atk3.png"){
-      aux={480,60,6};
+      aux={600,65,6};
       img_player_.setPosition(150,300);
       return aux;
     }
@@ -240,15 +240,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       img_player_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_arrow.png"){
-      aux={340,59,4};
+      aux={450,66,6};
       img_player_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_atk1.png"){
-      aux={340,59,4};
+      aux={770,100,7};
       img_player_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_sphere.png"){
-      aux={340,59,4};
+      aux={1440,66,16};
       img_player_.setPosition(125,285);
       return aux;
     }
@@ -270,15 +270,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_focus.png"){
-      aux={480,67,6};
+      aux={345,80,5};
       img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_atk2.png"){
-      aux={480,67,6};
+      aux={864,105,8};
       img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_atk3.png"){
-      aux={480,67,6};
+      aux={840,74,7};
       img_player_.setPosition(110,265);
       return aux;
     }
