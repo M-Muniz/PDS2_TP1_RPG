@@ -180,6 +180,7 @@ string Player::ReturnSpriteSkill(int index){
       break;
     }
   }
+  return " ";//pra nao gerar um warning
 }
 
 void Player::SettaSprite(string png){
@@ -208,6 +209,18 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       aux={480,60,6};
       img_player_.setPosition(150,300);
       return aux;
+    }else if(png == "resources/knight/sprite_knight_pray.png"){
+      aux={480,60,6};
+      img_player_.setPosition(150,300);
+      return aux;
+    }else if(png == "resources/knight/sprite_knight_atk2.png"){
+      aux={480,60,6};
+      img_player_.setPosition(150,300);
+      return aux;
+    }else if(png == "resources/knight/sprite_knight_atk3.png"){
+      aux={480,60,6};
+      img_player_.setPosition(150,300);
+      return aux;
     }
   }else if(classe_ == 1 ){
     if(png == "resources/mage/sprite_mage_atk2.png"){
@@ -226,6 +239,18 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       aux={340,59,4};
       img_player_.setPosition(125,285);
       return aux;
+    }else if(png == "resources/mage/sprite_mage_arrow.png"){
+      aux={340,59,4};
+      img_player_.setPosition(125,285);
+      return aux;
+    }else if(png == "resources/mage/sprite_mage_atk1.png"){
+      aux={340,59,4};
+      img_player_.setPosition(125,285);
+      return aux;
+    }else if(png == "resources/mage/sprite_mage_sphere.png"){
+      aux={340,59,4};
+      img_player_.setPosition(125,285);
+      return aux;
     }
   }else if(classe_ == 2){
     if(png == "resources/samurai/sprite_samurai_atk1.png"){
@@ -241,6 +266,18 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       img_player_.setPosition(110,265);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_dead.png"){
+      aux={480,67,6};
+      img_player_.setPosition(110,265);
+      return aux;
+    }else if(png == "resources/samurai/sprite_samurai_focus.png"){
+      aux={480,67,6};
+      img_player_.setPosition(110,265);
+      return aux;
+    }else if(png == "resources/samurai/sprite_samurai_atk2.png"){
+      aux={480,67,6};
+      img_player_.setPosition(110,265);
+      return aux;
+    }else if(png == "resources/samurai/sprite_samurai_atk3.png"){
       aux={480,67,6};
       img_player_.setPosition(110,265);
       return aux;
