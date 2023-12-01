@@ -88,7 +88,7 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p){
-  frame_p_ += 0.035;
+  frame_p_ += 0.5;
   frame_e_ += 0.035;
   SetAnimePlayer(x_p,y_p,z_p,idle_p);
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
@@ -403,17 +403,22 @@ void Rpg::Run(){
             case 1: // Ataque básico
               cout << "Player usou o AA" << endl;
               if(inimigo1_->Def(player_.Atk())){
-                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                
                 player_.SettaSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
-
                 DadosAnimacao aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
                 animaçao_completa_player_ = 0;
                 frame_e_ = 0;
                 frame_p_ = 0;
-                while(!animaçao_completa_player_){
+                while(frame_p_ < (aux_p.frames-aux_e.frames)){
+                  Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
+                }
+                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                while(!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
                 if(inimigo1_->stats_.hp > 0){
