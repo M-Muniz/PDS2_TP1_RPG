@@ -549,6 +549,7 @@ void Rpg::Run(){
                 }
 
                 player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+                
               }else{ // Caso CD ou Mana não forem suficientes
                 cout << "Não foi possível usar a skill" << endl;
                 DrawMessages("Skill isn't ready, you miss your turn");
@@ -566,6 +567,25 @@ void Rpg::Run(){
                   cout << "Mage/Knight causou dano" << endl;
                 }
                 player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+                player_.SettaSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                animaçao_completa_player_=0;
+                frame_p_=0;
+                while(frame_p_<(aux_p.frames-aux_e.frames)){
+                  Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
+                }
+                aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                while (!animaçao_completa_player_){
+                  Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+                if(inimigo1_->stats_.hp > 0){
+                  inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+                }
                 for(int i = 0; i < 3; i++){
                   cd_skills_[2][i].setFillColor(Color::Red);
                   player_.skills_cd_[2][i] = false;
