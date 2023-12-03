@@ -103,44 +103,43 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
       frame=7;
       largura=67;
       altura=59;
-      inimigo1_->img_enemy_.setPosition(1050,320);
+      inimigo1_->img_entity_.setPosition(1050,320);
     }
-    inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+    inimigo1_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){ 
       frame_e_-=frame;
       animaçao_completa_enemy_=1;                     
     }
-     }else if(inimigo1_->name_ =="Small Werewolf"||inimigo1_->name_ =="Big Werewolf"){
-        if (idle == true){
-          frame=8;
-          largura=80;
-          altura=59;
-          if(inimigo1_->name_ =="Small Werewolf"){
-            inimigo1_->img_enemy_.setPosition(1050,450);
-          }
-          if(inimigo1_->name_ =="Big Werewolf"){
-          inimigo1_->img_enemy_.setPosition(1200,270);
-          }
-        }
-        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
-        if(frame_e_ > frame){
-          frame_e_-=frame;
-          animaçao_completa_enemy_=1; 
-        }
-      }else if(inimigo1_->name_ =="Spear Skeleton"){
-        if (idle == true){
-        frame=7;
-        largura=67;
-        altura=84;
-        inimigo1_->img_enemy_.setPosition(1100,215);
-        }
-        inimigo1_->img_enemy_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
-        if(frame_e_ > frame){
-          frame_e_ -= frame;
-          animaçao_completa_enemy_=1; 
-        }
+  }else if(inimigo1_->name_ =="Small Werewolf"||inimigo1_->name_ =="Big Werewolf"){
+    if (idle == true){
+      frame=8;
+      largura=80;
+      altura=59;
+      if(inimigo1_->name_ =="Small Werewolf"){
+        inimigo1_->img_entity_.setPosition(1050,450);
       }
-
+      if(inimigo1_->name_ =="Big Werewolf"){
+      inimigo1_->img_entity_.setPosition(1200,270);
+      }
+    }
+    inimigo1_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+    if(frame_e_ > frame){
+      frame_e_-=frame;
+      animaçao_completa_enemy_=1; 
+    }
+  }else if(inimigo1_->name_ =="Spear Skeleton"){
+    if (idle == true){
+    frame=7;
+    largura=67;
+    altura=84;
+    inimigo1_->img_entity_.setPosition(1100,215);
+    }
+    inimigo1_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
+    if(frame_e_ > frame){
+      frame_e_ -= frame;
+      animaçao_completa_enemy_=1; 
+    }
+  }
  }
 
 void Rpg::ItemDraw(){
@@ -172,9 +171,9 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       largura=67;
       altura=64;
       frame=4;
-      player_.img_player_.setPosition(150,300);
+      player_.img_entity_.setPosition(150,300);
     }
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
+    player_.img_entity_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
     if (frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
@@ -185,23 +184,23 @@ void Rpg::SetAnimePlayer(int largura,int altura,int frame,bool idle){
       largura=67;
       altura=67;
       frame=8;
-      player_.img_player_.setPosition(125,285);
+      player_.img_entity_.setPosition(125,285);
     }
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));    
+    player_.img_entity_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));    
     if(frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
     }
 
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
+    player_.img_entity_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
   }else if(player_.classe_ == 2){
     if(idle == true){
       largura=67;
       altura=70;
       frame=6;
-      player_.img_player_.setPosition(110,265);
+      player_.img_entity_.setPosition(110,265);
     }
-    player_.img_player_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
+    player_.img_entity_.setTextureRect(IntRect(largura*(int)frame_p_,0,largura,altura));
     if(frame_p_ > frame){
       frame_p_ -= frame;
       animaçao_completa_player_=1;
@@ -348,8 +347,8 @@ void Rpg::Draw() {
     window_->draw(player_status_[i]);
   }
   window_->draw(enemy_status_);
-  window_->draw(inimigo1_->img_enemy_);
-  window_->draw(player_.img_player_);
+  window_->draw(inimigo1_->img_entity_);
+  window_->draw(player_.img_entity_);
   
   DrawTexts();
   window_->display();
