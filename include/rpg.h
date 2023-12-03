@@ -30,7 +30,7 @@ public:
   Texture bg; /**< Textura para importar para o backgroud da tela. */
   shared_ptr<Sprite> background; /**< Background da tela. */
     
-  RectangleShape enemy_status_; /**< Barra de vida do inimigo. */    
+  RectangleShape opponent_status_; /**< Barra de vida do inimigo. */    
   vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
   vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
   vector<vector<RectangleShape>> cd_skills_; /**< Mostradores para o cooldown das skills do player. */
@@ -40,14 +40,17 @@ public:
   Font font_; /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
-  Enemy* inimigo1_; /**< Enemy. */
-  vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
+  // Enemy* inimigo_; /**< Enemy. */
+  // Boss* boss_; /**< Boss.*/
+  Entity* opponent_; /**< Enemy/Boss a ser enfrentado. */
+  Item* item_drop_; /**< Item dropado por cada enemy/boss vencido. */
+
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
-  Item* item_drop_;
 
-  int animaçao_completa_enemy_;
-  int animaçao_completa_player_;
+
+  int animaçao_completa_enemy_; /**< Aramazena dados da animação do enemy. */
+  int animaçao_completa_player_; /**< Aramazena dados da animação do player. */
 
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 
@@ -61,7 +64,7 @@ public:
    * @brief Destrutor da classe Rpg.
    */
   ~Rpg(){
-    delete inimigo1_;
+    delete opponent_;
   };
 
   /**

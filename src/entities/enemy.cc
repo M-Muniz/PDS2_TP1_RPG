@@ -59,17 +59,6 @@ Enemy::Enemy() : Entity(){
 
 }
 
-void Enemy::BuffaInimigo(int inimigos_mortos){
-  if(inimigos_mortos>=3){
-    int multiplicador = inimigos_mortos/3;
-    stats_.hp_max *= (1.05*multiplicador);
-    stats_.hp =stats_.hp_max;
-    stats_.atk *= (1.05*multiplicador);
-    stats_.def *= (1.05*multiplicador);
-    stats_.xp -=multiplicador;
-  }
-}
-
 string Enemy::ReturnSpriteMorte(){
   if(name_ == "Spear Skeleton"){
     return "resources/spear_skeleton/sprite_spearskeleton_dead.png";
