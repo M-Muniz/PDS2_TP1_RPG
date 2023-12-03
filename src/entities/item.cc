@@ -72,4 +72,3 @@ void Item::Sum(Player& usr){
   usr.stats_.xp += attributes_.xp;
   usr.stats_.agi += attributes_.agi;
 }
-

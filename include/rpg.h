@@ -40,12 +40,12 @@ public:
   Font font_; /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
-  vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
+  Enemy* inimigo1_; /**< Enemy. */
   vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
-  Enemy* inimigo1_;
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
   Item* item_drop_;
+
   int animaçao_completa_enemy_;
   int animaçao_completa_player_;
 
@@ -56,7 +56,14 @@ public:
    * @brief Construtor da classe Rpg.
    */
   Rpg(Player jogador);
-    
+  
+  /**
+   * @brief Destrutor da classe Rpg.
+   */
+  ~Rpg(){
+    delete inimigo1_;
+  };
+
   /**
    * @brief Inicia o jogo de RPG.
    */
@@ -103,18 +110,12 @@ public:
   /**
    * @brief Anima a janela do jogo.
    */
+
   void Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p);
+
   /**
    * @brief Desenha os itens na tela
    */
   void ItemDraw();
-    /**
-   * @brief Funçao generica pra realizar trocas de animaçoes do jogador
-   */
-  void AnimacaoGenericaPlayer();
-  /**
-   * @brief Funçao generica pra realizar trocas de animaçoes dos inimigos
-   */
-  void AnimacaoGenericaEnemy(string Png);
 };
 #endif

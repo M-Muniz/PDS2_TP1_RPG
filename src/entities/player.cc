@@ -4,34 +4,33 @@ Player::Player(){}
 
 Player::Player(string nome, int classe){
   if(classe == 0){ // Classe Guerreiro
-    stats_.hp_max = 110;
+    stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 1;
+    stats_.atk = 35;
     stats_.def = 30;
-    stats_.agi = 15;
-    stats_.mp = 20;
+    stats_.agi = 100;
+    stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }else if(classe == 1){ // Classe Mago
-    stats_.hp_max = 95;
+    stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 30;
+    stats_.atk = 55;
     stats_.def = 20;
-    stats_.agi = 20;
-    stats_.mp = 30;
+    stats_.agi = 100;
+    stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }else if(classe == 2){ // Classe Samurai
-    stats_.hp_max = 80;
+    stats_.hp_max = 1;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 25;
-    stats_.def = 20;
-    stats_.agi = 30;
-    stats_.mp = 20;
+    stats_.atk = 45;
+    stats_.def = 25;
+    stats_.agi = 100;
+    stats_.mp = 100;
     img_player_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
     img_player_.setTexture(img_player_texture_);
   }
-    
   img_player_.setScale(5,5);
 
   stats_.xp = 0;
@@ -40,9 +39,14 @@ Player::Player(string nome, int classe){
 
   classe_ = classe;
 
+  skills_cd_.resize(3);
+
   for(int i = 0; i < 3; i++){
     Skill aux(classe, i);
     skills_.push_back(aux);
+    for(int j = 0; j < 3; j++){
+      skills_cd_[i].push_back(true);
+    }
   }
 }
 
@@ -83,7 +87,11 @@ void Player::Upar(int xp){
   return;
 }
 
+
+Skill Player::UserSkills(int index){return skills_[index];}
+
 Status Player::ReturnStatus(){return stats_;}
+
 
 string Player::ReturnSpriteMorte(){
   if (classe_ == 0){
@@ -130,12 +138,13 @@ void Player::SettaSprite(string png){
   img_player_.setTexture(img_player_texture_);
   img_player_.setScale(5,5);
 }
+//player c o Y aumenta 
 DadosAnimacao Player::ReturnDadosSprite(string png){
   DadosAnimacao aux;
   if (classe_ == 0){
     if(png == "resources/knight/sprite_knight_atk1.png"){
       aux={555,75,5};
-      img_player_.setPosition(250,291);
+      img_player_.setPosition(260,260);
       return aux;
     }else if(png == "resources/knight/sprite_knight_protect.png"){
       aux={45,61,1};
@@ -157,11 +166,11 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }else if(png == "resources/mage/sprite_mage_protect.png"){
       aux={348,87,4};
-      img_player_.setPosition(125,285);
+      img_player_.setPosition(125,165);
       return aux;
     }else if(png == "resources/mage/sprite_mage_hurt.png"){
       aux={132,59,2};
-      img_player_.setPosition(125,285);
+      img_player_.setPosition(125,265);
       return aux;
     }else if(png == "resources/mage/sprite_mage_dead.png"){
       aux={340,59,4};
@@ -187,4 +196,5 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }
   }
+  return DadosAnimacao{0,0,0};
 } 
