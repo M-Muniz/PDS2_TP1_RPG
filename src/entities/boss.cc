@@ -135,5 +135,4 @@ DadosAnimacao Boss::ReturnDadosSprite(string png){
   //   }
   // }
   return DadosAnimacao{0,0,0};
-} 
-
+}

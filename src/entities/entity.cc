@@ -49,4 +49,3 @@ string Entity::ReturnSpriteTomou(){return "";};
 DadosAnimacao Entity::ReturnDadosSprite(string png){return DadosAnimacao{0,0,0};};
 
 void Entity::SettaSprite(string Png){};
-
