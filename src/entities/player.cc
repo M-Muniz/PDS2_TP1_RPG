@@ -79,6 +79,7 @@ string Player::ReturnSpriteMorte(){
   }
   return "resources/samurai/sprite_samurai_dead.png";
 }
+
 string Player::ReturnSpriteAtk(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_atk1.png";
@@ -87,6 +88,7 @@ string Player::ReturnSpriteAtk(){
   }
   return "resources/samurai/sprite_samurai_atk1.png";
 } 
+
 string Player::ReturnSpriteTomou(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_hurt.png";
@@ -95,6 +97,7 @@ string Player::ReturnSpriteTomou(){
   }
   return "resources/samurai/sprite_samurai_hurt.png";
 }
+
 string Player::ReturnSpriteDef(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_protect.png";
@@ -103,6 +106,7 @@ string Player::ReturnSpriteDef(){
   }
   return "resources/samurai/sprite_samurai_protection.png";
 }
+
 string Player::ReturnSpriteIdle(){
   if (classe_ == 0){
     return "resources/knight/sprite_knight_default.png";
@@ -116,6 +120,7 @@ void Player::SettaSprite(string png){
   img_entity_.setTexture(img_entity_texture_);
   img_entity_.setScale(5,5);
 }
+
 //player c o Y aumenta 
 DadosAnimacao Player::ReturnDadosSprite(string png){
   DadosAnimacao aux;

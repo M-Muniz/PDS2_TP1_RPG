@@ -36,6 +36,7 @@ struct Status {
  * @brief Classe base que representa uma entidade no jogo.
  */
 class Entity {
+friend class Rpg;
 public:
   /**
    * @brief Construtor da classe Entity.
@@ -59,6 +60,8 @@ public:
    * @return Verdadeiro se a entidade não esquivou, falso se esquivou.
    */
   bool Def(int atk_opponent);
+
+  void BuffaInimigo(int inimigos_mortos);
 
   /**
    * @brief Retorna a struct de dados de status da entidade.

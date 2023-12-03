@@ -21,6 +21,17 @@ bool Entity::Def(int atk_opponent){
   }
 }
 
+void Entity::BuffaInimigo(int inimigos_mortos){
+  if(inimigos_mortos >= 3){
+    int multiplicador = inimigos_mortos/3;
+    stats_.hp_max *= (1.05*multiplicador);
+    stats_.hp =stats_.hp_max;
+    stats_.atk *= (1.05*multiplicador);
+    stats_.def *= (1.05*multiplicador);
+    stats_.xp -= multiplicador;
+  }
+}
+
 Status Entity::ReturnStatus(){return stats_;};
 
 Skill Entity::EntitySkills(int index){return skills_[index];};
@@ -38,4 +49,3 @@ string Entity::ReturnSpriteTomou(){return "";};
 DadosAnimacao Entity::ReturnDadosSprite(string png){return DadosAnimacao{0,0,0};};
 
 void Entity::SettaSprite(string Png){};
-
