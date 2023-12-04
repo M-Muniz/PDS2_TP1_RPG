@@ -1,5 +1,5 @@
 /**
- * @file player.cpp
+ * @file player.cc
  * @brief Implementação da classe Player.
  */
 

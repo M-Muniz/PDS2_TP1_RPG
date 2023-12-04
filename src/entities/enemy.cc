@@ -1,5 +1,5 @@
 /**
- * @file enemy.cpp
+ * @file enemy.cc
  * @brief Implementação da classe Enemy.
  */
 

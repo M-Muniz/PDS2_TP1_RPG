@@ -1,5 +1,5 @@
 /**
- * @file item.cpp
+ * @file item.cc
  * @brief Implementação da classe Item.
  */
 

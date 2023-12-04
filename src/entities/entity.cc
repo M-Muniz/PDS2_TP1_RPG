@@ -1,5 +1,5 @@
 /**
- * @file entity.cpp
+ * @file entity.cc
  * @brief Implementação da classe Entity.
  */
 

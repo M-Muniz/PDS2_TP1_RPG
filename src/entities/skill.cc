@@ -1,5 +1,5 @@
 /**
- * @file skill.cpp
+ * @file skill.cc
  * @brief Implementação da classe Skill.
  */
 

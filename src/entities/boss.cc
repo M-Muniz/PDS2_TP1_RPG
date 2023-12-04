@@ -1,5 +1,5 @@
 /**
- * @file boss.cpp
+ * @file boss.cc
  * @brief Implementação da classe Boss.
  */
 
