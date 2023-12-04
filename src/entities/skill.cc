@@ -3,7 +3,7 @@
 Skill::Skill(int classe, int index) {
     if (classe == 0) {  // Knight
         if (index == 0) {
-            attributes_.mp = 15; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.mp = 30; // Custo de mana da skill (tem que ser positivo pra comparação)
             attributes_.hp = 20;  // Aumenta HP do jogador
             // img_skill_texture_.loadFromFile("resources/knight/knight_hp.png");
         } else if (index == 1) {

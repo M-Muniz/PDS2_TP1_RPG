@@ -6,8 +6,8 @@ Entity::~Entity(){};
 
 int Entity::Atk(){  
   float variancia = rand() % 41; //gera um numero entre 0 e 40
-  variancia +=80; //faz com que esse numero esteja entre 80 e 120
-  variancia/=100; //numero agr esta entre 0.8 e 1.2;
+  variancia += 80; //faz com que esse numero esteja entre 80 e 120
+  variancia /= 100; //numero agr esta entre 0.8 e 1.2;
   return (stats_.atk*variancia);
   }
 
