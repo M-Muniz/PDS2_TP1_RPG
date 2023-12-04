@@ -101,21 +101,21 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
   }
   if(opponent_->name_ =="Sword Skeleton"){
     if (idle == true){
-      frame=7;
-      largura=67;
-      altura=59;
+      frame = 7;
+      largura = 67;
+      altura = 59;
       opponent_->img_entity_.setPosition(1050,320);
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){ 
-      frame_e_-=frame;
-      animaçao_completa_enemy_=1;                     
+      frame_e_ -= frame;
+      animaçao_completa_enemy_ = 1;                     
     }
   }else if(opponent_->name_ =="Small Werewolf"||opponent_->name_ =="Big Werewolf"){
     if (idle == true){
-      frame=8;
-      largura=80;
-      altura=59;
+      frame = 8;
+      largura = 80;
+      altura = 59;
       if(opponent_->name_ =="Small Werewolf"){
         opponent_->img_entity_.setPosition(1050,450);
       }
@@ -125,31 +125,31 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){
-      frame_e_-=frame;
-      animaçao_completa_enemy_=1; 
+      frame_e_ -= frame;
+      animaçao_completa_enemy_ = 1; 
     }
   }else if(opponent_->name_ =="Spear Skeleton"){
     if (idle == true){
-      altura=84;
-      altura=67;
-      frame=7;
+      altura = 84;
+      altura = 67;
+      frame = 7;
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){
       frame_e_ -= frame;
-      animaçao_completa_enemy_=1; 
+      animaçao_completa_enemy_ = 1; 
     }
   }else if(opponent_->name_ =="Is'Abelu"){
     if (idle == true){
-      largura=110;
-      altura=111;
-      frame=8;
+      largura = 110;
+      altura = 111;
+      frame = 8;
       opponent_->img_entity_.setPosition(1300,0);
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){
       frame_e_ -= frame;
-      animaçao_completa_enemy_=1; 
+      animaçao_completa_enemy_ = 1; 
     }
   }
  }
@@ -270,7 +270,7 @@ void Rpg::DrawMessages(string message){
   window_->draw(text_message);
   window_->display();
 
-  sleep(milliseconds(100));
+  sleep(milliseconds(250));
 }
 
 void Rpg::DrawTexts(){
@@ -375,7 +375,7 @@ void AtaqueBasicoPlayer(){
 
 void Rpg::Run(){
   float tam_x;
-  int inimigos_mortos=0,turnos_sem_usar_skill=0;
+  int inimigos_mortos = 0, turnos_sem_usar_skill = 0;
 
   while(window_->isOpen()){
     for(int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++){
@@ -422,15 +422,19 @@ void Rpg::Run(){
                 player_.SettaSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
+                
                 while(frame_p_ < (aux_p.frames-aux_e.frames)){
                   Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
                 opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+                
                 aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
                 frame_e_ = 0;
+                
                 while(!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
@@ -456,22 +460,25 @@ void Rpg::Run(){
               }else{
                 opponent_->SettaSprite(opponent_->ReturnSpriteDef());
                 player_.SettaSprite(player_.ReturnSpriteAtk());
+
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteDef());
 
-                animaçao_completa_player_=0;
-                frame_e_=0;
-                frame_p_=0;
+                animaçao_completa_player_ = 0;
+                frame_e_ = 0;
+                frame_p_ = 0;
+
                 while(!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
-                player_.SettaSprite(player_.ReturnSpriteIdle());
-                opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
 
                 cout << "O jogador errou o ataque." <<endl;
 
                 DrawMessages("You miss");
+
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+                opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
               }
               break;
             case 2: // Skill I
@@ -657,41 +664,49 @@ void Rpg::Run(){
           cout << "O novo inimigo gerado aleatoriamente é um " << opponent_->name_ << "." << endl;
 
           opponent_status_.setSize(Vector2f(461, 21));
-        }else if(opponent_->name_ == "Is'Abelu" && ((rand() % 100)*turnos_sem_usar_skill>=150)){
+        }else if(opponent_->name_ == "Is'Abelu" && ((rand() % 100)*turnos_sem_usar_skill >= 150)){
           player_.stats_.hp -= opponent_->EntitySkills(0).attributes_.hp;
           opponent_->SettaSprite("resources/boss/sprite_boss_skill.png");
+
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite("resources/boss/sprite_boss_skill.png");
-          animaçao_completa_enemy_=0;
-          frame_e_=0;
-          frame_p_=0;
+
+          animaçao_completa_enemy_ = 0;
+          frame_e_ = 0;
+          frame_p_ = 0;
+
           while(frame_e_<(aux_e.frames-aux_p.frames)){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,0,0,0,true);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteTomou());
           aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
+          
           while(!animaçao_completa_enemy_){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
           opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
-          turnos_sem_usar_skill=0;
-          cout <<"castou a skill" << endl;
+          turnos_sem_usar_skill = 0;
+          cout << "Boss castou a skill" << endl;
         }
         else if(player_.Def(opponent_->Atk())){
           opponent_->SettaSprite(opponent_->ReturnSpriteAtk());
+
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteAtk());
-          animaçao_completa_enemy_=0;
-          frame_e_=0;
-          frame_p_=0;
+
+          animaçao_completa_enemy_ = 0;
+          frame_e_ = 0;
+          frame_p_ = 0;
+
           while(frame_e_<(aux_e.frames-aux_p.frames)){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,0,0,0,true);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteTomou());
+
           while(!animaçao_completa_enemy_){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
@@ -699,6 +714,7 @@ void Rpg::Run(){
           player_.SettaSprite(player_.ReturnSpriteIdle());
           opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
           turnos_sem_usar_skill++;
+
           stringstream aux;
           string x;
 
@@ -706,6 +722,12 @@ void Rpg::Run(){
           aux >> x;
 
           DrawMessages("You has " + x + " of HP.");
+
+          tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
+
+          if(tam_x > 461){tam_x = 461; player_.stats_.hp = player_.stats_.hp_max;}
+
+          player_status_[0].setSize(Vector2f(tam_x,21));
 
           if(player_.stats_.hp <= 0){
             player_status_[0].setSize(Vector2f(0,21));
@@ -731,19 +753,13 @@ void Rpg::Run(){
 
             window_->close();
           }
-
-          tam_x = 461*player_.stats_.hp/player_.stats_.hp_max;
-
-          if(tam_x > 461){tam_x = 461;}
-
-          player_status_[0].setSize(Vector2f(tam_x,21));
         }else{
           opponent_->SettaSprite(opponent_->ReturnSpriteAtk());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteAtk());
 
-          animaçao_completa_enemy_=0;
-          frame_e_=0;
-          frame_p_=0;
+          animaçao_completa_enemy_ = 0;
+          frame_e_ = 0;
+          frame_p_ = 0;
 
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
 
@@ -765,7 +781,7 @@ void Rpg::Run(){
           cout << "Inimigo errou o golpe." << endl;
           turnos_sem_usar_skill++;
 
-          DrawMessages("Enemy miss");
+          DrawMessages("Opponent miss");
         }
       }
       Draw();

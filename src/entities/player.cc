@@ -5,29 +5,29 @@ Player::Player() : Entity(){}
 
 Player::Player(string nome, int classe) : Entity(){
   if(classe == 0){ // Classe Guerreiro
-    stats_.hp_max = 1;
+    stats_.hp_max = 100;
     stats_.hp = stats_.hp_max;
     stats_.atk = 35;
     stats_.def = 30;
-    stats_.agi = 100;
+    stats_.agi = 10;
     stats_.mp = 100;
     img_entity_texture_.loadFromFile("resources/knight/sprite_knight_default.png"); 
     img_entity_.setTexture(img_entity_texture_);
   }else if(classe == 1){ // Classe Mago
-    stats_.hp_max = 1;
+    stats_.hp_max = 85;
     stats_.hp = stats_.hp_max;
     stats_.atk = 55;
     stats_.def = 20;
-    stats_.agi = 100;
+    stats_.agi = 10;
     stats_.mp = 100;
     img_entity_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
     img_entity_.setTexture(img_entity_texture_);
   }else if(classe == 2){ // Classe Samurai
-    stats_.hp_max = 1;
+    stats_.hp_max = 80;
     stats_.hp = stats_.hp_max;
     stats_.atk = 45;
     stats_.def = 25;
-    stats_.agi = 100;
+    stats_.agi = 10;
     stats_.mp = 100;
     img_entity_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
     img_entity_.setTexture(img_entity_texture_);

@@ -2,18 +2,18 @@
 #include "../../include/entity.h"
 
 Boss::Boss() : Entity(){
-  stats_.hp_max = 1000;
+  stats_.hp_max = 500;
   stats_.hp = stats_.hp_max;
-  stats_.atk = 20;
+  stats_.atk = 50;
   stats_.def = 20;
-  stats_.agi = 0;
+  stats_.agi = 1;
   stats_.mp = 30;
   stats_.xp = 80;
     
   name_ = "Is'Abelu";
   img_entity_texture_.loadFromFile("resources/boss/sprite_boss_default.png");
   img_entity_.setTexture(img_entity_texture_);
-  img_entity_.setScale(-6,6);
+  img_entity_.setScale(-5.8,5.8);
     
   Skill aux(4, 0);
   skills_.push_back(aux);
@@ -47,7 +47,7 @@ string Boss::ReturnSpriteSkill(){
 void Boss::SettaSprite(string png){
   img_entity_texture_.loadFromFile(png);
   img_entity_.setTexture(img_entity_texture_);
-  img_entity_.setScale(-6,6);
+  img_entity_.setScale(-5.8,5.8);
 }
 
 //Boss c o Y aumenta 
