@@ -46,7 +46,7 @@ public:
    * @param index Índice da habilidade desejada.
    * @return Objeto Skill representando a habilidade.
    */
-  Skill UserSkills(int index);
+  Skill EntitySkills(int index);
 
     /**
    * @brief Retorna path relativo da animaçao de morte.

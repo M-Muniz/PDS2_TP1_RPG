@@ -15,11 +15,11 @@ Boss::Boss() : Entity(){
   img_entity_.setTexture(img_entity_texture_);
   img_entity_.setScale(-6,6);
     
-  for(int i = 0; i < 3; i++){
-    Skill aux(4, i);
-    skills_.push_back(aux);
-  }
+  Skill aux(4, 0);
+  skills_.push_back(aux);
 }
+
+Skill Boss::EntitySkills(int index){ return skills_[index]; }
 
 string Boss::ReturnSpriteMorte(){
   return "resources/boss/sprite_boss_dead.png";

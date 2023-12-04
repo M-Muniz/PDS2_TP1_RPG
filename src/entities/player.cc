@@ -72,7 +72,7 @@ void Player::Upar(int xp){
   return;
 }
 
-Skill Player::UserSkills(int index){return skills_[index];}
+Skill Player::EntitySkills(int index){return skills_[index];}
 
 string Player::ReturnSpriteMorte(){
   if (classe_ == 0){

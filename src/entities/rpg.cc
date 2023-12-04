@@ -8,7 +8,7 @@ Rpg::Rpg(Player jogador){
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
   
-  opponent_ = new Enemy();
+  opponent_ = new Boss();
 
   cout << "Nome do inimigo gerado aleatoriamente: " << opponent_->name_<<endl;
   frame_e_ = 0;
@@ -477,15 +477,15 @@ void Rpg::Run(){
             case 2: // Skill I
               cout << "Player usou a skill 1" << endl;
               if(player_.classe_ != 2){ // Mago ou Cavaleiro usaram a skill
-                if(player_.stats_.mp >= player_.UserSkills(0).attributes_.mp && test_cd_[0]){ // Testa se CD e Mana estão ok
+                if(player_.stats_.mp >= player_.EntitySkills(0).attributes_.mp && test_cd_[0]){ // Testa se CD e Mana estão ok
                   if(player_.classe_ == 0){
-                    player_.stats_.hp += player_.UserSkills(0).attributes_.hp;
+                    player_.stats_.hp += player_.EntitySkills(0).attributes_.hp;
                     cout << "Knight bufou a vida" << endl;
                   }else if(player_.classe_ == 1){
-                    player_.stats_.def += player_.UserSkills(0).attributes_.def;
+                    player_.stats_.def += player_.EntitySkills(0).attributes_.def;
                     cout << "Mage bufou a defesa" << endl;
                   }
-                  player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+                  player_.stats_.mp -= player_.EntitySkills(0).attributes_.mp;
                   player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
                   player_.SettaSprite(player_.ReturnSpriteSkill(0));
                   DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
@@ -507,7 +507,7 @@ void Rpg::Run(){
                 }
               }else if(test_cd_[0]){ // Samurai usou a skill
                 cout << "Samurai bufou a mana" << endl;
-                player_.stats_.mp += player_.UserSkills(0).attributes_.mp;
+                player_.stats_.mp += player_.EntitySkills(0).attributes_.mp;
                   player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
                   player_.SettaSprite(player_.ReturnSpriteSkill(0));
                   DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
@@ -531,16 +531,16 @@ void Rpg::Run(){
               break;
             case 3: // Skill II
               cout << "Player usou a skill 2" << endl;
-              if(player_.stats_.mp >= player_.UserSkills(1).attributes_.mp && test_cd_[1]){ // Testa se CD e Mana estão ok
+              if(player_.stats_.mp >= player_.EntitySkills(1).attributes_.mp && test_cd_[1]){ // Testa se CD e Mana estão ok
                 if(player_.classe_ == 0){
-                  player_.stats_.agi += player_.UserSkills(1).attributes_.agi;
-                  opponent_->stats_.hp += player_.UserSkills(1).attributes_.hp;
+                  player_.stats_.agi += player_.EntitySkills(1).attributes_.agi;
+                  opponent_->stats_.hp += player_.EntitySkills(1).attributes_.hp;
                   cout << "Knight bufou a agilidade e causou dano" << endl;
                 }else{
-                  opponent_->stats_.hp += player_.UserSkills(1).attributes_.hp;
+                  opponent_->stats_.hp += player_.EntitySkills(1).attributes_.hp;
                   cout << "Mage/Samurai causou dano" << endl;
                 }
-                player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
+                player_.stats_.mp -= player_.EntitySkills(1).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_e=opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -576,16 +576,16 @@ void Rpg::Run(){
               break;
             case 4: // Skill III
               cout << "Player usou a skill 3" << endl;
-              if(player_.stats_.mp >= player_.UserSkills(2).attributes_.mp && test_cd_[2]){ // Testa se CD e Mana estão ok
+              if(player_.stats_.mp >= player_.EntitySkills(2).attributes_.mp && test_cd_[2]){ // Testa se CD e Mana estão ok
                 if(player_.classe_ == 2){
-                  opponent_->stats_.hp += player_.UserSkills(2).attributes_.hp;
-                  opponent_->stats_.def += player_.UserSkills(2).attributes_.def;
+                  opponent_->stats_.hp += player_.EntitySkills(2).attributes_.hp;
+                  opponent_->stats_.def += player_.EntitySkills(2).attributes_.def;
                   cout << "Samurai causou dano e reduziu a defesa do inimigo" << endl;
                 }else{
-                  opponent_->stats_.hp += player_.UserSkills(2).attributes_.hp;
+                  opponent_->stats_.hp += player_.EntitySkills(2).attributes_.hp;
                   cout << "Mage/Knight causou dano" << endl;
                 }
-                player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+                player_.stats_.mp -= player_.EntitySkills(0).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_e=opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -658,7 +658,7 @@ void Rpg::Run(){
 
           opponent_status_.setSize(Vector2f(461, 21));
         }else if(opponent_->name_ == "Is'Abelu" && ((rand() % 100)*turnos_sem_usar_skill>=150)){
-          //player_.stats_.hp -= opponent_->EntitySkills(0).attributes_.hp;
+          player_.stats_.hp -= opponent_->EntitySkills(0).attributes_.hp;
           opponent_->SettaSprite("resources/boss/sprite_boss_skill.png");
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite("resources/boss/sprite_boss_skill.png");

@@ -61,6 +61,10 @@ public:
    */
   bool Def(int atk_opponent);
 
+   /**
+   * @brief Buffa os inimigos com base na quantidade de inimigos mortos.
+   * @param inimigos_mortos A quantidade de inimigos mortos.
+   */
   void BuffaInimigo(int inimigos_mortos);
 
   /**
@@ -74,7 +78,7 @@ public:
    * @param index O índice da habilidade desejada.
    * @return A habilidade correspondente ao índice.
    */
-  Skill EntitySkills(int index);
+  virtual Skill EntitySkills(int index){ return Skill{};};
 
   /**
    * @brief Retorna o nome da entidade.

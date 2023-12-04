@@ -27,11 +27,11 @@ public:
   Boss();
 
   /**
-   * @brief Retorna uma das habilidades do chefe (boss) com base no índice.
-   * @param Index O índice da habilidade desejada.
-   * @return A habilidade do chefe (boss) correspondente ao índice.
+   * @brief Retorna a habilidade do Boss.
+   * @param index Indexador da Skill a ser chamada (sempre 0 para o Boss).
+   * @return A habilidade do Boss.
    */
-  Skill BossSkills(int index);
+  Skill EntitySkills(int index);
 
   /**
    * @brief Retorna path relativo da animaçao de morte.
@@ -73,7 +73,6 @@ public:
    * @return Os dados daquele sprite especifico.
    */
   DadosAnimacao ReturnDadosSprite(string png);
-
 
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.

@@ -39,8 +39,6 @@ void Entity::BuffaInimigo(int inimigos_mortos){
 
 Status Entity::ReturnStatus(){return stats_;};
 
-Skill Entity::EntitySkills(int index){return skills_[index];};
-
 string Entity::ReturnSpriteMorte(){return "";};
 
 string Entity::ReturnSpriteAtk(){return "";};
