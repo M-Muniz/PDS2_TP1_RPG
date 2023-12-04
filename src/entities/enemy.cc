@@ -158,7 +158,7 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
       img_entity_.setPosition(1100,260);
       return aux;
     }if(png=="resources/spear_skeleton/sprite_spearskeleton_default.png"){
-      aux={588,67,7};
+      aux={469,84,7};
       img_entity_.setPosition(1100,215);
       return aux;
     }

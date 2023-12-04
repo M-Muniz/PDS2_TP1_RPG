@@ -89,8 +89,8 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p){
-  frame_p_ += 0.5;
-  frame_e_ += 0.5;
+  frame_p_ += 0.035;
+  frame_e_ += 0.035;
   SetAnimePlayer(x_p,y_p,z_p,idle_p);
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
 }
@@ -131,8 +131,9 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
   }else if(opponent_->name_ =="Spear Skeleton"){
     if (idle == true){
       altura = 84;
-      altura = 67;
+      largura = 67;
       frame = 7;
+      opponent_->img_entity_.setPosition(1100,215);
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){
@@ -577,10 +578,8 @@ void Rpg::Run(){
                 }
                 player_.stats_.mp -= player_.EntitySkills(1).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(1));
-
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
-
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
                
@@ -593,7 +592,7 @@ void Rpg::Run(){
                 frame_e_ = 0;
                 
                 while (!animaçao_completa_player_){
-                  Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -673,7 +672,7 @@ void Rpg::Run(){
                 opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
                 frame_e_=0;
                 while (!animaçao_completa_player_){
-                  Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
