@@ -82,7 +82,7 @@ public:
    * @param index O índice da habilidade desejada.
    * @return A habilidade correspondente ao índice.
    */
-  Skill EntitySkills(int index);
+  virtual Skill EntitySkills(int index);
 
   /**
    * @brief Retorna o nome da entidade.

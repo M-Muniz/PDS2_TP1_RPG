@@ -10,7 +10,8 @@ Rpg::Rpg(Player jogador)
   player_ = jogador;
   mouse_coord_ = {0, 0};
   pos_mouse_ = {0, 0};
-  window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
+  window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", 
+                                       Style::Titlebar | Style::Close);
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
 
@@ -527,8 +528,9 @@ void AtaqueBasicoPlayer()
 /**
  * @brief Função que controla a execução principal do jogo.
  *
- * Esta função é responsável por executar a lógica principal do jogo, incluindo o controle de turnos,
- * habilidades, ataques, interações com o jogador e oponente, além de gerenciamento de estados do jogo.
+ * Esta função é responsável por executar a lógica principal do jogo, incluindo o controle de 
+ * turnos, habilidades, ataques, interações com o jogador e oponente, além de gerenciamento de 
+ * estados do jogo.
  */
 void Rpg::Run()
 {
@@ -607,7 +609,8 @@ void Rpg::Run()
               while (!animaçao_completa_player_)
               {
                 Draw();
-                Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, 
+                aux_p.frames, false);
               }
               player_.SettaSprite(player_.ReturnSpriteIdle());
 
@@ -618,8 +621,9 @@ void Rpg::Run()
               cout << "O jogador acertou o ataque." << endl;
               cout << "Inimigo esta com " << opponent_->stats_.hp << " de vida restante." << endl;
 
-              float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
-              opponent_status_.setSize(Vector2f(tam_x, 21));
+              // Ajusta a barra de vida do oponente fazendo uma regra de três simples.
+              float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max; 
+              opponent_status_.setSize(Vector2f(tam_x, 21));                       
 
               stringstream aux;
               string x;
@@ -672,8 +676,10 @@ void Rpg::Run()
                   player_.stats_.def += player_.UserSkills(0).attributes_.def;
                   cout << "Mage bufou a defesa" << endl;
                 }
+                // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
                 player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
 
+                // Atualiza a barra de mana do player.
                 player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
               }
               else
@@ -691,6 +697,7 @@ void Rpg::Run()
             { // Samurai usou a skill
               // Lógica para habilidade de Samurai
               cout << "Samurai bufou a mana" << endl;
+              // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
               player_.stats_.mp += player_.UserSkills(0).attributes_.mp;
 
               for (int i = 0; i < 3; i++)
@@ -720,14 +727,14 @@ void Rpg::Run()
                 opponent_->stats_.hp += player_.UserSkills(1).attributes_.hp;
                 cout << "Mage/Samurai causou dano" << endl;
               }
+              // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
               player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
-
               for (int i = 0; i < 3; i++)
               {
                 cd_skills_[1][i].setFillColor(Color::Red);
                 player_.skills_cd_[1][i] = false;
               }
-
+              // Atualiza a barra de mana do player.
               player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
             }
             else
@@ -751,12 +758,14 @@ void Rpg::Run()
                 opponent_->stats_.hp += player_.UserSkills(2).attributes_.hp;
                 cout << "Mage/Knight causou dano" << endl;
               }
-              player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+              // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
+              player_.stats_.mp -= player_.UserSkills(2).attributes_.mp;
               for (int i = 0; i < 3; i++)
               {
                 cd_skills_[2][i].setFillColor(Color::Red);
                 player_.skills_cd_[2][i] = false;
               }
+              // Atualiza a barra de mana do player.
               player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
             }
             else
@@ -796,6 +805,7 @@ void Rpg::Run()
             opponent_ = new Enemy();
           }
 
+          // Ajusta a barra de vida do player fazendo uma regra de três simples.
           tam_x = 461 * player_.stats_.hp / player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x, 21));
 
@@ -841,6 +851,7 @@ void Rpg::Run()
 
           if (player_.stats_.hp <= 0)
           {
+            // Zera a barra de vida do player.
             player_status_[0].setSize(Vector2f(0, 21));
 
             player_.SettaSprite(player_.ReturnSpriteMorte());
@@ -867,11 +878,13 @@ void Rpg::Run()
             window_->close();
           }
 
+          // Ajusta a barra de vida do player fazendo uma regra de três simples.
           tam_x = 461 * player_.stats_.hp / player_.stats_.hp_max;
 
-          if (tam_x > 461)
+          if (tam_x > 461) // Evita que a barra de vida fique maior do que pode ficar.
           {
             tam_x = 461;
+            player_.stats_.hp = player_.stats_.hp_max;
           }
 
           player_status_[0].setSize(Vector2f(tam_x, 21));
