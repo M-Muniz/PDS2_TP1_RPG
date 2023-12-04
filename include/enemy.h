@@ -1,3 +1,7 @@
+/**
+ * @file enemy.h
+ * @brief Contém a definição da classe Enemy.
+ */
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
@@ -62,12 +66,14 @@ public:
 
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @param Png O caminho relativo do sprite.
    * @return Os dados daquele sprite especifico.
    */
   DadosAnimacao ReturnDadosSprite(string png);
 
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @param Png O caminho relativo do sprite.
    * @return Os dados daquele sprite especifico.
    */
   void SettaSprite(string Png);
@@ -75,4 +81,4 @@ public:
 private:
 };
 
-#endif
+#endif /* ENEMY_H_ */

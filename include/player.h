@@ -1,3 +1,7 @@
+/**
+ * @file player.h
+ * @brief Contém a definição da classe Player.
+ */
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
@@ -80,6 +84,7 @@ public:
 
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @param png O caminho relativo da imagem do sprite.
    * @return Os dados daquele sprite especifico.
    */
   DadosAnimacao ReturnDadosSprite(string png);
@@ -96,4 +101,4 @@ private:
   vector<vector<bool>> skills_cd_; /**< Computa o cooldown das skills do player. */
 };
 
-#endif 
+#endif /* PLAYER_H_ */

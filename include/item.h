@@ -1,3 +1,7 @@
+/**
+ * @file item.h
+ * @brief Contém a definição da classe Item.
+ */
 #ifndef ITEM_H_
 #define ITEM_H_
 
@@ -21,6 +25,7 @@ friend class Rpg;
 public:
   /**
    * @brief Construtor da classe Item.
+   * @param tipo_item O tipo do item a ser criado.
    */
   Item(int tipo_item);
 
@@ -41,4 +46,4 @@ private:
   Sprite img_item_; /**< Imagem do item para a interface gráfica. */
 };
 
-#endif
+#endif /* ITEM_H_ */

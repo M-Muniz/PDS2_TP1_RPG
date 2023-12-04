@@ -1,8 +1,14 @@
+/**
+ * @file item.cpp
+ * @brief Implementação da classe Item.
+ */
+
 #include "../../include/item.h"
 
 Item::Item(){}
 
 Item::Item(int tipo_item){
+  // Inicialização do item com base no tipo
   if(tipo_item == 0){ // Item de + Vida
     attributes_.hp = 10;
     attributes_.agi=0;
@@ -62,6 +68,7 @@ Item::Item(int tipo_item){
 }
 
 void Item::Sum(Player& usr){
+  // Adiciona os atributos do item ao jogador
   usr.stats_.hp += attributes_.hp;
   if(usr.stats_.hp > usr.stats_.hp_max){
     usr.stats_.hp = usr.stats_.hp_max;
