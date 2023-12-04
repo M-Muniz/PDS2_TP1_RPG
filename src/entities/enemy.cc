@@ -4,8 +4,8 @@
 Enemy::Enemy() : Entity(){
   int inimigo = rand() % 4;
   if(inimigo == 0){/*o inimigo 0 corresponde a um inimigo mais balanceado*/         
-    // stats_.hp_max = 80;
-    stats_.hp_max = 10;
+    stats_.hp_max = 80;
+    // stats_.hp_max = 10;
     stats_.hp = stats_.hp_max;
     stats_.atk = 45;
     stats_.def = 10;
@@ -17,8 +17,8 @@ Enemy::Enemy() : Entity(){
     name_ = "Spear Skeleton";
     img_entity_.setScale(-5,5);
   }else if(inimigo == 1){/*o inimigo 1 corresponde a um inimigo mais agressivo*/ 
-    // stats_.hp_max = 40;
-    stats_.hp_max = 10;
+    stats_.hp_max = 40;
+    // stats_.hp_max = 10;
     stats_.hp = stats_.hp_max;
     stats_.atk = 60;
     stats_.def = 0;
@@ -30,8 +30,8 @@ Enemy::Enemy() : Entity(){
     name_ = "Small Werewolf";
     img_entity_.setScale(-3,3);
   }else if(inimigo == 2){/*o inimigo 2 corresponde a um inimigo mais defensivo*/ 
-    // stats_.hp_max = 135;
-    stats_.hp_max = 10;
+    stats_.hp_max = 135;
+    // stats_.hp_max = 10;
     stats_.hp = stats_.hp_max;
     stats_.atk = 40;
     stats_.def = 0;
@@ -43,8 +43,8 @@ Enemy::Enemy() : Entity(){
     name_ = "Big Werewolf";
     img_entity_.setScale(-6,6);
   }else if(inimigo == 3){/*o inimigo 3 corresponde a um inimigo mais balanceado*/ 
-    // stats_.hp_max = 70;
-    stats_.hp_max = 10;
+    stats_.hp_max = 70;
+    // stats_.hp_max = 10;
     stats_.hp = stats_.hp_max;
     stats_.atk = 50;
     stats_.def = 15;

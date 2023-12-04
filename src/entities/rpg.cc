@@ -8,7 +8,7 @@ Rpg::Rpg(Player jogador){
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
   
-  opponent_ = new Boss();
+  opponent_ = new Enemy();
 
   cout << "Nome do inimigo gerado aleatoriamente: " << opponent_->name_<<endl;
   frame_e_ = 0;
@@ -549,7 +549,7 @@ void Rpg::Run(){
                   cout << "Knight bufou a agilidade e causou dano" << endl;
                   float tam_x = 461*opponent_->stats_.hp/opponent_->stats_.hp_max;
 
-                  if(opponent_->stats_.hp < 0){opponent_->stats_.hp = 0;}
+                  if(opponent_->stats_.hp <= 0){opponent_->stats_.hp = 0;}
 
                   stringstream aux;
                   string x;
@@ -557,8 +557,7 @@ void Rpg::Run(){
                   aux << opponent_->stats_.hp;
                   aux >> x;
 
-                  DrawMessages("You deals damage and gain agility");
-                  DrawMessages("The enemy has " + x + " of HP.");
+                  DrawMessages("You deals damage and gain agility \n The enemy has " + x + " of HP.");
 
                   opponent_status_.setSize(Vector2f(tam_x, 21));
                 }else{
@@ -567,15 +566,14 @@ void Rpg::Run(){
                   opponent_status_.setSize(Vector2f(tam_x, 21));
                   cout << "Mage/Samurai causou dano" << endl;
 
-                  if(opponent_->stats_.hp < 0){opponent_->stats_.hp = 0;}
+                  if(opponent_->stats_.hp <= 0){opponent_->stats_.hp = 0;}
 
                   stringstream aux;
                   string x;
 
                   aux << opponent_->stats_.hp;
                   aux >> x;
-                  DrawMessages("You deals damage");
-                  DrawMessages("The enemy has " + x + " of HP.");
+                  DrawMessages("You deals damage \n The enemy has " + x + " of HP.");
                 }
                 player_.stats_.mp -= player_.EntitySkills(1).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(1));
@@ -624,7 +622,7 @@ void Rpg::Run(){
                   opponent_->stats_.def += player_.EntitySkills(2).attributes_.def;
                   cout << "Samurai causou dano e reduziu a defesa do inimigo" << endl;
 
-                  if(opponent_->stats_.hp < 0){opponent_->stats_.hp = 0;}
+                  if(opponent_->stats_.hp <= 0){opponent_->stats_.hp = 0;}
 
                   stringstream aux;
                   string x;
@@ -632,18 +630,17 @@ void Rpg::Run(){
                   aux << opponent_->stats_.hp;
                   aux >> x;
 
-                  DrawMessages("You deals damage and low the opponent defense");
-                  DrawMessages("The enemy has " + x + " of HP.");
+                  DrawMessages("You deals damage and low the opponent defense \n The enemy has " + x + " of HP.");
 
                   float tam_x = 461*opponent_->stats_.hp/opponent_->stats_.hp_max;
+                  if(opponent_->stats_.hp <= 0){tam_x = 0;}
                   opponent_status_.setSize(Vector2f(tam_x, 21));
                 }else{
                   opponent_->stats_.hp += player_.EntitySkills(2).attributes_.hp;
-                  float tam_x = 461*opponent_->stats_.hp/opponent_->stats_.hp_max;
                   opponent_status_.setSize(Vector2f(tam_x, 21));
                   cout << "Mage/Knight causou dano" << endl;
 
-                  if(opponent_->stats_.hp < 0){opponent_->stats_.hp = 0;}
+                  if(opponent_->stats_.hp <= 0){opponent_->stats_.hp = 0;}
 
                   stringstream aux;
                   string x;
@@ -651,8 +648,12 @@ void Rpg::Run(){
                   aux << opponent_->stats_.hp;
                   aux >> x;
 
-                  DrawMessages("You deals damage");
-                  DrawMessages("The enemy has " + x + " of HP.");
+                  DrawMessages("   You deals damage \n The enemy has " + x + " of HP.");
+                  // DrawMessages("The enemy has " + x + " of HP.");
+
+                  float tam_x = 461*opponent_->stats_.hp/opponent_->stats_.hp_max;
+                  if(opponent_->stats_.hp <= 0){tam_x = 0;}
+                  opponent_status_.setSize(Vector2f(tam_x, 21));
                 }
                 player_.stats_.mp -= player_.EntitySkills(0).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(2));
@@ -708,7 +709,7 @@ void Rpg::Run(){
 
           delete opponent_;
 
-          if(!inimigos_mortos%7){ // A cada 7 inimigos mortos, o próximo a spawnar é um boss.
+          if(!(inimigos_mortos%2)){ // A cada 7 inimigos mortos, o próximo a spawnar é um boss.
             opponent_ = new Boss();
             turnos_sem_usar_skill = 0;
           }else{
@@ -726,7 +727,7 @@ void Rpg::Run(){
           cout << "O novo inimigo gerado aleatoriamente é um " << opponent_->name_ << "." << endl;
 
           opponent_status_.setSize(Vector2f(461, 21));
-        }else if(opponent_->name_ == "Is'Abelu" && ((rand() % 100)*turnos_sem_usar_skill >= 0)){
+        }else if(opponent_->name_ == "Is'Abelu" && ((rand() % 100)*turnos_sem_usar_skill >= 130)){
           player_.stats_.hp += opponent_->EntitySkills(0).attributes_.hp;
           opponent_->SettaSprite("resources/boss/sprite_boss_skill.png");
 
@@ -753,7 +754,7 @@ void Rpg::Run(){
           turnos_sem_usar_skill = 0;
           cout << "Boss castou a skill" << endl;
 
-          if(player_.stats_.hp < 0){player_.stats_.hp = 0;}
+          if(player_.stats_.hp <= 0){player_.stats_.hp = 0;}
 
           stringstream aux;
           string x;
@@ -768,6 +769,31 @@ void Rpg::Run(){
           if(tam_x > 461){tam_x = 461; player_.stats_.hp = player_.stats_.hp_max;}
 
           player_status_[0].setSize(Vector2f(tam_x,21));
+
+          if(player_.stats_.hp <= 0){
+            player_status_[0].setSize(Vector2f(0,21));
+
+            player_.SettaSprite(player_.ReturnSpriteMorte());
+            DadosAnimacao aux = player_.ReturnDadosSprite(player_.ReturnSpriteMorte());
+
+            animaçao_completa_player_=0;
+            frame_p_=0;
+
+            while(!animaçao_completa_player_){
+              Game(0,0,0,true,aux.largura,aux.altura,aux.frames,false);
+              Draw();  
+            }
+
+            cout << "Seu jogador morreu." << '\n' << "Game Over =(" << endl;
+
+            window_->clear();
+
+            DrawMessages("Seu jogador morreu. Game Over.");
+
+            sleep(seconds(5));
+
+            window_->close();
+          }
         }
         else if(player_.Def(opponent_->Atk())){
           opponent_->SettaSprite(opponent_->ReturnSpriteAtk());
