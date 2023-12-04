@@ -8,7 +8,7 @@ Rpg::Rpg(Player jogador){
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
   
-  opponent_ = new Enemy();
+  opponent_ = new Boss();
 
   cout << "Nome do inimigo gerado aleatoriamente: " << opponent_->name_<<endl;
   frame_e_ = 0;
@@ -129,12 +129,6 @@ void Rpg::SetAnimeEnemy(int largura,int altura,int frame,bool idle){
       animaçao_completa_enemy_=1; 
     }
   }else if(opponent_->name_ =="Spear Skeleton"){
-    if (idle == true){
-    frame=7;
-    largura=67;
-    altura=84;
-    opponent_->img_entity_.setPosition(1100,215);
-    }
     opponent_->img_entity_.setTextureRect(IntRect(largura*(int)frame_e_,0,largura,altura));
     if(frame_e_ > frame){
       frame_e_ -= frame;
@@ -408,7 +402,6 @@ void Rpg::Run(){
               cout << "Player usou o AA" << endl;
 
               if(opponent_->Def(player_.Atk())){
-                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
                 player_.SettaSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -420,8 +413,8 @@ void Rpg::Run(){
                   Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
-                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
-                aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+                aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
                 while(!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
@@ -454,7 +447,6 @@ void Rpg::Run(){
                 animaçao_completa_player_=0;
                 frame_e_=0;
                 frame_p_=0;
-
                 while(!animaçao_completa_player_){
                   Draw();
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
@@ -536,22 +528,22 @@ void Rpg::Run(){
                 player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
-                DadosAnimacao aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                DadosAnimacao aux_e=opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
                 animaçao_completa_player_=0;
                 frame_p_=0;
                 while(frame_p_<(aux_p.frames-aux_e.frames)){
                   Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
-                aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
-                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                aux_e=opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
                 while (!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
-                if(inimigo1_->stats_.hp > 0){
-                  inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+                if(opponent_->stats_.hp > 0){
+                  opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
                 }
       
                 for(int i = 0; i < 3; i++){
@@ -580,22 +572,22 @@ void Rpg::Run(){
                 player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
                 player_.SettaSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
-                DadosAnimacao aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                DadosAnimacao aux_e=opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
                 animaçao_completa_player_=0;
                 frame_p_=0;
                 while(frame_p_<(aux_p.frames-aux_e.frames)){
                   Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
-                aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
-                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                aux_e=opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
                 while (!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
-                if(inimigo1_->stats_.hp > 0){
-                  inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+                if(opponent_->stats_.hp > 0){
+                  opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
                 }
                 for(int i = 0; i < 3; i++){
                   cd_skills_[2][i].setFillColor(Color::Red);

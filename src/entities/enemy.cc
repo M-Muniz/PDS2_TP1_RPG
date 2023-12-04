@@ -60,32 +60,6 @@ Enemy::Enemy() : Entity(){
 }
 
 
-int Enemy::Atk(){
-  float variancia = rand() % 41; //gera um numero entre 0 e 40
-  variancia +=80; //faz com que esse numero esteja entre 80 e 120
-  variancia/=100; //numero agr esta entre 0.8 e 1.2;
-
-  return (stats_.atk*variancia);
-}
-
-bool Enemy::Def(int atk_player){
-  int aux = rand() % 100;
-
-  if(aux+stats_.agi < 75){  /* o golpe atingiu o inimigo */
-   
-    stats_.hp -= atk_player - stats_.def;
-
-    if(stats_.hp < 0){stats_.hp = 0;}
-
-    return true;
-  }else{    
-    return false;   /* o não golpe atingiu o inimigo */
-  }
-
-}
-
-
-Status Enemy::ReturnStatus(){return stats_;}
 void Enemy::BuffaInimigo(int inimigos_mortos){
   if(inimigos_mortos>=3){
     int multiplicador = inimigos_mortos/3;
@@ -139,17 +113,10 @@ string Enemy::ReturnSpriteDef(){
 }
 string Enemy::ReturnSpriteIdle(){
   if(name_ == "Spear Skeleton"){
-    img_entity_.setPosition(1100,215);
     return "resources/spear_skeleton/sprite_spearskeleton_default.png";
   }else if(name_ == "Sword Skeleton"){
-    img_entity_.setPosition(1050,320);
     return "resources/sword_skeleton/sprite_swordskeleton_default.png";
   }else if(name_ == "Big Werewolf"||name_ == "Small Werewolf"){
-    if(name_ =="Big Werewolf"){
-      img_entity_.setPosition(1200,270);
-    }else{
-      img_entity_.setPosition(1050,450);
-    }
     return "resources/warewolf/sprite_warewolf_default.png";
   }
   return " " ; 
@@ -190,6 +157,10 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
       aux={136,70,2};
       img_entity_.setPosition(1100,260);
       return aux;
+    }if(png=="resources/spear_skeleton/sprite_spearskeleton_default.png"){
+      aux={588,67,7};
+      img_entity_.setPosition(1100,215);
+      return aux;
     }
   }else if(name_ == "Sword Skeleton"){
     if(png=="resources/sword_skeleton/sprite_swordskeleton_dead.png"){
@@ -210,6 +181,10 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
     if(png=="resources/sword_skeleton/sprite_swordskeleton_protect.png"){
       aux={36,62,1};
       img_entity_.setPosition(1050,300);
+      return aux;
+    }if(png=="resources/sword_skeleton/sprite_swordskeleton_default.png"){
+      aux={469,67,7};
+      img_entity_.setPosition(1050,320);
       return aux;
     }
   }else if(name_ == "Big Werewolf" || name_ == "Small Werewolf"){
@@ -246,6 +221,14 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png){
         img_entity_.setPosition(1200,100);
       }else{
         img_entity_.setPosition(1000,350);
+      }
+      return aux;
+    }if(png=="resources/warewolf/sprite_warewolf_default.png"){
+      aux={640,49,8};
+      if(name_ == "Big Werewolf"){
+        img_entity_.setPosition(1200,270);
+      }else{
+        img_entity_.setPosition(1050,450);
       }
       return aux;
     }

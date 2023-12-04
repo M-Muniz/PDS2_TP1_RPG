@@ -62,12 +62,18 @@ public:
    * @return O path relativo da animaçao de hurt.
    */
   string ReturnSpriteTomou();
+      /**
+   * @brief Retorna path relativo da animaçao de skill.
+   * @return O path relativo da animaçao de skill.
+   */
+  string ReturnSpriteSkill();
 
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
    * @return Os dados daquele sprite especifico.
    */
   DadosAnimacao ReturnDadosSprite(string png);
+
 
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.

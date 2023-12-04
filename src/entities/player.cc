@@ -52,31 +52,8 @@ Player::Player(string nome, int classe) : Entity(){
 }
 
 
-string Player::Name(){return name_;}
 
-int Player::Atk(){
-  float variancia = rand() % 41; //gera um numero entre 0 e 40
-  variancia +=80; //faz com que esse numero esteja entre 80 e 120
-  variancia/=100; //numero agr esta entre 0.8 e 1.2;
-  return (stats_.atk*variancia);
-}
 
-bool Player::Def(int atk_enemy){
-
-  int x = rand() % 100;
-
-  if (x + stats_.agi < 80){ // Player não desviou
-    stats_.hp -= (atk_enemy - stats_.def);
-
-    if(stats_.hp < 0){stats_.hp = 0;}
-        
-    return 1;
-  }else{ // Player desviou
-    return 0;
-  }
-}
-
-    
 void Player::Upar(int xp){
   stats_.xp += xp;
 
@@ -214,15 +191,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }else if(png == "resources/knight/sprite_knight_pray.png"){
       aux={250,74,5};
-      img_player_.setPosition(150,240);
+      img_entity_.setPosition(150,240);
       return aux;
     }else if(png == "resources/knight/sprite_knight_atk2.png"){
       aux={424,76,4};
-      img_player_.setPosition(190,270);
+      img_entity_.setPosition(190,270);
       return aux;
     }else if(png == "resources/knight/sprite_knight_atk3.png"){
       aux={600,65,6};
-      img_player_.setPosition(150,300);
+      img_entity_.setPosition(150,300);
       return aux;
     }
   }else if(classe_ == 1 ){
@@ -244,15 +221,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }else if(png == "resources/mage/sprite_mage_arrow.png"){
       aux={450,66,6};
-      img_player_.setPosition(125,285);
+      img_entity_.setPosition(125,285);
       return aux;
     }else if(png == "resources/mage/sprite_mage_atk1.png"){
       aux={770,100,7};
-      img_player_.setPosition(165,135);
+      img_entity_.setPosition(165,135);
       return aux;
     }else if(png == "resources/mage/sprite_mage_sphere.png"){
       aux={1440,66,16};
-      img_player_.setPosition(125,285);
+      img_entity_.setPosition(125,285);
       return aux;
     }
   }else if(classe_ == 2){
@@ -274,15 +251,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_focus.png"){
       aux={345,80,5};
-      img_player_.setPosition(110,250);
+      img_entity_.setPosition(110,250);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_atk2.png"){
       aux={864,105,8};
-      img_player_.setPosition(110,120);
+      img_entity_.setPosition(110,120);
       return aux;
     }else if(png == "resources/samurai/sprite_samurai_atk3.png"){
       aux={840,74,7};
-      img_player_.setPosition(110,265);
+      img_entity_.setPosition(110,265);
       return aux;
     }
   }
