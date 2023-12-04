@@ -3,7 +3,7 @@ CXXFLAGS = -g -Wall -O3 -std=c++11
 INC_DIRS = -I include/
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-OBJS = build/main.o build/boss.o build/enemy.o build/item.o build/menu.o build/player.o build/rpg.o build/skill.o
+OBJS = build/main.o build/entity.o build/boss.o build/enemy.o build/item.o build/menu.o build/player.o build/rpg.o build/skill.o
 
 main: $(OBJS)
 	
@@ -19,6 +19,9 @@ build/boss.o: src/entities/boss.cc
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
 
 build/enemy.o: src/entities/enemy.cc
+	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
+
+build/entity.o: src/entities/entity.cc
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
 
 build/item.o: src/entities/item.cc

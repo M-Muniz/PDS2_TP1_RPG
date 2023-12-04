@@ -1,3 +1,7 @@
+/**
+ * @file skill.h
+ * @brief Contém a definição da estrutura de atributos e da classe Skill.
+ */
 #ifndef SKILL_H_
 #define SKILL_H_
 
@@ -47,4 +51,4 @@ private:
   Sprite img_skill_; /**< Imagem da Skill para a interface gráfica. */
 };
 
-#endif
+#endif /* SKILL_H_ */
