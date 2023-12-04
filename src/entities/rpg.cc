@@ -1,6 +1,6 @@
 /**
  * @brief Construtor da classe Rpg.
- * @file rpg.cpp
+ * @file rpg.cc
  * @param jogador Instância da classe Player.
  */
 #include "../../include/rpg.h"
