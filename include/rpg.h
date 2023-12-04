@@ -47,6 +47,9 @@ public:
   Vector2f mouse_coord_;
   Item* item_drop_;
 
+  int animaçao_completa_enemy_;
+  int animaçao_completa_player_;
+
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 
 public:
@@ -54,7 +57,12 @@ public:
    * @brief Construtor da classe Rpg.
    */
   Rpg(Player jogador);
-    
+  
+  /**
+   * @brief Destrutor da classe Rpg.
+   */
+  ~Rpg();
+
   /**
    * @brief Inicia o jogo de RPG.
    */
@@ -69,12 +77,12 @@ public:
   /**
    * @brief Anima os objetos Player do jogo.
    */
-  void SetAnimePlayer();
+  void SetAnimePlayer(int largura,int altura,int frame,bool idle);
 
   /**
    * @brief Anima os objetos Enemy do jogo.
    */
-  void SetAnimeEnemy();
+  void SetAnimeEnemy(int largura,int altura,int frame,bool idle);
 
   /**
    * @brief Gerencia eventos do jogo que acontecem na interface gráfica.
@@ -101,7 +109,9 @@ public:
   /**
    * @brief Anima a janela do jogo.
    */
-  void Game();
+
+  void Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p);
+
   /**
    * @brief Desenha os itens na tela
    */
