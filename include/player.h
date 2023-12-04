@@ -78,6 +78,12 @@ public:
    */
   string ReturnSpriteTomou();
 
+
+      /**
+   * @brief Retorna path relativo da animaçao de ataque.
+   * @return O path relativo da animaçao de ataque.
+   */
+  string ReturnSpriteSkill(int index);
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
    * @return Os dados daquele sprite especifico.

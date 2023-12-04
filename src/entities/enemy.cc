@@ -59,6 +59,44 @@ Enemy::Enemy() : Entity(){
 
 }
 
+
+int Enemy::Atk(){
+  float variancia = rand() % 41; //gera um numero entre 0 e 40
+  variancia +=80; //faz com que esse numero esteja entre 80 e 120
+  variancia/=100; //numero agr esta entre 0.8 e 1.2;
+
+  return (stats_.atk*variancia);
+}
+
+bool Enemy::Def(int atk_player){
+  int aux = rand() % 100;
+
+  if(aux+stats_.agi < 75){  /* o golpe atingiu o inimigo */
+   
+    stats_.hp -= atk_player - stats_.def;
+
+    if(stats_.hp < 0){stats_.hp = 0;}
+
+    return true;
+  }else{    
+    return false;   /* o não golpe atingiu o inimigo */
+  }
+
+}
+
+
+Status Enemy::ReturnStatus(){return stats_;}
+void Enemy::BuffaInimigo(int inimigos_mortos){
+  if(inimigos_mortos>=3){
+    int multiplicador = inimigos_mortos/3;
+    stats_.hp_max *= (1.05*multiplicador);
+    stats_.hp =stats_.hp_max;
+    stats_.atk *= (1.05*multiplicador);
+    stats_.def *= (1.05*multiplicador);
+    stats_.xp -=multiplicador;
+  }
+}
+
 string Enemy::ReturnSpriteMorte(){
   if(name_ == "Spear Skeleton"){
     return "resources/spear_skeleton/sprite_spearskeleton_dead.png";

@@ -89,7 +89,7 @@ Rpg::Rpg(Player jogador){
 }
 
 void Rpg::Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p){
-  frame_p_ += 0.035;
+  frame_p_ += 0.5;
   frame_e_ += 0.035;
   SetAnimePlayer(x_p,y_p,z_p,idle_p);
   SetAnimeEnemy(x_e,y_e,z_e,idle_e);
@@ -410,17 +410,21 @@ void Rpg::Run(){
               if(opponent_->Def(player_.Atk())){
                 opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
                 player_.SettaSprite(player_.ReturnSpriteAtk());
-
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
 
                 animaçao_completa_player_ = 0;
                 frame_e_ = 0;
                 frame_p_ = 0;
-
-                while(!animaçao_completa_player_){
+                while(frame_p_ < (aux_p.frames-aux_e.frames)){
+                  Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
                   Draw();
+                }
+                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                aux_e = inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                while(!animaçao_completa_player_){
                   Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
 
@@ -475,8 +479,17 @@ void Rpg::Run(){
                     cout << "Mage bufou a defesa" << endl;
                   }
                   player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
-
                   player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+                  player_.SettaSprite(player_.ReturnSpriteSkill(0));
+                  DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
+                  animaçao_completa_player_=0;
+                  frame_p_=0;
+                  while(!animaçao_completa_player_){
+                    Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                    Draw();
+                  }
+                  player_.SettaSprite(player_.ReturnSpriteIdle());
+
                 }else{ // Caso CD ou Mana não forem suficientes
                   cout << "Não foi possível usar a skill" << endl;
                   DrawMessages("Skill isn't ready, you miss your turn");
@@ -488,6 +501,17 @@ void Rpg::Run(){
               }else if(test_cd_[0]){ // Samurai usou a skill
                 cout << "Samurai bufou a mana" << endl;
                 player_.stats_.mp += player_.UserSkills(0).attributes_.mp;
+                  player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+                  player_.SettaSprite(player_.ReturnSpriteSkill(0));
+                  DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
+                  animaçao_completa_player_=0;
+                  frame_p_=0;
+                  while(!animaçao_completa_player_){
+                    Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                    Draw();
+                  }
+                  player_.SettaSprite(player_.ReturnSpriteIdle());
+
 
                 for(int i = 0; i < 3; i++){
                   cd_skills_[0][i].setFillColor(Color::Red);
@@ -510,6 +534,25 @@ void Rpg::Run(){
                   cout << "Mage/Samurai causou dano" << endl;
                 }
                 player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
+                player_.SettaSprite(player_.ReturnSpriteSkill(1));
+                DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
+                DadosAnimacao aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                animaçao_completa_player_=0;
+                frame_p_=0;
+                while(frame_p_<(aux_p.frames-aux_e.frames)){
+                  Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
+                }
+                aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                while (!animaçao_completa_player_){
+                  Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+                if(inimigo1_->stats_.hp > 0){
+                  inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+                }
       
                 for(int i = 0; i < 3; i++){
                   cd_skills_[1][i].setFillColor(Color::Red);
@@ -517,6 +560,7 @@ void Rpg::Run(){
                 }
 
                 player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100,9.4));
+                
               }else{ // Caso CD ou Mana não forem suficientes
                 cout << "Não foi possível usar a skill" << endl;
                 DrawMessages("Skill isn't ready, you miss your turn");
@@ -534,6 +578,25 @@ void Rpg::Run(){
                   cout << "Mage/Knight causou dano" << endl;
                 }
                 player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
+                player_.SettaSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_p=player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                animaçao_completa_player_=0;
+                frame_p_=0;
+                while(frame_p_<(aux_p.frames-aux_e.frames)){
+                  Game(0,0,0,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
+                }
+                aux_e=inimigo1_->ReturnDadosSprite(inimigo1_->ReturnSpriteTomou());
+                inimigo1_->SettaSprite(inimigo1_->ReturnSpriteTomou());
+                while (!animaçao_completa_player_){
+                  Game(aux_e.largura,aux_e.altura,aux_e.frames,true,aux_p.largura,aux_p.altura,aux_p.frames,false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+                if(inimigo1_->stats_.hp > 0){
+                  inimigo1_->SettaSprite(inimigo1_->ReturnSpriteIdle());
+                }
                 for(int i = 0; i < 3; i++){
                   cd_skills_[2][i].setFillColor(Color::Red);
                   player_.skills_cd_[2][i] = false;
@@ -547,7 +610,6 @@ void Rpg::Run(){
             default:
               break;
           }
-
           Game(0,0,0,true,0,0,0,true);
           Draw();
         }
