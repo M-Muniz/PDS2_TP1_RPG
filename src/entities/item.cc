@@ -4,7 +4,7 @@ Item::Item(){}
 
 Item::Item(int tipo_item){
   if(tipo_item == 0){ // Item de + Vida
-    attributes_.hp = 10;
+    attributes_.hp = 30;
     attributes_.agi=0;
     attributes_.atk=0;
     attributes_.def=0;
@@ -15,7 +15,7 @@ Item::Item(int tipo_item){
   }else if(tipo_item == 1){ // Item de + Ataque
     attributes_.hp = 0;
     attributes_.agi = 0;
-    attributes_.atk = 5;
+    attributes_.atk = 3;
     attributes_.def = 0;
     attributes_.mp = 0;
     attributes_.xp = 0;
@@ -25,7 +25,7 @@ Item::Item(int tipo_item){
     attributes_.hp = 0;
     attributes_.agi = 0;
     attributes_.atk = 0;
-    attributes_.def = 5;
+    attributes_.def = 2;
     attributes_.mp = 0;
     attributes_.xp = 0;
     img_item_texture_.loadFromFile("resources/Itens/def_item.png");
@@ -35,7 +35,7 @@ Item::Item(int tipo_item){
     attributes_.agi = 0;
     attributes_.atk = 0;
     attributes_.def = 0;
-    attributes_.mp = 10;
+    attributes_.mp = 20;
     attributes_.xp = 0;
     img_item_texture_.loadFromFile("resources/Itens/mp_item.png");
     img_item_.setTexture(img_item_texture_);
@@ -50,7 +50,7 @@ Item::Item(int tipo_item){
     img_item_.setTexture(img_item_texture_);
   }else if(tipo_item == 5){ // Item de + Esquiva
     attributes_.hp = 0;
-    attributes_.agi = 5;
+    attributes_.agi = 2;
     attributes_.atk = 0;
     attributes_.def = 0;
     attributes_.mp = 0;

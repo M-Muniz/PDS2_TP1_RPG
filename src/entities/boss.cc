@@ -2,11 +2,11 @@
 #include "../../include/entity.h"
 
 Boss::Boss() : Entity(){
-  stats_.hp_max = 250;
+  stats_.hp_max = 400;
   stats_.hp = stats_.hp_max;
-  stats_.atk = 50;
-  stats_.def = 20;
-  stats_.agi = 1;
+  stats_.atk = 55;
+  stats_.def = 15;
+  stats_.agi = 15;
   stats_.mp = 30;
   stats_.xp = 80;
     
