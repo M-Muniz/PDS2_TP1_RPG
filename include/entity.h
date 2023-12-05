@@ -11,6 +11,10 @@
 #include "skill.h"
 
 /**
+ * @brief Estrutura para retornar erros 
+ */
+struct ErroLoadFromFile{};
+/**
  * @brief Estrutura de dados para a animação.
  */
 struct DadosAnimacao {

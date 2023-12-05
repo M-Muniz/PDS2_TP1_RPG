@@ -122,7 +122,9 @@ string Enemy::ReturnSpriteIdle(){
   return " " ; 
 }
 void Enemy::SettaSprite(string png){
-  img_entity_texture_.loadFromFile(png);
+  if(!img_entity_texture_.loadFromFile(png)){
+    throw ErroLoadFromFile{};
+  }
   img_entity_.setTexture(img_entity_texture_);
   if(name_ == "Spear Skeleton"){
     img_entity_.setScale(-5,5);

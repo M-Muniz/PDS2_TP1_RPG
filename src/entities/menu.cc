@@ -23,8 +23,12 @@ void Menu::SetValues(){
 
   pos_ = 2;
   pressed_ = theselect_ = false;
-  font_->loadFromFile("fonts/super_legend_boy.ttf");
-  image_->loadFromFile("resources/bgs/bg_menu.png");
+  if(!font_->loadFromFile("fonts/super_legend_boy.ttf")){
+    throw ErroLoadFromFile{};
+  }
+  if(!image_->loadFromFile("resources/bgs/bg_menu.png")){
+    throw ErroLoadFromFile{};
+  }
 
   bg_->setTexture(*image_);
 
@@ -88,7 +92,9 @@ void Menu::ReceiveName(){
   RenderWindow window(VideoMode(500, 100), "Name select");
   
   Texture bg;
-  bg.loadFromFile("resources/bgs/bg_insert_name.png");
+  if(!bg.loadFromFile("resources/bgs/bg_insert_name.png")){
+    throw ErroLoadFromFile{};
+  }
   
   Sprite background;
   background.setTexture(bg);
@@ -96,7 +102,9 @@ void Menu::ReceiveName(){
   window.setPosition(Vector2i(0,0));
 
   Font font;
-  font.loadFromFile("fonts/super_legend_boy.ttf"); 
+  if(!font.loadFromFile("fonts/super_legend_boy.ttf")){
+    throw ErroLoadFromFile{};
+  } 
   
   Text title;
   title.setString("What's your player name?");

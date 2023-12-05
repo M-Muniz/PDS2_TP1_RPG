@@ -16,7 +16,9 @@ Rpg::Rpg(Player jogador)
   frame_e_ = 0;
   frame_p_ = 0;
 
-  bg.loadFromFile("resources/bgs/bg_temp.png");
+  if(!bg.loadFromFile("resources/bgs/bg_temp.png")){
+    throw ErroLoadFromFile{};
+  }
   background = make_shared<Sprite>();
   background->setTexture(bg);
   background->setScale(2.35, 2.35);
@@ -90,7 +92,9 @@ Rpg::Rpg(Player jogador)
   opponent_status_.setFillColor(Color::Red);
   opponent_status_.setPosition(Vector2f(369, 18));
 
-  font_.loadFromFile("fonts/super_legend_boy.ttf");
+  if(!font_.loadFromFile("fonts/super_legend_boy.ttf")){
+    throw ErroLoadFromFile{};
+  }
 }
 
 void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p, bool idle_p)
@@ -929,8 +933,8 @@ void Rpg::Run()
 
           delete opponent_;
 
-          if (!(inimigos_mortos % 2))
-          { // A cada 7 inimigos mortos, o próximo a spawnar é um boss.
+          if (!(inimigos_mortos % 5))
+          { // A cada 4 inimigos mortos, o próximo a spawnar é um boss.
             opponent_ = new Boss();
             turnos_sem_usar_skill = 0;
           }

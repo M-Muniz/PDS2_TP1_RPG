@@ -1,6 +1,7 @@
 #include "../../include/boss.h"
 #include "../../include/entity.h"
 
+
 Boss::Boss() : Entity(){
   stats_.hp_max = 400;
   stats_.hp = stats_.hp_max;
@@ -45,7 +46,9 @@ string Boss::ReturnSpriteSkill(){
 }
 
 void Boss::SettaSprite(string png){
-  img_entity_texture_.loadFromFile(png);
+  if(!img_entity_texture_.loadFromFile(png)){
+    throw ErroLoadFromFile{};
+  }
   img_entity_.setTexture(img_entity_texture_);
   img_entity_.setScale(-5.8,5.8);
 }
