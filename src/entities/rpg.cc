@@ -328,7 +328,7 @@ void Rpg::DrawMessages(string message)
   text_message.setOutlineThickness(3);
   text_message.setString(message);
 
-  if (message == "Seu jogador morreu. Game Over.")
+  if (message == "Your character die. Game over.")
   {
     text_message.setCharacterSize(30);
     aux.setFont(font_);
@@ -340,7 +340,7 @@ void Rpg::DrawMessages(string message)
     stringstream ss;
     ss << inimigos_mortos;
 
-    aux.setString("Você eliminou " + ss.str() + " inimigos.");
+    aux.setString("Você kill " + ss.str() + " opponents.");
   }
 
   FloatRect name_rect = text_message.getLocalBounds();
@@ -1025,7 +1025,7 @@ void Rpg::Run()
 
             window_->clear();
 
-            DrawMessages("Seu jogador morreu. Game Over.");
+            DrawMessages("Your character die. Game over.");
 
             sleep(seconds(5));
 
@@ -1098,7 +1098,7 @@ void Rpg::Run()
 
             window_->clear();
 
-            DrawMessages("Seu jogador morreu. Game Over.");
+            DrawMessages("Your character die. Game over.");
 
             sleep(seconds(5));
 
