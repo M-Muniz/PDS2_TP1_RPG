@@ -228,7 +228,7 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
       img_entity_.setPosition(165,135);
       return aux;
     }else if(png == "resources/mage/sprite_mage_sphere.png"){
-      aux={1440,66,16};
+      aux={3600,66,18};
       img_entity_.setPosition(125,285);
       return aux;
     }
