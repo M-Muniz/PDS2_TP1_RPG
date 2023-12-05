@@ -8,9 +8,14 @@
 
 Player::Player() : Entity() {}
 
+/**
+ * @brief Construtor da classe Player que recebe o nome e a classe do jogador.
+ * @param nome Nome do jogador.
+ * @param classe Classe do jogador (0: Guerreiro, 1: Mago, 2: Samurai).
+ */
 Player::Player(string nome, int classe) : Entity()
 {
-  // Configurações iniciais do jogador com base na classe escolhida
+  // Configurações iniciais do jogador com base na classe escolhida.
   if (classe == 0)
   { // Classe Guerreiro
     // Atributos base para a classe Guerreiro
@@ -68,6 +73,10 @@ Player::Player(string nome, int classe) : Entity()
   }
 }
 
+/**
+ * @brief Método para aumentar o nível do jogador com base na experiência acumulada.
+ * @param xp Quantidade de experiência que vai ser adicionada.
+ */
 void Player::Upar(int xp)
 {
   // Lógica para o jogador subir de nível baseado na experiência acumulada
@@ -90,9 +99,17 @@ void Player::Upar(int xp)
   return;
 }
 
+/**
+ * @brief Método para obter uma habilidade do jogador com base no índice.
+ * @param index Índice da habilidade desejada.
+ * @return A habilidade correspondente ao índice.
+ */
 Skill Player::UserSkills(int index) { return skills_[index]; }
 
-// Métodos para retornar os sprites de acordo com a classe do jogador
+/**
+ * @brief Método para retornar o sprite de morte com base na classe do jogador.
+ * @return O caminho do sprite de morte.
+ */
 string Player::ReturnSpriteMorte()
 {
   if (classe_ == 0)
@@ -106,6 +123,10 @@ string Player::ReturnSpriteMorte()
   return "resources/samurai/sprite_samurai_dead.png";
 }
 
+/**
+ * @brief Método para retornar o sprite de ataque com base na classe do jogador.
+ * @return O caminho do sprite de ataque.
+ */
 string Player::ReturnSpriteAtk()
 {
   if (classe_ == 0)
@@ -119,6 +140,10 @@ string Player::ReturnSpriteAtk()
   return "resources/samurai/sprite_samurai_atk1.png";
 }
 
+/**
+ * @brief Método para retornar o sprite de dano recebido com base na classe do jogador.
+ * @return O caminho do sprite de dano recebido.
+ */
 string Player::ReturnSpriteTomou()
 {
   if (classe_ == 0)
@@ -132,6 +157,10 @@ string Player::ReturnSpriteTomou()
   return "resources/samurai/sprite_samurai_hurt.png";
 }
 
+/**
+ * @brief Método para retornar o sprite de defesa com base na classe do jogador.
+ * @return O caminho do sprite de defesa.
+ */
 string Player::ReturnSpriteDef()
 {
   if (classe_ == 0)
@@ -145,6 +174,10 @@ string Player::ReturnSpriteDef()
   return "resources/samurai/sprite_samurai_protection.png";
 }
 
+/**
+ * @brief Método para retornar o sprite de repouso com base na classe do jogador.
+ * @return O caminho do sprite de repouso.
+ */
 string Player::ReturnSpriteIdle()
 {
   if (classe_ == 0)
@@ -157,6 +190,11 @@ string Player::ReturnSpriteIdle()
   }
   return "resources/samurai/sprite_samurai_default.png";
 }
+
+/**
+ * @brief Método para carregar e configurar o sprite do jogador.
+ * @param png Caminho do arquivo de imagem do sprite.
+ */
 void Player::SettaSprite(string png)
 {
   img_entity_texture_.loadFromFile(png);
@@ -164,7 +202,11 @@ void Player::SettaSprite(string png)
   img_entity_.setScale(5, 5);
 }
 
-// Método para retornar dados específicos de animação com base no sprite fornecido
+/**
+ * @brief Método para retornar dados específicos de animação com base no sprite fornecido.
+ * @param png Caminho do arquivo de imagem do sprite.
+ * @return Dados específicos de animação.
+ */
 DadosAnimacao Player::ReturnDadosSprite(string png)
 {
   DadosAnimacao aux;

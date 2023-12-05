@@ -10,7 +10,7 @@ Enemy::Enemy() : Entity()
 {
   int inimigo = rand() % 4;
   if (inimigo == 0)
-  { /*o inimigo 0 corresponde a um inimigo mais balanceado*/
+  { /**< O inimigo 0 corresponde a um inimigo mais balanceado */
     // Definição dos stats do inimigo balanceado
     // stats_.hp_max = 80;
     stats_.hp_max = 10;
@@ -26,7 +26,7 @@ Enemy::Enemy() : Entity()
     img_entity_.setScale(-5, 5);
   }
   else if (inimigo == 1)
-  { /*o inimigo 1 corresponde a um inimigo mais agressivo*/
+  { /**< O inimigo 1 corresponde a um inimigo mais agressivo */
     // Definição dos stats do inimigo agressivo
     // stats_.hp_max = 40;
     stats_.hp_max = 10;
@@ -42,7 +42,7 @@ Enemy::Enemy() : Entity()
     img_entity_.setScale(-3, 3);
   }
   else if (inimigo == 2)
-  { /*o inimigo 2 corresponde a um inimigo mais defensivo*/
+  { /**< O inimigo 2 corresponde a um inimigo mais defensivo */
     // Definição dos stats do inimigo defensivo
     // stats_.hp_max = 135;
     stats_.hp_max = 10;
@@ -58,7 +58,7 @@ Enemy::Enemy() : Entity()
     img_entity_.setScale(-6, 6);
   }
   else if (inimigo == 3)
-  { /*o inimigo 3 corresponde a um inimigo mais balanceado*/
+  { /**< O inimigo 3 corresponde a um inimigo mais balanceado */
     // Definição dos stats do outro inimigo balanceado
     // stats_.hp_max = 70;
     stats_.hp_max = 10;
@@ -75,9 +75,12 @@ Enemy::Enemy() : Entity()
   }
 }
 
+/**
+ * @brief Implementação do retorno do sprite de morte para diferentes tipos de inimigos.
+ * @return Caminho do sprite de morte.
+ */
 string Enemy::ReturnSpriteMorte()
 {
-  // Implementação do retorno do sprite de morte para diferentes tipos de inimigos
   if (name_ == "Spear Skeleton")
   {
     return "resources/spear_skeleton/sprite_spearskeleton_dead.png";
@@ -92,9 +95,13 @@ string Enemy::ReturnSpriteMorte()
   }
   return " ";
 }
+
+/**
+ * @brief Implementação do retorno do sprite de ataque para diferentes tipos de inimigos.
+ * @return Caminho do sprite de ataque.
+ */
 string Enemy::ReturnSpriteAtk()
 {
-  // Implementação do retorno do sprite de ataque para diferentes tipos de inimigos
   if (name_ == "Spear Skeleton")
   {
     return "resources/spear_skeleton/sprite_spearskeleton_atk1.png";
@@ -109,9 +116,13 @@ string Enemy::ReturnSpriteAtk()
   }
   return " ";
 }
+
+/**
+ * @brief Retorno do sprite de dano recebido para diferentes tipos de inimigos.
+ * @return Caminho do sprite de dano recebido.
+ */
 string Enemy::ReturnSpriteTomou()
 {
-  // Implementação do retorno do sprite de dano recebido para diferentes tipos de inimigos
   if (name_ == "Spear Skeleton")
   {
     return "resources/spear_skeleton/sprite_spearskeleton_hurt.png";
@@ -126,9 +137,13 @@ string Enemy::ReturnSpriteTomou()
   }
   return " ";
 }
+
+/**
+ * @brief Retorno do sprite de defesa para diferentes tipos de inimigos
+ * @return Caminho do sprite de defesa.
+ */
 string Enemy::ReturnSpriteDef()
 {
-  // Implementação do retorno do sprite de defesa para diferentes tipos de inimigos
   if (name_ == "Spear Skeleton")
   {
     return "resources/spear_skeleton/sprite_spearskeleton_protect.png";
@@ -143,9 +158,13 @@ string Enemy::ReturnSpriteDef()
   }
   return " ";
 }
+
+/**
+ * @brief Retorno do sprite de idle para diferentes tipos de inimigos.
+ * @return Caminho do sprite de idle.
+ */
 string Enemy::ReturnSpriteIdle()
 {
-  // Implementação do retorno do sprite de idle para diferentes tipos de inimigos
   if (name_ == "Spear Skeleton")
   {
     img_entity_.setPosition(1100, 215);
@@ -170,9 +189,13 @@ string Enemy::ReturnSpriteIdle()
   }
   return " ";
 }
+
+/**
+ * @brief Configura o sprite do inimigo com base no caminho do sprite fornecido.
+ * @param png Caminho do sprite a ser configurado.
+ */
 void Enemy::SettaSprite(string png)
 {
-  // Implementação para carregar textura e configurar o sprite do inimigo
   img_entity_texture_.loadFromFile(png);
   img_entity_.setTexture(img_entity_texture_);
   if (name_ == "Spear Skeleton")
@@ -193,9 +216,14 @@ void Enemy::SettaSprite(string png)
   }
   return;
 }
+
+/**
+ * @brief Retorna dados específicos de animação com base no caminho do sprite fornecido.
+ * @param png Caminho do sprite para o qual os dados de animação são solicitados.
+ * @return Dados de animação específicos do sprite.
+ */
 DadosAnimacao Enemy::ReturnDadosSprite(string png)
 {
-  // Implementação para retornar dados específicos de animação com base no sprite solicitado
   DadosAnimacao aux;
   if (name_ == "Spear Skeleton")
   {

@@ -23,6 +23,9 @@ Menu::~Menu()
   delete bg_;
 }
 
+/**
+ * @brief Inicializa os valores iniciais do menu.
+ */
 void Menu::SetValues()
 {
   // Configurações iniciais do menu
@@ -57,6 +60,9 @@ void Menu::SetValues()
   texts_[4].setOutlineColor(Color::Red);
 }
 
+/**
+ * @brief Loop de eventos do menu.
+ */
 void Menu::LoopEvents()
 {
   Event event;
@@ -103,9 +109,11 @@ void Menu::LoopEvents()
   }
 }
 
+/**
+ * @brief Função para receber o nome do jogador.
+ */
 void Menu::ReceiveName()
 {
-  // Lógica para receber o nome do jogador
   RenderWindow window(VideoMode(500, 100), "Name select");
 
   // Carregamento de recursos e inicialização de variáveis
@@ -171,6 +179,9 @@ void Menu::ReceiveName()
   }
 }
 
+/**
+ * @brief Desenha todos os elementos do menu.
+ */
 void Menu::DrawAll()
 {
   window_->clear();
@@ -182,6 +193,9 @@ void Menu::DrawAll()
   window_->display();
 }
 
+/**
+ * @brief Executa o menu.
+ */
 void Menu::RunMenu()
 {
   while (window_->isOpen())
@@ -194,7 +208,15 @@ void Menu::RunMenu()
   // Imprime os dados no terminal para fins de verificação
 }
 
+/**
+ * @brief Retorna a classe selecionada no menu.
+ * @return Classe selecionada.
+ */
 int Menu::ReturnClass() { return (pos_ - 2); }
 // Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
 
+/**
+ * @brief Retorna o nome do jogador inserido no menu.
+ * @return Nome do jogador.
+ */
 string Menu::ReturnName() { return player_name_; }
