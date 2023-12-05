@@ -7,6 +7,7 @@
 
 Rpg::Rpg(Player jogador)
 {
+  // Inicializando variáveis membro.
   player_ = jogador;
   mouse_coord_ = {0, 0};
   pos_mouse_ = {0, 0};
@@ -26,6 +27,7 @@ Rpg::Rpg(Player jogador)
   background->setTexture(bg);
   background->setScale(2.35, 2.35);
 
+  // Inicializando botões
   buttons_.resize(4);
   buttons_[0].setSize(Vector2f(141, 141));
   buttons_[0].setPosition(Vector2f(122, 692));
@@ -51,6 +53,7 @@ Rpg::Rpg(Player jogador)
   buttons_[3].setOutlineColor(Color::Red);
   buttons_[3].setOutlineThickness(0);
 
+  // Inicialização dos cooldowns das habilidades.
   cd_skills_.resize(3);
 
   for (size_t i{}; i < cd_skills_.size(); i++)
@@ -80,6 +83,7 @@ Rpg::Rpg(Player jogador)
   cd_skills_[2][1].setPosition(Vector2f(1006.5, 837));
   cd_skills_[2][2].setPosition(Vector2f(1020.5, 837));
 
+  // Configurações das posições das barras de status do jogador e do inimigo.
   player_status_.resize(2);
   player_status_[0].setFillColor(Color::Green);
   player_status_[0].setOutlineThickness(0);
