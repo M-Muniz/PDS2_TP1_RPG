@@ -205,15 +205,15 @@ DadosAnimacao Player::ReturnDadosSprite(string png){
   }else if(classe_ == 1 ){
     if(png == "resources/mage/sprite_mage_atk2.png"){
       aux={990,74,9};
-      img_entity_.setPosition(125,285);
+      img_entity_.setPosition(125,250);
       return aux;
     }else if(png == "resources/mage/sprite_mage_protect.png"){
       aux={348,87,4};
-      img_entity_.setPosition(125,165);
+      img_entity_.setPosition(125,175);
       return aux;
     }else if(png == "resources/mage/sprite_mage_hurt.png"){
       aux={132,59,2};
-      img_entity_.setPosition(125,265);
+      img_entity_.setPosition(125,310);
       return aux;
     }else if(png == "resources/mage/sprite_mage_dead.png"){
       aux={340,59,4};

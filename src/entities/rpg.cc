@@ -563,6 +563,7 @@ void Rpg::Run(){
                   opponent_status_.setSize(Vector2f(tam_x, 21));
                 }else{
                   opponent_->stats_.hp += player_.EntitySkills(1).attributes_.hp;
+                  player_.stats_.atk += player_.EntitySkills(1).attributes_.atk;
                   float tam_x = 461*opponent_->stats_.hp/opponent_->stats_.hp_max;
                   opponent_status_.setSize(Vector2f(tam_x, 21));
                   cout << "Mage/Samurai causou dano" << endl;
@@ -802,14 +803,14 @@ void Rpg::Run(){
 
           animaçao_completa_enemy_ = 0;
           frame_e_ = 0;
-          frame_p_ = 0;
 
           while(frame_e_<(aux_e.frames-aux_p.frames)){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,0,0,0,true);
             Draw();
           }
+          aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           player_.SettaSprite(player_.ReturnSpriteTomou());
-
+          frame_p_=0;
           while(!animaçao_completa_enemy_){
             Game(aux_e.largura,aux_e.altura,aux_e.frames,false,aux_p.largura,aux_p.altura,aux_p.frames,false);
             Draw();
