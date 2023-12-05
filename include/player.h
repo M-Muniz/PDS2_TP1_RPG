@@ -10,7 +10,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "skill.h"
-#include "boss.h"
 #include "entity.h"
 
 using namespace std;
