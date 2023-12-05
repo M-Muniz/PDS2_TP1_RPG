@@ -14,7 +14,7 @@ int Entity::Atk(){
 bool Entity::Def(int atk_opponent){
   int aux = rand() % 100;
 
-  if(aux+stats_.agi < 75){  /* o golpe atingiu o inimigo */
+  if(aux+stats_.agi < 80){  /* o golpe atingiu o inimigo */
    
     stats_.hp -= atk_opponent - stats_.def;
 

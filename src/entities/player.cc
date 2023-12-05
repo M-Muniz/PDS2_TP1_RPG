@@ -17,7 +17,7 @@ Player::Player(string nome, int classe) : Entity(){
     stats_.hp_max = 150;  
     stats_.hp = stats_.hp_max;
     stats_.atk = 60;
-    stats_.def = 20;
+    stats_.def = 5;
     stats_.agi = 10;
     stats_.mp = 100;
     img_entity_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
