@@ -40,8 +40,6 @@ public:
   Font font_; /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
-  // Enemy* inimigo_; /**< Enemy. */
-  // Boss* boss_; /**< Boss.*/
   Entity* opponent_; /**< Enemy/Boss a ser enfrentado. */
   Item* item_drop_; /**< Item dropado por cada enemy/boss vencido. */
 
@@ -51,6 +49,8 @@ public:
 
   int animaçao_completa_enemy_; /**< Aramazena dados da animação do enemy. */
   int animaçao_completa_player_; /**< Aramazena dados da animação do player. */
+
+  int inimigos_mortos; /**< Aramazena a quantidade de inimigos mortos pelo Player. */
 
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 

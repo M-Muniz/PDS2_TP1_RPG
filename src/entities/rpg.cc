@@ -8,6 +8,7 @@ Rpg::Rpg(Player jogador)
   window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
+  inimigos_mortos = 0;
 
   opponent_ = new Enemy();
 
@@ -319,6 +320,7 @@ int Rpg::Events()
 void Rpg::DrawMessages(string message)
 {
   Text text_message;
+  Text aux;
   text_message.setFont(font_);
   text_message.setCharacterSize(15);
   text_message.setFillColor(Color::White);
@@ -329,12 +331,25 @@ void Rpg::DrawMessages(string message)
   if (message == "Seu jogador morreu. Game Over.")
   {
     text_message.setCharacterSize(30);
+    aux.setFont(font_);
+    aux.setCharacterSize(15);
+    aux.setFillColor(Color::White);
+    aux.setOutlineColor(Color::Black);
+    aux.setOutlineThickness(3);
+
+    stringstream ss;
+    ss << inimigos_mortos;
+
+    aux.setString("Você eliminou " + ss.str() + " inimigos.");
   }
 
   FloatRect name_rect = text_message.getLocalBounds();
   text_message.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 350));
+  name_rect = aux.getLocalBounds();
+  aux.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 500));
 
   window_->draw(text_message);
+  window_->draw(aux);
   window_->display();
 
   sleep(milliseconds(250));
@@ -453,7 +468,7 @@ void Rpg::Draw()
 void Rpg::Run()
 {
   float tam_x;
-  int inimigos_mortos = 0, turnos_sem_usar_skill = 0;
+  int turnos_sem_usar_skill = 0;
 
   while (window_->isOpen())
   {
