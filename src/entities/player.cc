@@ -19,7 +19,7 @@ Player::Player(string nome, int classe) : Entity(){
     stats_.atk = 60;
     stats_.def = 20;
     stats_.agi = 10;
-    stats_.mp = 130;
+    stats_.mp = 100;
     img_entity_texture_.loadFromFile("resources/mage/sprite_mage_default.png"); 
     img_entity_.setTexture(img_entity_texture_);
   }else if(classe == 2){ // Classe Samurai
@@ -28,7 +28,7 @@ Player::Player(string nome, int classe) : Entity(){
     stats_.atk = 50;
     stats_.def = 15;
     stats_.agi = 20;
-    stats_.mp = 70;
+    stats_.mp = 100;
     img_entity_texture_.loadFromFile("resources/samurai/sprite_samurai_default.png"); 
     img_entity_.setTexture(img_entity_texture_);
   }
