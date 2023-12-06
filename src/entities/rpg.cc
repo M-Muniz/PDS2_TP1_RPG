@@ -853,13 +853,6 @@ void Rpg::Run()
               else
               {
                 opponent_->stats_.hp += player_.EntitySkills(2).attributes_.hp;
-                opponent_status_.setSize(Vector2f(tam_x, 21));
-                cout << "Mage/Knight causou dano" << endl;
-
-                if (opponent_->stats_.hp <= 0)
-                {
-                  opponent_->stats_.hp = 0;
-                }
                 player_.SettaSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -883,6 +876,14 @@ void Rpg::Run()
                 {
                   opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
                 }
+                opponent_status_.setSize(Vector2f(tam_x, 21));
+                cout << "Mage/Knight causou dano" << endl;
+
+                if (opponent_->stats_.hp <= 0)
+                {
+                  opponent_->stats_.hp = 0;
+                }
+
                 stringstream aux;
                 string x;
 
