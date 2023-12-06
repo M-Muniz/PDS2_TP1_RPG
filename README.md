@@ -78,50 +78,61 @@ Player;
 Player(string nome, int classe); // Construtor, recebe o nome do personagem
 e a sua classe.
 
+Upar(int xp); // Aumenta os status do Player com base na experiência recebida.
+
+EntitySkills(int index); // Retorna uma das skills do Player com base no índice.
+
+ReturnSpriteMorte(); // Retorna o caminho relativo da animação de morte.
+
+ReturnSpriteAtk(); // Retorna o caminho relativo da animação de ataque.
+
+ReturnSpriteIdle(); // Retorna o caminho relativo da animação de idle.
+
+ReturnSpriteDef(); // Retorna o caminho relativo da animação de defesa.
+
+ReturnSpriteTomou(); // Retorna o caminho relativo da animação de hurt.
+
+ReturnSpriteSkill(int index); // Retorna o caminho relativo da animação da habilidade com base no índice.
+
+ReturnDadosSprite(string png); // Retorna dados do sprite para facilitar as animações com base no caminho relativo.
+
+SettaSprite(string Png); // Define a imagem do sprite do Player.
 Atk(); // Retorna o valor de ataque do Player.
-
-Def(int atk_enemy); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
-esquiva do Player, retorna 0 se o Player desviar do ataque e 1 c.c. 
-
-Upar(int xp); // Aumenta os status do Palyer com base na experiência recebida.
-
-ReturnStatus(); // Retorna a struct de dados do Player.
-
-UserSkills(int index); // Retorna uma das skills do Player com base no indexador.
 
 ##    Colaborators:
 
-int classe_; // Classe do Player
+int classe_; // Classe do Player.
 
 vector<Skill> skills_; // Vetor de habilidades do Player.
 
-Status stats_; // Estrutura que armazena os status do Player.
-
-String name_; // Nome do Player.
-
-Texture img_player_texture_; // Textura para importar para o Sprite
-
-Sprite img_player_; // Imagem do Player para a interface gráfica.
-
-vector<vector<bool>> skills_cd_; // Computa o cooldown das skills do player. 
+vector<vector<bool>> skills_cd_; // Computa o cooldown das skills do player.
 # ----------------------------------------------------------------
 
 ##    Class:
 
 Enemy;
 
-##    Responsabilitys:
+##    Responsabilidades:
 
 Enemy(); // Construtor.
 
-Atk(); // Retorna o valor de ataque do Enemy.
+BuffaInimigo(int inimigos_mortos); // Aumenta os status do inimigo com base no número de inimigos mortos.
 
-Def(int Atk_player); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
-esquiva do Enemy.
+ReturnSpriteMorte(); // Retorna o caminho relativo da animação de morte.
 
-ReturnStatus(); // Retorna a struct de dados do Enemy.
+ReturnSpriteAtk(); // Retorna o caminho relativo da animação de ataque.
 
-##    Colaborators:
+ReturnSpriteDef(); // Retorna o caminho relativo da animação de defesa.
+
+ReturnSpriteTomou(); // Retorna o caminho relativo da animação de hurt.
+
+ReturnSpriteIdle(); // Retorna o caminho relativo da animação de idle.
+
+ReturnDadosSprite(string png); // Retorna dados do sprite para facilitar as animações com base no caminho relativo.
+
+SettaSprite(string Png); // Define a imagem do sprite do Enemy.
+
+##    Colaboradores:
 
 Status stats_; // Estrutura de dados que armazena os status do inimigo.
 
@@ -137,17 +148,41 @@ Sprite img_enemy_; // Imagem do Enemy para a interface gráfica.
 
 Rpg;
 
-##    Responsabilitys:
+##    Responsabilidades:
 
 Rpg(Player jogador); // Construtor da classe.
 
+~Rpg(); // Destrutor da classe.
+
 Run(); // Inicia o jogo.
 
-shared_ptr<RenderWindow> window; // Janela.
+MoveEnemys(); // Move os inimigos.
+
+SetAnimePlayer(int largura, int altura, int frame, bool idle); // Anima os objetos Player do jogo.
+
+SetAnimeEnemy(int largura, int altura, int frame, bool idle); // Anima os objetos Enemy do jogo.
+
+Events(); // Eventos do jogo que acontecem na interface gráfica.
+
+Draw(); // Anima a janela.
+
+DrawMessages(string message); // Desenha as mensagens na janela do jogo.
+
+DrawTexts(); // Desenha os textos na janela do jogo.
+
+Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p, bool idle_p); // Seta os frames do jogo.
+
+ItemDraw(); // Desenha os itens na tela.
+
+##    Colaboradores:
+
+shared_ptr<RenderWindow> window_; // Janela.
 
 Texture bg; // Textura para importar para o backgroud da tela.
 
 shared_ptr<Sprite> background; // Background da tela.
+
+RectangleShape opponent_status_; // Barra de vida do inimigo.
 
 vector<RectangleShape> buttons_; // Vetor para os botões clicáveis.
 
@@ -157,34 +192,27 @@ vector<vector<RectangleShape>> cd_skills_; // Mostradores para o cooldown das sk
 
 vector<Text> texts_; // Vetor para posicionar os textos na tela.
 
-Text player_name_; // Texto para plotar o nome do Player na tela. 
+Text player_name_; // Texto para plotar o nome do Player na tela.
 
-vector<Vector2f> texts_coords_; // Vetor para posicionar os textos na tela.
+Font font_; // Variável para armazenar a fonte para os textos.
 
- vector<string> texts_strings_; // Vetor para posicionar os textos na tela. 
+Player player_; // Jogador.
 
- Player player_; // Jogador.
+Entity* opponent_; // Enemy/Boss a ser enfrentado.
 
- vector<Enemy> enemys_; // Lista de Enemys para o jogo.
+Item* item_drop_; // Item dropado por cada enemy/boss vencido.
 
- vector<Boss> boss_; // Lista de Boss's para o jogo.
+Vector2i pos_mouse_; // Posição do mouse.
 
- float frame_e_,frame_p_; // Frame
+Vector2f mouse_coord_; // Coordenadas do mouse.
 
+int animacao_completa_enemy_; // Armazena dados da animação do enemy.
 
-##    Colaborators:
+int animacao_completa_player_; // Armazena dados da animação do player.
 
-MoveEnemys(); // Move os inimigos.
+int inimigos_mortos; // Armazena a quantidade de inimigos mortos pelo Player.
 
-SetAnimePlayer(); // Anima os objetos Player do jogo.
-
-SetAnimeEnemy(); // Anima os objetos Enemy do jogo. 
-
-Events(); // Eventos do jogo que acontecem na interface grafica.
-
-Draw(); // Anima a janela.
-
-Game(); // Seta os frames do jogo.
+float frame_e_, frame_p_; // Variáveis para armazenar a contagem de frames das animações.
 
 # ----------------------------------------------------------------
 
@@ -192,11 +220,11 @@ Game(); // Seta os frames do jogo.
 
 Skill;
 
-##    Responsabilitys:
+##    Responsabilidades:
 
-skill(int classe); // Construtor da class skill baseado na Classe(RPG) selecionada. 
+Skill(int classe, int index); // Construtor da classe Skill baseado na Classe (RPG) selecionada.
 
-##    Colaborators:
+##    Colaboradores:
 
 int class_; // Armazena o valor da classe do Player ou do Boss.
 
@@ -204,7 +232,7 @@ Attributes attributes_; // Estrutura de dados com os atributos da Skill.
 
 Texture img_skill_texture_; // Textura para importar para o Sprite.
 
-Sprite img_skill_; // Imagem da Skill para a interface grafica. 
+Sprite img_skill_; // Imagem da Skill para a interface gráfica.
 
 # ----------------------------------------------------------------
 
@@ -212,29 +240,41 @@ Sprite img_skill_; // Imagem da Skill para a interface grafica.
 
 Boss;
 
-##    Responsabilitys:
+##    Responsabilidades:
 
 Boss(); // Construtor.
-Atk(); // Retorna o valor de ataque do Boss.
 
-Def(int atk_player); // Recebe o valor de ataque do atacante e subtrai da vida com base na defesa e 
-esquiva do Boss. 
+EntitySkills(int index); // Retorna a habilidade do Boss.
 
-ReturnStatus(); // Retorna a estrutura de dados de status do Boss.
+ReturnSpriteMorte(); // Retorna o caminho relativo da animação de morte.
 
-BossSkills(int index); // Retorna uma das skills do Boss com base no indexador.
+ReturnSpriteAtk(); // Retorna o caminho relativo da animação de ataque.
 
-##    Colaborators:
+ReturnSpriteIdle(); // Retorna o caminho relativo da animação de idle.
 
-vector<Skill> skills_; // Vetor das habilidade do Boss;
+ReturnSpriteDef(); // Retorna o caminho relativo da animação de defesa.
 
-Status stats_ // Estrutura de dados com os status do Boss.
+ReturnSpriteTomou(); // Retorna o caminho relativo da animação de hurt.
+
+ReturnSpriteSkill(); // Retorna o caminho relativo da animação de skill.
+
+##    Colaboradores:
+
+vector<Skill> skills_; // Vetor de habilidades do chefe (boss).
+
+## Herança:
+
+Entity; // Classe base para Boss.
+
+## Atributos Herdados:
+
+Status stats_; // Estrutura de dados com os status do Boss.
 
 String name_; // Nome do Boss.
 
-Texture img_boss_texture_; // Textura para importar para o Sprite.
+Texture img_entity_texture_; // Textura para importar para o Sprite.
 
-Sprite img_boss_; // Imagem do Boss para a interface gráfica.
+Sprite img_entity_; // Imagem do Boss para a interface gráfica.
 
 # ----------------------------------------------------------------
 
@@ -242,19 +282,19 @@ Sprite img_boss_; // Imagem do Boss para a interface gráfica.
 
 Item;
 
-##    Responsabilitys:
+##    Responsabilidades:
 
-Item(); // Construtor.
+Item(int tipo_item); // Construtor da classe Item.
 
-Sum(Player& usr); // Soma os atributos dessa class ao player.
+Sum(Player& usr); // Soma os atributos deste item ao jogador.
 
-##    Colaborators:
+##    Colaboradores:
 
-Attributes attributes_; // Estrutura de dados com os atributos do item.
+Attributes attributes_; // Estrutura de dados que armazena os atributos do item.
 
 Texture img_item_texture_; // Textura para importar para o Sprite.
 
-Sprite img_Item; // Imagem do item para a interface gráfica.
+Sprite img_item_; // Imagem do item para a interface gráfica.
 
 # ----------------------------------------------------------------
 
@@ -262,23 +302,27 @@ Sprite img_Item; // Imagem do item para a interface gráfica.
 
 Menu;
 
-##    Responsabilitys:
+##    Responsabilidades:
 
 Menu(); // Construtor.
 
 ~Menu(); // Destrutor. 
 
-void SetValues(); // Função para definir os valores para cada um dos objetos da Classe.
+SetValues(); // Função para definir os valores para cada um dos objetos da Classe.
 
-void LoopEvents(); // Função para armazenar os eventos que ocorrem no Menu (interações como mouse e teclado).
+LoopEvents(); // Função para armazenar os eventos que ocorrem no Menu (interações como mouse e teclado).
 
-void ReceiveName(); // Função para receber uma string (nome do player) através da interface gráfica.
+ReceiveName(); // Função para receber uma string (nome do player) através da interface gráfica.
 
-void DrawAll(); // Função para desenhar as coisas na janela da interface gráfica.
+DrawAll(); // Função para desenhar as coisas na janela da interface gráfica.
 
-void RunMenu(); // Coloca o Menu para funcionar.
+RunMenu(); // Coloca o Menu para funcionar.
 
-##    Colaborators:
+ReturnName(); // Retorna o nome do player.
+
+ReturnClass(); // Retorna a classe do player.
+
+##    Colaboradores:
 
 int pos_; //  Armazena a posição de seleção do Menu.
 
