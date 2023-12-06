@@ -1,7 +1,13 @@
+/**
+ * @brief Construtor da classe Rpg.
+ * @file rpg.cc
+ * @param jogador Instância da classe Player.
+ */
 #include "../../include/rpg.h"
 
 Rpg::Rpg(Player jogador)
 {
+  // Inicializando variáveis membro.
   player_ = jogador;
   mouse_coord_ = {0, 0};
   pos_mouse_ = {0, 0};
@@ -23,6 +29,7 @@ Rpg::Rpg(Player jogador)
   background->setTexture(bg);
   background->setScale(2.35, 2.35);
 
+  // Inicializando botões
   buttons_.resize(4);
   buttons_[0].setSize(Vector2f(141, 141));
   buttons_[0].setPosition(Vector2f(122, 692));
@@ -48,6 +55,7 @@ Rpg::Rpg(Player jogador)
   buttons_[3].setOutlineColor(Color::Red);
   buttons_[3].setOutlineThickness(0);
 
+  // Inicialização dos cooldowns das habilidades.
   cd_skills_.resize(3);
 
   for (size_t i{}; i < cd_skills_.size(); i++)
@@ -77,6 +85,7 @@ Rpg::Rpg(Player jogador)
   cd_skills_[2][1].setPosition(Vector2f(1006.5, 837));
   cd_skills_[2][2].setPosition(Vector2f(1020.5, 837));
 
+  // Configurações das posições das barras de status do jogador e do inimigo.
   player_status_.resize(2);
   player_status_[0].setFillColor(Color::Green);
   player_status_[0].setOutlineThickness(0);
@@ -97,6 +106,18 @@ Rpg::Rpg(Player jogador)
   }
 }
 
+/**
+ * @brief Método principal que inicia o jogo.
+ *
+ * @param x_e Coordenada X do inimigo.
+ * @param y_e Coordenada Y do inimigo.
+ * @param z_e Valor Z do inimigo.
+ * @param idle_e Booleano indicando se o inimigo está ocioso.
+ * @param x_p Coordenada X do jogador.
+ * @param y_p Coordenada Y do jogador.
+ * @param z_p Valor Z do jogador.
+ * @param idle_p Booleano indicando se o jogador está ocioso.
+ */
 void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p, bool idle_p)
 {
   frame_p_ += 0.035;
@@ -105,6 +126,14 @@ void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p
   SetAnimeEnemy(x_e, y_e, z_e, idle_e);
 }
 
+/**
+ * @brief Define a animação do inimigo.
+ *
+ * @param largura Largura do inimigo.
+ * @param altura Altura do inimigo.
+ * @param frame Número de frames da animação.
+ * @param idle Define se o inimigo está ocioso.
+ */
 void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
 {
   if (idle == false)
@@ -154,9 +183,9 @@ void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
   {
     if (idle == true)
     {
-      altura = 84;
-      largura = 67;
       frame = 7;
+      largura = 67;
+      altura = 84;
       opponent_->img_entity_.setPosition(1100, 215);
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
@@ -184,8 +213,17 @@ void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
   }
 }
 
+/**
+ * @brief Descrição da função ItemDraw().
+ *
+ * Esta função é responsável por realizar o desenho do item no jogo.
+ * Ela cria um novo item aleatório, soma os status desse item ao jogador,
+ * posiciona a imagem do item na tela e realiza a animação do oponente
+ * enquanto o item está sendo exibido.
+ */
 void Rpg::ItemDraw()
 {
+  // Implementação da função ItemDraw
   item_drop_ = new Item(rand() % 6);
   item_drop_->Sum(player_); // soma os status do item no player
   item_drop_->img_item_.setPosition(600, 490);
@@ -209,8 +247,22 @@ void Rpg::ItemDraw()
   }
   delete item_drop_;
 }
+
+/**
+ * @brief Descrição da função SetAnimePlayer().
+ *
+ * Esta função configura a animação do jogador com base nos parâmetros fornecidos.
+ * Ela ajusta a posição da imagem do jogador, define os retângulos de textura
+ * correspondentes à animação e verifica se a animação foi concluída.
+ *
+ * @param largura Largura da animação.
+ * @param altura Altura da animação.
+ * @param frame Número de frames da animação.
+ * @param idle Flag indicando se o jogador está em estado ocioso.
+ */
 void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
 {
+  // Implementação da função SetAnimePlayer
   if (idle == false)
   {
     largura /= frame;
@@ -267,8 +319,23 @@ void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
   }
 }
 
+/**
+ * @brief Descrição da função Events().
+ *
+ * Esta função é responsável por gerenciar os eventos do jogo,
+ * como o fechamento da janela e a detecção de cliques do mouse
+ * nos botões de ação.
+ *
+ * @return Retorna um inteiro correspondente à ação realizada:
+ * - 0: Nenhum evento relevante.
+ * - 1: Ataque básico.
+ * - 2: Skill I.
+ * - 3: Skill 2.
+ * - 4: Skill 3.
+ */
 int Rpg::Events()
 {
+  // Implementação da função Events
   Event event;
   pos_mouse_ = Mouse::getPosition(*window_);
   mouse_coord_ = window_->mapPixelToCoords(pos_mouse_);
@@ -321,8 +388,14 @@ int Rpg::Events()
   return 0;
 }
 
+/**
+ * @brief Função responsável por desenhar mensagens na tela do jogo.
+ *
+ * @param message Mensagem a ser exibida na tela.
+ */
 void Rpg::DrawMessages(string message)
 {
+  // Configuração do texto da mensagem
   Text text_message;
   Text aux;
   text_message.setFont(font_);
@@ -332,6 +405,7 @@ void Rpg::DrawMessages(string message)
   text_message.setOutlineThickness(3);
   text_message.setString(message);
 
+  // Ajusta o tamanho do texto se for uma mensagem específica
   if (message == "Your character die. Game over.")
   {
     text_message.setCharacterSize(30);
@@ -347,26 +421,37 @@ void Rpg::DrawMessages(string message)
     aux.setString("Você kill " + ss.str() + " opponents.");
   }
 
+  // Posicionamento do texto na tela
   FloatRect name_rect = text_message.getLocalBounds();
   text_message.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 350));
   name_rect = aux.getLocalBounds();
   aux.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 500));
 
+  // Desenha o texto na janela e exibe na tela
   window_->draw(text_message);
   window_->draw(aux);
   window_->display();
 
+  // Pausa breve para exibir a mensagem
   sleep(milliseconds(250));
 }
 
+/**
+ * @brief Função para desenhar textos na tela do jogo.
+ *
+ * Esta função configura e exibe diferentes informações relacionadas ao jogador
+ * na interface do jogo, como nome, estatísticas e outros dados relevantes.
+ */
 void Rpg::DrawTexts()
 {
+  // Configuração do nome do jogador
   player_name_.setString(player_.name_);
   player_name_.setCharacterSize(25);
   player_name_.setFont(font_);
   player_name_.setFillColor(Color::White);
   player_name_.setOutlineThickness(3);
 
+  // Configuração da cor do contorno do nome baseado na classe do jogador
   if (player_.classe_ == 0)
   {
     player_name_.setOutlineColor(Color::Blue);
@@ -380,9 +465,11 @@ void Rpg::DrawTexts()
     player_name_.setOutlineColor(Color::Red);
   }
 
+  // Posicionamento do nome do jogador na tela
   FloatRect name_rect = player_name_.getLocalBounds();
   player_name_.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 680));
 
+  // Configuração dos textos relacionados às estatísticas do jogador
   texts_.resize(4);
 
   for (int i = 0; i < 3; i++)
@@ -429,6 +516,7 @@ void Rpg::DrawTexts()
   name_rect = texts_[3].getLocalBounds();
   texts_[3].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2), 60));
 
+  // Desenha o nome do jogador e os textos das estatísticas na janela
   window_->draw(player_name_);
   for (auto t : texts_)
   {
@@ -436,10 +524,19 @@ void Rpg::DrawTexts()
   }
 }
 
+/**
+ * @brief Função responsável por desenhar elementos na janela do jogo.
+ *
+ * Esta função limpa a janela, desenha vários elementos, como botões, status dos jogadores,
+ * imagens dos personagens e texto informativo na tela do jogo.
+ */
 void Rpg::Draw()
 {
+  // Limpa a janela e desenha o fundo
   window_->clear(Color::Black);
   window_->draw(*background);
+
+  // Desenha botões e elementos relacionados às habilidades dos jogadores
   for (size_t i{}; i < buttons_.size(); i++)
   {
     window_->draw(buttons_[i]);
@@ -461,14 +558,34 @@ void Rpg::Draw()
     window_->draw(player_status_[i]);
     window_->draw(player_status_[i]);
   }
+  // Desenha status dos jogadores, imagens e outros elementos na janela
   window_->draw(opponent_status_);
   window_->draw(opponent_->img_entity_);
   window_->draw(player_.img_entity_);
 
+  // Chama a função para desenhar textos e atualiza a janela
   DrawTexts();
   window_->display();
 }
 
+/**
+ * @brief Função responsável por realizar o ataque básico do jogador.
+ *
+ * Esta função é chamada para executar o ataque básico do jogador durante o jogo.
+ * Ela envolve cálculos de dano, interações com o oponente, atualização de status.
+ */
+void AtaqueBasicoPlayer()
+{
+  // Implementação do ataque básico do jogador
+}
+
+/**
+ * @brief Função que controla a execução principal do jogo.
+ *
+ * Esta função é responsável por executar a lógica principal do jogo, incluindo o controle de 
+ * turnos, habilidades, ataques, interações com o jogador e oponente, além de gerenciamento de 
+ * estados do jogo.
+ */
 void Rpg::Run()
 {
   float tam_x;
@@ -729,8 +846,8 @@ void Rpg::Run()
                 stringstream aux;
                 string x;
 
-                aux << opponent_->stats_.hp;
-                aux >> x;
+              stringstream aux;
+              string x;
 
                 DrawMessages("You deals damage and gain agility \n The enemy has " + x + " of HP.");
 

@@ -1,7 +1,12 @@
+/**
+ * @file menu.cc
+ * @brief Implementação da classe Menu.
+ */
 #include "../../include/menu.h"
 #include "../../include/menu.h"
 
-Menu::Menu(){
+Menu::Menu()
+{
   window_ = new RenderWindow();
   font_ = new Font();
   image_ = new Texture();
@@ -10,17 +15,24 @@ Menu::Menu(){
   SetValues();
 }
 
-Menu::~Menu(){
+Menu::~Menu()
+{
   delete window_;
   delete font_;
   delete image_;
   delete bg_;
 }
 
-void Menu::SetValues(){
-  window_->create(VideoMode(1240,720), "Menu Inicial", Style::Titlebar | Style::Close);
-  window_->setPosition(Vector2i(0,0));
+/**
+ * @brief Inicializa os valores iniciais do menu.
+ */
+void Menu::SetValues()
+{
+  // Configurações iniciais do menu
+  window_->create(VideoMode(1240, 720), "Menu Inicial", Style::Titlebar | Style::Close);
+  window_->setPosition(Vector2i(0, 0));
 
+  // Inicialização de variáveis e carregamento de recursos
   pos_ = 2;
   pressed_ = theselect_ = false;
   if(!font_->loadFromFile("fonts/super_legend_boy.ttf")){
@@ -33,13 +45,14 @@ void Menu::SetValues(){
   bg_->setTexture(*image_);
 
   options_ = {"RPG - TP1", "Choose your class", "Knight", "Mage", "Samurai"};
-  coords_ = {{575,55},{525,205},{600,310},{620,415},{590,515}};
-  sizes_ = {20,20,24,24,24};
+  coords_ = {{575, 55}, {525, 205}, {600, 310}, {620, 415}, {590, 515}};
+  sizes_ = {20, 20, 24, 24, 24};
   texts_.resize(5);
 
-  for(size_t i{}; i < texts_.size(); i++){
-    texts_[i].setFont(*font_); 
-    texts_[i].setString(options_[i]); 
+  for (size_t i{}; i < texts_.size(); i++)
+  {
+    texts_[i].setFont(*font_);
+    texts_[i].setString(options_[i]);
     texts_[i].setCharacterSize(sizes_[i]);
     texts_[i].setPosition(coords_[i]);
   }
@@ -51,15 +64,24 @@ void Menu::SetValues(){
   texts_[4].setOutlineColor(Color::Red);
 }
 
-void Menu::LoopEvents(){
+/**
+ * @brief Loop de eventos do menu.
+ */
+void Menu::LoopEvents()
+{
   Event event;
-  while(window_->pollEvent(event)){
-    if( event.type == Event::Closed){
+  while (window_->pollEvent(event))
+  {
+    if (event.type == Event::Closed)
+    {
       window_->close();
     }
 
-    if(Keyboard::isKeyPressed(Keyboard::Down) && !pressed_){
-      if(pos_ < 4){
+    // Lógica para navegação no menu
+    if (Keyboard::isKeyPressed(Keyboard::Down) && !pressed_)
+    {
+      if (pos_ < 4)
+      {
         pos_++;
         pressed_ = true;
         texts_[pos_].setOutlineThickness(4);
@@ -69,8 +91,10 @@ void Menu::LoopEvents(){
       }
     }
 
-    if(Keyboard::isKeyPressed(Keyboard::Up) && !pressed_){
-      if(pos_ > 2){
+    if (Keyboard::isKeyPressed(Keyboard::Up) && !pressed_)
+    {
+      if (pos_ > 2)
+      {
         pos_--;
         pressed_ = true;
         texts_[pos_].setOutlineThickness(4);
@@ -80,7 +104,8 @@ void Menu::LoopEvents(){
       }
     }
 
-    if(Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_){
+    if (Keyboard::isKeyPressed(Keyboard::Enter) && !theselect_)
+    {
       theselect_ = true;
       cout << "A opção selecionada foi: " << options_[pos_] << endl;
       window_->close();
@@ -88,9 +113,14 @@ void Menu::LoopEvents(){
   }
 }
 
-void Menu::ReceiveName(){
+/**
+ * @brief Função para receber o nome do jogador.
+ */
+void Menu::ReceiveName()
+{
   RenderWindow window(VideoMode(500, 100), "Name select");
-  
+
+  // Carregamento de recursos e inicialização de variáveis
   Texture bg;
   if(!bg.loadFromFile("resources/bgs/bg_insert_name.png")){
     throw ErroLoadFromFile{};
@@ -99,7 +129,7 @@ void Menu::ReceiveName(){
   Sprite background;
   background.setTexture(bg);
 
-  window.setPosition(Vector2i(0,0));
+  window.setPosition(Vector2i(0, 0));
 
   Font font;
   if(!font.loadFromFile("fonts/super_legend_boy.ttf")){
@@ -107,6 +137,7 @@ void Menu::ReceiveName(){
   } 
   
   Text title;
+  // Configurações do texto para solicitar o nome do jogador
   title.setString("What's your player name?");
   title.setFont(font);
   title.setPosition({100, 15});
@@ -114,26 +145,35 @@ void Menu::ReceiveName(){
   title.setFillColor(Color::White);
   title.setOutlineColor(Color::Black);
   title.setOutlineThickness(2);
-  
+
   Text input_text;
   input_text.setFont(font);
   input_text.setCharacterSize(15);
   input_text.setPosition(90, 55);
   input_text.setFillColor(Color::Black);
 
-  while (window.isOpen()){
+  while (window.isOpen())
+  {
     Event event;
-    while (window.pollEvent(event)){
-      if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Enter)){
-          window.close();
+    while (window.pollEvent(event))
+    {
+      if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Enter))
+      {
+        window.close();
       }
-      else if (event.type == Event::TextEntered){
-        if (event.text.unicode == 8){ // Verifique se a tecla Backspace foi pressionada
-          if(!player_name_.empty()){
+      else if (event.type == Event::TextEntered)
+      {
+        if (event.text.unicode == 8)
+        { // Verifique se a tecla Backspace foi pressionada
+          if (!player_name_.empty())
+          {
             player_name_.pop_back(); // Remove o último caractere da string
           }
-        }else if(event.text.unicode < 128 && player_name_.size() < 10){ // Limite de 10 caracteres para o nome
-          player_name_ += static_cast<char>(event.text.unicode); // Adicione o caractere à string caso 
+        }
+        else if (event.text.unicode < 128 && player_name_.size() < 10)
+        {
+          // Limite de 10 caracteres para o nome
+          player_name_ += static_cast<char>(event.text.unicode); // Adicione o caractere à string caso
         }
 
         input_text.setString(player_name_);
@@ -147,24 +187,44 @@ void Menu::ReceiveName(){
   }
 }
 
-void Menu::DrawAll(){
+/**
+ * @brief Desenha todos os elementos do menu.
+ */
+void Menu::DrawAll()
+{
   window_->clear();
   window_->draw(*bg_);
-  for(auto t : texts_){
-   window_->draw(t); 
+  for (auto t : texts_)
+  {
+    window_->draw(t);
   }
   window_->display();
 }
 
-void Menu::RunMenu(){
-  while(window_->isOpen()){
+/**
+ * @brief Executa o menu.
+ */
+void Menu::RunMenu()
+{
+  while (window_->isOpen())
+  {
     LoopEvents();
     DrawAll();
   }
   ReceiveName();
-  cout << "O menu foi encerrado. A seleção realizada foi: " << options_[pos_] << ". \nO nome do seu jogador será: " << player_name_ << "." << endl; // Imprime os dados no terminal para fins de verificação
+  cout << "O menu foi encerrado. A seleção realizada foi: " << options_[pos_] << ". \nO nome do seu jogador será: " << player_name_ << "." << endl;
+  // Imprime os dados no terminal para fins de verificação
 }
 
-int Menu::ReturnClass(){return (pos_-2);} //Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
+/**
+ * @brief Retorna a classe selecionada no menu.
+ * @return Classe selecionada.
+ */
+int Menu::ReturnClass() { return (pos_ - 2); }
+// Retorna a classe do player baseado na posiçao do menu subtraida de 2 pra correção
 
-string Menu::ReturnName(){return player_name_;}
+/**
+ * @brief Retorna o nome do jogador inserido no menu.
+ * @return Nome do jogador.
+ */
+string Menu::ReturnName() { return player_name_; }

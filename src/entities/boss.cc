@@ -1,3 +1,8 @@
+/**
+ * @file boss.cc
+ * @brief Implementação da classe Boss.
+ */
+
 #include "../../include/boss.h"
 #include "../../include/entity.h"
 

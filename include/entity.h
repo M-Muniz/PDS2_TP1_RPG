@@ -1,3 +1,7 @@
+/**
+ * @file entity.h
+ * @brief Contém a definição da classe Entity e estruturas de dados associadas.
+ */
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
@@ -17,30 +21,34 @@ struct ErroLoadFromFile{};
 /**
  * @brief Estrutura de dados para a animação.
  */
-struct DadosAnimacao {
+struct DadosAnimacao
+{
   int largura; /**< Largura da animação. */
-  int altura; /**< Altura da animação. */
-  int frames; /**< Número de frames da animação. */
+  int altura;  /**< Altura da animação. */
+  int frames;  /**< Número de frames da animação. */
 };
 
 /**
  * @brief Estrutura de dados para armazenar os status da entidade.
  */
-struct Status {
+struct Status
+{
   int hp_max; /**< Vida máxima da entidade. */
-  int hp; /**< Vida atual da entidade. */
-  int atk; /**< Valor de ataque da entidade. */
-  int def; /**< Valor de defesa da entidade. */
-  int mp; /**< Valor de mana da entidade. */
-  int xp; /**< Valor de experiência da entidade. */
-  int agi; /**< Valor de agilidade da entidade. */
+  int hp;     /**< Vida atual da entidade. */
+  int atk;    /**< Valor de ataque da entidade. */
+  int def;    /**< Valor de defesa da entidade. */
+  int mp;     /**< Valor de mana da entidade. */
+  int xp;     /**< Valor de experiência da entidade. */
+  int agi;    /**< Valor de agilidade da entidade. */
 };
 
 /**
  * @brief Classe base que representa uma entidade no jogo.
  */
-class Entity {
-friend class Rpg;
+class Entity
+{
+  friend class Rpg;
+
 public:
   /**
    * @brief Construtor da classe Entity.
@@ -136,11 +144,11 @@ public:
   virtual void SettaSprite(string Png);
 
 protected:
-  Status stats_; /**< Estrutura de dados que armazena os status da entidade. */
-  string name_; /**< Nome da entidade. */
+  Status stats_;               /**< Estrutura de dados que armazena os status da entidade. */
+  string name_;                /**< Nome da entidade. */
   Texture img_entity_texture_; /**< Textura para importar para o Sprite. */
-  Sprite img_entity_; /**< Imagem da entidade para a interface gráfica. */
-  vector<Skill> skills_; /**< Vetor de habilidades da entidade. */
+  Sprite img_entity_;          /**< Imagem da entidade para a interface gráfica. */
+  vector<Skill> skills_;       /**< Vetor de habilidades da entidade. */
 };
 
-#endif
+#endif /* ITEM_H_ */

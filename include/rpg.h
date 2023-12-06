@@ -1,3 +1,7 @@
+/**
+ * @file rpg.h
+ * @brief Contém a definição da classe Rpg.
+ */
 #ifndef RPG_H_
 #define RPG_H_
 
@@ -22,22 +26,23 @@ using namespace sf;
 /**
  * @brief Classe principal para o jogo de RPG.
  */
-class Rpg {
+class Rpg
+{
 
 public:
   shared_ptr<RenderWindow> window_; /**< Janela. */
-    
-  Texture bg; /**< Textura para importar para o backgroud da tela. */
+
+  Texture bg;                    /**< Textura para importar para o backgroud da tela. */
   shared_ptr<Sprite> background; /**< Background da tela. */
-    
-  RectangleShape opponent_status_; /**< Barra de vida do inimigo. */    
-  vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
-  vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
+
+  RectangleShape opponent_status_;           /**< Barra de vida do inimigo. */
+  vector<RectangleShape> buttons_;           /**< Vetor para os botões clicáveis. */
+  vector<RectangleShape> player_status_;     /**< Barras de mana e vida do Player. */
   vector<vector<RectangleShape>> cd_skills_; /**< Mostradores para o cooldown das skills do player. */
 
   vector<Text> texts_; /**< Vetor para posicionar os textos na tela. */
-  Text player_name_; /**< Texto para plotar o nome do Player na tela. */
-  Font font_; /**< Variável para armazenar a fonte para os textos. */
+  Text player_name_;   /**< Texto para plotar o nome do Player na tela. */
+  Font font_;          /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
   Entity* opponent_; /**< Enemy/Boss a ser enfrentado. */
@@ -46,9 +51,10 @@ public:
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
 
+  int animaçao_completa_enemy_;  /**< Armazena dados da animação do enemy. */
+  int animaçao_completa_player_; /**< Armazena dados da animação do player. */
 
-  int animaçao_completa_enemy_; /**< Aramazena dados da animação do enemy. */
-  int animaçao_completa_player_; /**< Aramazena dados da animação do player. */
+  float frame_e_, frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 
   int inimigos_mortos; /**< Aramazena a quantidade de inimigos mortos pelo Player. */
 
@@ -57,13 +63,15 @@ public:
 public:
   /**
    * @brief Construtor da classe Rpg.
+   * @param jogador Jogador principal do jogo.
    */
   Rpg(Player jogador);
-  
+
   /**
    * @brief Destrutor da classe Rpg.
    */
-  ~Rpg(){
+  ~Rpg()
+  {
     delete opponent_;
   };
 
@@ -72,7 +80,7 @@ public:
    */
   void Run();
 
-  private:
+private:
   /**
    * @brief Move os inimigos no jogo.
    */
@@ -81,12 +89,12 @@ public:
   /**
    * @brief Anima os objetos Player do jogo.
    */
-  void SetAnimePlayer(int largura,int altura,int frame,bool idle);
+  void SetAnimePlayer(int largura, int altura, int frame, bool idle);
 
   /**
    * @brief Anima os objetos Enemy do jogo.
    */
-  void SetAnimeEnemy(int largura,int altura,int frame,bool idle);
+  void SetAnimeEnemy(int largura, int altura, int frame, bool idle);
 
   /**
    * @brief Gerencia eventos do jogo que acontecem na interface gráfica.
@@ -109,16 +117,22 @@ public:
    */
   void Draw();
 
-
   /**
-   * @brief Anima a janela do jogo.
+   * @brief Função principal do jogo.
+   * @param x_e Parâmetro de animação do inimigo.
+   * @param y_e Parâmetro de animação do inimigo.
+   * @param z_e Parâmetro de animação do inimigo.
+   * @param idle_e Indicador de animação inativa do inimigo.
+   * @param x_p Parâmetro de animação do jogador.
+   * @param y_p Parâmetro de animação do jogador.
+   * @param z_p Parâmetro de animação do jogador.
+   * @param idle_p Indicador de animação inativa do jogador.
    */
-
-  void Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p);
+  void Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p, bool idle_p);
 
   /**
    * @brief Desenha os itens na tela
    */
   void ItemDraw();
 };
-#endif
+#endif /* RPG_H_ */

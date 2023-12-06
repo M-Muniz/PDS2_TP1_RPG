@@ -1,3 +1,7 @@
+/**
+ * @file boss.h
+ * @brief Contém a definição da classe Boss.
+ */
 #ifndef BOSS_H_
 #define BOSS_H_
 
@@ -84,4 +88,4 @@ private:
   vector<Skill> skills_; /**< Vetor de habilidades do chefe (boss). */
 };
 
-#endif
+#endif /* BOSS_H_ */

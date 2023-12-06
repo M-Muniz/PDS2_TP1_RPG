@@ -1,3 +1,7 @@
+/**
+ * @file menu.h
+ * @brief Contém a definição da classe Menu.
+ */
 #ifndef MENU_H_
 #define MENU_H_
 
@@ -57,17 +61,19 @@ class Menu {
 
   public:
     /**
-    * @brief Construtor.
+    * @brief Construtor da classe Menu.
     */
     Menu();
 
     /**
-    * @brief Retorna o nome do player.
+     * @brief Retorna o nome do player.
+     * @return O nome do player.
     */
     string ReturnName();
 
     /**
     * @brief Retorna a classe do player.
+    * @return A classe do player.
     */
     int ReturnClass();
 
@@ -82,4 +88,4 @@ class Menu {
     void RunMenu();
 };
 
-#endif
+#endif /* MENU_H_ */
