@@ -1,3 +1,7 @@
+/**
+ * @file rpg.cc
+ * @brief Implementação da classe RPG.
+ */
 #include "../../include/rpg.h"
 
 Rpg::Rpg(Player jogador)

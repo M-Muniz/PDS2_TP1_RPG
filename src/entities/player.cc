@@ -1,3 +1,7 @@
+/**
+ * @file player.cc
+ * @brief Implementação da classe Player.
+ */
 #include "../../include/player.h"
 #include "../../include/entity.h"
 
