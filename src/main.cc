@@ -19,7 +19,7 @@
 int main()
 {
   srand(time(NULL)); // Inicialização do gerador de números aleatórios com base no tempo
-
+  try{
   // Criação e execução do menu para interações do jogador
   Menu *menu = new Menu();
 
@@ -40,6 +40,9 @@ int main()
   // Prevenção de vazamento de memória, atribuição de nullptr às variáveis
   menu = nullptr;
   jogo = nullptr;
-
-  return 0; // Término do jogo
+  }catch(ErroLoadFromFile){
+    cout << "Erro ao carregar alguma imagem ou fonte" << endl;
+    cout << "Confira os arquivos da pasta resources" << endl;
+  }
+  return 0;
 }

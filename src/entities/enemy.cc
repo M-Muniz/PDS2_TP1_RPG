@@ -12,8 +12,7 @@ Enemy::Enemy() : Entity()
   if (inimigo == 0)
   { /**< O inimigo 0 corresponde a um inimigo mais balanceado */
     // Definição dos stats do inimigo balanceado
-    // stats_.hp_max = 80;
-    stats_.hp_max = 10;
+    stats_.hp_max = 150;
     stats_.hp = stats_.hp_max;
     stats_.atk = 45;
     stats_.def = 10;
@@ -28,12 +27,11 @@ Enemy::Enemy() : Entity()
   else if (inimigo == 1)
   { /**< O inimigo 1 corresponde a um inimigo mais agressivo */
     // Definição dos stats do inimigo agressivo
-    // stats_.hp_max = 40;
-    stats_.hp_max = 10;
+    stats_.hp_max = 70;
     stats_.hp = stats_.hp_max;
     stats_.atk = 60;
-    stats_.def = 0;
-    stats_.agi = 15;
+    stats_.def = -5;
+    stats_.agi = 20;
     stats_.mp = 0;
     stats_.xp = 20;
     img_entity_texture_.loadFromFile("resources/warewolf/sprite_warewolf_default.png");
@@ -44,12 +42,11 @@ Enemy::Enemy() : Entity()
   else if (inimigo == 2)
   { /**< O inimigo 2 corresponde a um inimigo mais defensivo */
     // Definição dos stats do inimigo defensivo
-    // stats_.hp_max = 135;
-    stats_.hp_max = 10;
+    stats_.hp_max = 230;
     stats_.hp = stats_.hp_max;
     stats_.atk = 40;
-    stats_.def = 0;
-    stats_.agi = 5;
+    stats_.def = 25;
+    stats_.agi = -5;
     stats_.mp = 0;
     stats_.xp = 30;
     img_entity_texture_.loadFromFile("resources/warewolf/sprite_warewolf_default.png");
@@ -60,18 +57,28 @@ Enemy::Enemy() : Entity()
   else if (inimigo == 3)
   { /**< O inimigo 3 corresponde a um inimigo mais balanceado */
     // Definição dos stats do outro inimigo balanceado
-    // stats_.hp_max = 70;
-    stats_.hp_max = 10;
+    stats_.hp_max = 150;
     stats_.hp = stats_.hp_max;
-    stats_.atk = 50;
-    stats_.def = 15;
-    stats_.agi = 15;
+    stats_.atk = 40;
+    stats_.def = 20;
+    stats_.agi = 10;
     stats_.mp = 0;
     stats_.xp = 25;
     img_entity_texture_.loadFromFile("resources/sword_skeleton/sprite_swordskeleton_default.png");
     img_entity_.setTexture(img_entity_texture_);
     name_ = "Sword Skeleton";
     img_entity_.setScale(-5, 5);
+  }
+}
+
+void Enemy::BuffaInimigo(int inimigos_mortos){
+  if(inimigos_mortos>=3){
+    int multiplicador = inimigos_mortos/3;
+    stats_.hp_max *= (1.10*multiplicador);
+    stats_.hp =stats_.hp_max;
+    stats_.atk *= (1.10*multiplicador);
+    stats_.def *= (1.10*multiplicador);
+    stats_.xp -=multiplicador;
   }
 }
 
@@ -163,28 +170,12 @@ string Enemy::ReturnSpriteDef()
  * @brief Retorno do sprite de idle para diferentes tipos de inimigos.
  * @return Caminho do sprite de idle.
  */
-string Enemy::ReturnSpriteIdle()
-{
-  if (name_ == "Spear Skeleton")
-  {
-    img_entity_.setPosition(1100, 215);
+string Enemy::ReturnSpriteIdle(){
+  if(name_ == "Spear Skeleton"){
     return "resources/spear_skeleton/sprite_spearskeleton_default.png";
-  }
-  else if (name_ == "Sword Skeleton")
-  {
-    img_entity_.setPosition(1050, 320);
+  }else if(name_ == "Sword Skeleton"){
     return "resources/sword_skeleton/sprite_swordskeleton_default.png";
-  }
-  else if (name_ == "Big Werewolf" || name_ == "Small Werewolf")
-  {
-    if (name_ == "Big Werewolf")
-    {
-      img_entity_.setPosition(1200, 270);
-    }
-    else
-    {
-      img_entity_.setPosition(1050, 450);
-    }
+  }else if(name_ == "Big Werewolf"||name_ == "Small Werewolf"){
     return "resources/warewolf/sprite_warewolf_default.png";
   }
   return " ";
@@ -194,9 +185,10 @@ string Enemy::ReturnSpriteIdle()
  * @brief Configura o sprite do inimigo com base no caminho do sprite fornecido.
  * @param png Caminho do sprite a ser configurado.
  */
-void Enemy::SettaSprite(string png)
-{
-  img_entity_texture_.loadFromFile(png);
+void Enemy::SettaSprite(string png){
+  if(!img_entity_texture_.loadFromFile(png)){
+    throw ErroLoadFromFile{};
+  }
   img_entity_.setTexture(img_entity_texture_);
   if (name_ == "Spear Skeleton")
   {
@@ -250,6 +242,10 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png)
       aux = {136, 70, 2};
       img_entity_.setPosition(1100, 260);
       return aux;
+    }if(png=="resources/spear_skeleton/sprite_spearskeleton_default.png"){
+      aux={469,84,7};
+      img_entity_.setPosition(1100,215);
+      return aux;
     }
   }
   else if (name_ == "Sword Skeleton")
@@ -276,6 +272,10 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png)
     {
       aux = {36, 62, 1};
       img_entity_.setPosition(1050, 300);
+      return aux;
+    }if(png=="resources/sword_skeleton/sprite_swordskeleton_default.png"){
+      aux={469,67,7};
+      img_entity_.setPosition(1050,320);
       return aux;
     }
   }
@@ -330,6 +330,14 @@ DadosAnimacao Enemy::ReturnDadosSprite(string png)
       else
       {
         img_entity_.setPosition(1000, 350);
+      }
+      return aux;
+    }if(png=="resources/warewolf/sprite_warewolf_default.png"){
+      aux={640,49,8};
+      if(name_ == "Big Werewolf"){
+        img_entity_.setPosition(1200,270);
+      }else{
+        img_entity_.setPosition(1050,450);
       }
       return aux;
     }

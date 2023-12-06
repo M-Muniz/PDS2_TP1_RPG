@@ -14,7 +14,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "skill.h"
-#include "boss.h"
 #include "entity.h"
 
 using namespace std;
@@ -50,7 +49,7 @@ public:
    * @param index Índice da habilidade desejada.
    * @return Objeto Skill representando a habilidade.
    */
-  Skill UserSkills(int index);
+  Skill EntitySkills(int index);
 
     /**
    * @brief Retorna path relativo da animaçao de morte.
@@ -82,6 +81,12 @@ public:
    */
   string ReturnSpriteTomou();
 
+
+      /**
+   * @brief Retorna path relativo da animaçao de ataque.
+   * @return O path relativo da animaçao de ataque.
+   */
+  string ReturnSpriteSkill(int index);
   /**
    * @brief Retorna dados do sprite pra facilitar as animaçoes.
    * @param png O caminho relativo da imagem do sprite.

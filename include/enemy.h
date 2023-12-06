@@ -11,7 +11,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include "boss.h"
 #include "item.h"
 #include "entity.h"
 

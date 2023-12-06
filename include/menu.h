@@ -12,6 +12,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include "./entity.h"
 
 using namespace std;
 using namespace sf;

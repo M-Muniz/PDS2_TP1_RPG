@@ -1,20 +1,14 @@
-/**
- * @brief Construtor da classe Rpg.
- * @file rpg.cc
- * @param jogador Instância da classe Player.
- */
 #include "../../include/rpg.h"
 
 Rpg::Rpg(Player jogador)
 {
-  // Inicializando variáveis membro.
   player_ = jogador;
   mouse_coord_ = {0, 0};
   pos_mouse_ = {0, 0};
-  window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", 
-                                       Style::Titlebar | Style::Close);
+  window_ = std::make_shared<RenderWindow>(VideoMode(1200, 928), "Rpg", Style::Titlebar | Style::Close);
   window_->setPosition(Vector2i(0, 0));
   window_->setFramerateLimit(100);
+  inimigos_mortos = 0;
 
   opponent_ = new Enemy();
 
@@ -22,12 +16,13 @@ Rpg::Rpg(Player jogador)
   frame_e_ = 0;
   frame_p_ = 0;
 
-  bg.loadFromFile("resources/bgs/bg_temp.png");
+  if(!bg.loadFromFile("resources/bgs/bg_temp.png")){
+    throw ErroLoadFromFile{};
+  }
   background = make_shared<Sprite>();
   background->setTexture(bg);
   background->setScale(2.35, 2.35);
 
-  // Inicializando botões
   buttons_.resize(4);
   buttons_[0].setSize(Vector2f(141, 141));
   buttons_[0].setPosition(Vector2f(122, 692));
@@ -53,7 +48,6 @@ Rpg::Rpg(Player jogador)
   buttons_[3].setOutlineColor(Color::Red);
   buttons_[3].setOutlineThickness(0);
 
-  // Inicialização dos cooldowns das habilidades.
   cd_skills_.resize(3);
 
   for (size_t i{}; i < cd_skills_.size(); i++)
@@ -83,7 +77,6 @@ Rpg::Rpg(Player jogador)
   cd_skills_[2][1].setPosition(Vector2f(1006.5, 837));
   cd_skills_[2][2].setPosition(Vector2f(1020.5, 837));
 
-  // Configurações das posições das barras de status do jogador e do inimigo.
   player_status_.resize(2);
   player_status_[0].setFillColor(Color::Green);
   player_status_[0].setOutlineThickness(0);
@@ -99,21 +92,11 @@ Rpg::Rpg(Player jogador)
   opponent_status_.setFillColor(Color::Red);
   opponent_status_.setPosition(Vector2f(369, 18));
 
-  font_.loadFromFile("fonts/super_legend_boy.ttf");
+  if(!font_.loadFromFile("fonts/super_legend_boy.ttf")){
+    throw ErroLoadFromFile{};
+  }
 }
 
-/**
- * @brief Método principal que inicia o jogo.
- *
- * @param x_e Coordenada X do inimigo.
- * @param y_e Coordenada Y do inimigo.
- * @param z_e Valor Z do inimigo.
- * @param idle_e Booleano indicando se o inimigo está ocioso.
- * @param x_p Coordenada X do jogador.
- * @param y_p Coordenada Y do jogador.
- * @param z_p Valor Z do jogador.
- * @param idle_p Booleano indicando se o jogador está ocioso.
- */
 void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p, bool idle_p)
 {
   frame_p_ += 0.035;
@@ -122,14 +105,6 @@ void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p
   SetAnimeEnemy(x_e, y_e, z_e, idle_e);
 }
 
-/**
- * @brief Define a animação do inimigo.
- *
- * @param largura Largura do inimigo.
- * @param altura Altura do inimigo.
- * @param frame Número de frames da animação.
- * @param idle Define se o inimigo está ocioso.
- */
 void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
 {
   if (idle == false)
@@ -179,10 +154,26 @@ void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
   {
     if (idle == true)
     {
-      frame = 7;
-      largura = 67;
       altura = 84;
+      largura = 67;
+      frame = 7;
       opponent_->img_entity_.setPosition(1100, 215);
+    }
+    opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
+    if (frame_e_ > frame)
+    {
+      frame_e_ -= frame;
+      animaçao_completa_enemy_ = 1;
+    }
+  }
+  else if (opponent_->name_ == "Is'Abelu")
+  {
+    if (idle == true)
+    {
+      largura = 110;
+      altura = 111;
+      frame = 8;
+      opponent_->img_entity_.setPosition(1300, 0);
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
     if (frame_e_ > frame)
@@ -193,17 +184,8 @@ void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
   }
 }
 
-/**
- * @brief Descrição da função ItemDraw().
- *
- * Esta função é responsável por realizar o desenho do item no jogo.
- * Ela cria um novo item aleatório, soma os status desse item ao jogador,
- * posiciona a imagem do item na tela e realiza a animação do oponente
- * enquanto o item está sendo exibido.
- */
 void Rpg::ItemDraw()
 {
-  // Implementação da função ItemDraw
   item_drop_ = new Item(rand() % 6);
   item_drop_->Sum(player_); // soma os status do item no player
   item_drop_->img_item_.setPosition(600, 490);
@@ -227,22 +209,8 @@ void Rpg::ItemDraw()
   }
   delete item_drop_;
 }
-
-/**
- * @brief Descrição da função SetAnimePlayer().
- *
- * Esta função configura a animação do jogador com base nos parâmetros fornecidos.
- * Ela ajusta a posição da imagem do jogador, define os retângulos de textura
- * correspondentes à animação e verifica se a animação foi concluída.
- *
- * @param largura Largura da animação.
- * @param altura Altura da animação.
- * @param frame Número de frames da animação.
- * @param idle Flag indicando se o jogador está em estado ocioso.
- */
 void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
 {
-  // Implementação da função SetAnimePlayer
   if (idle == false)
   {
     largura /= frame;
@@ -299,23 +267,8 @@ void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
   }
 }
 
-/**
- * @brief Descrição da função Events().
- *
- * Esta função é responsável por gerenciar os eventos do jogo,
- * como o fechamento da janela e a detecção de cliques do mouse
- * nos botões de ação.
- *
- * @return Retorna um inteiro correspondente à ação realizada:
- * - 0: Nenhum evento relevante.
- * - 1: Ataque básico.
- * - 2: Skill I.
- * - 3: Skill 2.
- * - 4: Skill 3.
- */
 int Rpg::Events()
 {
-  // Implementação da função Events
   Event event;
   pos_mouse_ = Mouse::getPosition(*window_);
   mouse_coord_ = window_->mapPixelToCoords(pos_mouse_);
@@ -348,19 +301,30 @@ int Rpg::Events()
         return 4;
       }
     }
+    if (Keyboard::isKeyPressed(Keyboard::Space))
+    { // Ataque básico
+      return 1;
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Num1))
+    { // Skill I
+      return 2;
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Num2))
+    { // Skill 2
+      return 3;
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Num3))
+    { // Skill 3
+      return 4;
+    }
   }
   return 0;
 }
 
-/**
- * @brief Função responsável por desenhar mensagens na tela do jogo.
- *
- * @param message Mensagem a ser exibida na tela.
- */
 void Rpg::DrawMessages(string message)
 {
-  // Configuração do texto da mensagem
   Text text_message;
+  Text aux;
   text_message.setFont(font_);
   text_message.setCharacterSize(15);
   text_message.setFillColor(Color::White);
@@ -368,40 +332,41 @@ void Rpg::DrawMessages(string message)
   text_message.setOutlineThickness(3);
   text_message.setString(message);
 
-  // Ajusta o tamanho do texto se for uma mensagem específica
-  if (message == "Seu jogador morreu. Game Over.")
+  if (message == "Your character die. Game over.")
   {
     text_message.setCharacterSize(30);
+    aux.setFont(font_);
+    aux.setCharacterSize(15);
+    aux.setFillColor(Color::White);
+    aux.setOutlineColor(Color::Black);
+    aux.setOutlineThickness(3);
+
+    stringstream ss;
+    ss << inimigos_mortos;
+
+    aux.setString("Você kill " + ss.str() + " opponents.");
   }
 
-  // Posicionamento do texto na tela
   FloatRect name_rect = text_message.getLocalBounds();
   text_message.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 350));
+  name_rect = aux.getLocalBounds();
+  aux.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 500));
 
-  // Desenha o texto na janela e exibe na tela
   window_->draw(text_message);
+  window_->draw(aux);
   window_->display();
 
-  // Pausa breve para exibir a mensagem
-  sleep(milliseconds(100));
+  sleep(milliseconds(250));
 }
 
-/**
- * @brief Função para desenhar textos na tela do jogo.
- *
- * Esta função configura e exibe diferentes informações relacionadas ao jogador
- * na interface do jogo, como nome, estatísticas e outros dados relevantes.
- */
 void Rpg::DrawTexts()
 {
-  // Configuração do nome do jogador
   player_name_.setString(player_.name_);
   player_name_.setCharacterSize(25);
   player_name_.setFont(font_);
   player_name_.setFillColor(Color::White);
   player_name_.setOutlineThickness(3);
 
-  // Configuração da cor do contorno do nome baseado na classe do jogador
   if (player_.classe_ == 0)
   {
     player_name_.setOutlineColor(Color::Blue);
@@ -415,11 +380,9 @@ void Rpg::DrawTexts()
     player_name_.setOutlineColor(Color::Red);
   }
 
-  // Posicionamento do nome do jogador na tela
   FloatRect name_rect = player_name_.getLocalBounds();
   player_name_.setPosition(Vector2f((window_->getSize().x - name_rect.width) / 2, 680));
 
-  // Configuração dos textos relacionados às estatísticas do jogador
   texts_.resize(4);
 
   for (int i = 0; i < 3; i++)
@@ -466,7 +429,6 @@ void Rpg::DrawTexts()
   name_rect = texts_[3].getLocalBounds();
   texts_[3].setPosition(Vector2f(((window_->getSize().x - name_rect.width) / 2), 60));
 
-  // Desenha o nome do jogador e os textos das estatísticas na janela
   window_->draw(player_name_);
   for (auto t : texts_)
   {
@@ -474,19 +436,10 @@ void Rpg::DrawTexts()
   }
 }
 
-/**
- * @brief Função responsável por desenhar elementos na janela do jogo.
- *
- * Esta função limpa a janela, desenha vários elementos, como botões, status dos jogadores,
- * imagens dos personagens e texto informativo na tela do jogo.
- */
 void Rpg::Draw()
 {
-  // Limpa a janela e desenha o fundo
   window_->clear(Color::Black);
   window_->draw(*background);
-
-  // Desenha botões e elementos relacionados às habilidades dos jogadores
   for (size_t i{}; i < buttons_.size(); i++)
   {
     window_->draw(buttons_[i]);
@@ -508,38 +461,18 @@ void Rpg::Draw()
     window_->draw(player_status_[i]);
     window_->draw(player_status_[i]);
   }
-  // Desenha status dos jogadores, imagens e outros elementos na janela
   window_->draw(opponent_status_);
   window_->draw(opponent_->img_entity_);
   window_->draw(player_.img_entity_);
 
-  // Chama a função para desenhar textos e atualiza a janela
   DrawTexts();
   window_->display();
 }
 
-/**
- * @brief Função responsável por realizar o ataque básico do jogador.
- *
- * Esta função é chamada para executar o ataque básico do jogador durante o jogo.
- * Ela envolve cálculos de dano, interações com o oponente, atualização de status.
- */
-void AtaqueBasicoPlayer()
-{
-  // Implementação do ataque básico do jogador
-}
-
-/**
- * @brief Função que controla a execução principal do jogo.
- *
- * Esta função é responsável por executar a lógica principal do jogo, incluindo o controle de 
- * turnos, habilidades, ataques, interações com o jogador e oponente, além de gerenciamento de 
- * estados do jogo.
- */
 void Rpg::Run()
 {
   float tam_x;
-  int inimigos_mortos = 0;
+  int turnos_sem_usar_skill = 0;
 
   while (window_->isOpen())
   {
@@ -547,9 +480,9 @@ void Rpg::Run()
     {
       Game(0, 0, 0, true, 0, 0, 0, true);
       Draw();
-
       if (turno % 2)
       {
+
         for (int i = 0; i < 3; i++)
         { // Reseta o CD das skills (1 ponto de cooldown por turno do Player)
           for (int j = 0; j < 3; j++)
@@ -599,22 +532,27 @@ void Rpg::Run()
 
             if (opponent_->Def(player_.Atk()))
             {
-              // Lógica para quando o oponente não defende o ataque do jogador
-              opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
               player_.SettaSprite(player_.ReturnSpriteAtk());
-
               DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
               DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
 
               animaçao_completa_player_ = 0;
-              frame_e_ = 0;
               frame_p_ = 0;
+
+              while (frame_p_ < (aux_p.frames - aux_e.frames))
+              {
+                Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Draw();
+              }
+              opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+
+              aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+              frame_e_ = 0;
 
               while (!animaçao_completa_player_)
               {
+                Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
                 Draw();
-                Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, 
-                aux_p.frames, false);
               }
               player_.SettaSprite(player_.ReturnSpriteIdle());
 
@@ -625,9 +563,8 @@ void Rpg::Run()
               cout << "O jogador acertou o ataque." << endl;
               cout << "Inimigo esta com " << opponent_->stats_.hp << " de vida restante." << endl;
 
-              // Ajusta a barra de vida do oponente fazendo uma regra de três simples.
-              float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max; 
-              opponent_status_.setSize(Vector2f(tam_x, 21));                       
+              float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+              opponent_status_.setSize(Vector2f(tam_x, 21));
 
               stringstream aux;
               string x;
@@ -639,7 +576,6 @@ void Rpg::Run()
             }
             else
             {
-              // Lógica para quando o oponente defende o ataque do jogador
               opponent_->SettaSprite(opponent_->ReturnSpriteDef());
               player_.SettaSprite(player_.ReturnSpriteAtk());
 
@@ -652,39 +588,57 @@ void Rpg::Run()
 
               while (!animaçao_completa_player_)
               {
-                Draw();
                 Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Draw();
               }
-              player_.SettaSprite(player_.ReturnSpriteIdle());
-              opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
 
               cout << "O jogador errou o ataque." << endl;
 
               DrawMessages("You miss");
+
+              player_.SettaSprite(player_.ReturnSpriteIdle());
+              opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
             }
             break;
           case 2: // Skill I
             cout << "Player usou a skill 1" << endl;
             if (player_.classe_ != 2)
             { // Mago ou Cavaleiro usaram a skill
-              // Lógica para habilidade de Mago ou Cavaleiro
-              if (player_.stats_.mp >= player_.UserSkills(0).attributes_.mp && test_cd_[0])
+              if (player_.stats_.mp >= player_.EntitySkills(0).attributes_.mp && test_cd_[0])
               { // Testa se CD e Mana estão ok
                 if (player_.classe_ == 0)
                 {
-                  player_.stats_.hp += player_.UserSkills(0).attributes_.hp;
-                  cout << "Knight bufou a vida" << endl;
+                  player_.stats_.hp += player_.EntitySkills(0).attributes_.hp;
+                  if (player_.stats_.hp > player_.stats_.hp_max)
+                  {
+                    player_.stats_.hp = player_.stats_.hp_max;
+                  }
+                  float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+                  opponent_status_.setSize(Vector2f(tam_x, 21));
+                  cout << "Knight curou a vida" << endl;
+                  DrawMessages("You heals HP");
                 }
                 else if (player_.classe_ == 1)
                 {
-                  player_.stats_.def += player_.UserSkills(0).attributes_.def;
+                  player_.stats_.def += player_.EntitySkills(0).attributes_.def;
                   cout << "Mage bufou a defesa" << endl;
+                  DrawMessages("You gains defense");
                 }
-                // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
-                player_.stats_.mp -= player_.UserSkills(0).attributes_.mp;
-
-                // Atualiza a barra de mana do player.
+                player_.stats_.mp -= player_.EntitySkills(0).attributes_.mp;
                 player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
+                player_.SettaSprite(player_.ReturnSpriteSkill(0));
+                DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
+                animaçao_completa_player_ = 0;
+                frame_p_ = 0;
+                while (!animaçao_completa_player_)
+                {
+                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+
+                float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+                opponent_status_.setSize(Vector2f(tam_x, 21));
               }
               else
               { // Caso CD ou Mana não forem suficientes
@@ -699,10 +653,24 @@ void Rpg::Run()
             }
             else if (test_cd_[0])
             { // Samurai usou a skill
-              // Lógica para habilidade de Samurai
               cout << "Samurai bufou a mana" << endl;
-              // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
-              player_.stats_.mp += player_.UserSkills(0).attributes_.mp;
+              DrawMessages("You gains MP");
+              player_.stats_.mp += player_.EntitySkills(0).attributes_.mp;
+              if (player_.stats_.mp > 100)
+              {
+                player_.stats_.hp = 100;
+              }
+              player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
+              player_.SettaSprite(player_.ReturnSpriteSkill(0));
+              DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
+              animaçao_completa_player_ = 0;
+              frame_p_ = 0;
+              while (!animaçao_completa_player_)
+              {
+                Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Draw();
+              }
+              player_.SettaSprite(player_.ReturnSpriteIdle());
 
               for (int i = 0; i < 3; i++)
               {
@@ -718,27 +686,110 @@ void Rpg::Run()
             break;
           case 3: // Skill II
             cout << "Player usou a skill 2" << endl;
-            if (player_.stats_.mp >= player_.UserSkills(1).attributes_.mp && test_cd_[1])
+            if (player_.stats_.mp >= player_.EntitySkills(1).attributes_.mp && test_cd_[1])
             { // Testa se CD e Mana estão ok
               if (player_.classe_ == 0)
               {
-                player_.stats_.agi += player_.UserSkills(1).attributes_.agi;
-                opponent_->stats_.hp += player_.UserSkills(1).attributes_.hp;
+                player_.stats_.agi += player_.EntitySkills(1).attributes_.agi;
+                opponent_->stats_.hp += player_.EntitySkills(1).attributes_.hp;
                 cout << "Knight bufou a agilidade e causou dano" << endl;
+                player_.SettaSprite(player_.ReturnSpriteSkill(1));
+                DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
+                DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                animaçao_completa_player_ = 0;
+                frame_p_ = 0;
+
+                while (frame_p_ < (aux_p.frames - aux_e.frames))
+                {
+                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+                frame_e_ = 0;
+
+                while (!animaçao_completa_player_)
+                {
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+
+                if (opponent_->stats_.hp > 0)
+                {
+                  opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
+                }
+                float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+
+                if (opponent_->stats_.hp <= 0)
+                {
+                  opponent_->stats_.hp = 0;
+                }
+
+                stringstream aux;
+                string x;
+
+                aux << opponent_->stats_.hp;
+                aux >> x;
+
+                DrawMessages("You deals damage and gain agility \n The enemy has " + x + " of HP.");
+
+                opponent_status_.setSize(Vector2f(tam_x, 21));
               }
               else
               {
-                opponent_->stats_.hp += player_.UserSkills(1).attributes_.hp;
+                opponent_->stats_.hp += player_.EntitySkills(1).attributes_.hp;
+                player_.stats_.atk += player_.EntitySkills(1).attributes_.atk;
+                player_.SettaSprite(player_.ReturnSpriteSkill(1));
+                DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
+                DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                animaçao_completa_player_ = 0;
+                frame_p_ = 0;
+
+                while (frame_p_ < (aux_p.frames - aux_e.frames))
+                {
+                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+                frame_e_ = 0;
+
+                while (!animaçao_completa_player_)
+                {
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+
+                if (opponent_->stats_.hp > 0)
+                {
+                  opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
+                }
+                float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+                opponent_status_.setSize(Vector2f(tam_x, 21));
                 cout << "Mage/Samurai causou dano" << endl;
+
+                if (opponent_->stats_.hp <= 0)
+                {
+                  opponent_->stats_.hp = 0;
+                }
+
+                stringstream aux;
+                string x;
+
+                aux << opponent_->stats_.hp;
+                aux >> x;
+                DrawMessages("You deals damage \n The enemy has " + x + " of HP.");
               }
-              // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
-              player_.stats_.mp -= player_.UserSkills(1).attributes_.mp;
+              player_.stats_.mp -= player_.EntitySkills(1).attributes_.mp;
+
               for (int i = 0; i < 3; i++)
               {
                 cd_skills_[1][i].setFillColor(Color::Red);
                 player_.skills_cd_[1][i] = false;
               }
-              // Atualiza a barra de mana do player.
+
               player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
             }
             else
@@ -749,27 +800,111 @@ void Rpg::Run()
             break;
           case 4: // Skill III
             cout << "Player usou a skill 3" << endl;
-            if (player_.stats_.mp >= player_.UserSkills(2).attributes_.mp && test_cd_[2])
+            if (player_.stats_.mp >= player_.EntitySkills(2).attributes_.mp && test_cd_[2])
             { // Testa se CD e Mana estão ok
               if (player_.classe_ == 2)
               {
-                opponent_->stats_.hp += player_.UserSkills(2).attributes_.hp;
-                opponent_->stats_.def += player_.UserSkills(2).attributes_.def;
+                opponent_->stats_.hp += player_.EntitySkills(2).attributes_.hp;
+                opponent_->stats_.def += player_.EntitySkills(2).attributes_.def;
                 cout << "Samurai causou dano e reduziu a defesa do inimigo" << endl;
+
+                if (opponent_->stats_.hp <= 0)
+                {
+                  opponent_->stats_.hp = 0;
+                }
+
+                stringstream aux;
+                string x;
+
+                aux << opponent_->stats_.hp;
+                aux >> x;
+                player_.SettaSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                animaçao_completa_player_ = 0;
+                frame_p_ = 0;
+                while (frame_p_ < (aux_p.frames - aux_e.frames))
+                {
+                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+                frame_e_ = 0;
+                while (!animaçao_completa_player_)
+                {
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+                if (opponent_->stats_.hp > 0)
+                {
+                  opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
+                }
+                DrawMessages("You deals damage and low the opponent defense \n The enemy has " + x + " of HP.");
+
+                float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+                if (opponent_->stats_.hp <= 0)
+                {
+                  tam_x = 0;
+                }
+                opponent_status_.setSize(Vector2f(tam_x, 21));
               }
               else
               {
-                opponent_->stats_.hp += player_.UserSkills(2).attributes_.hp;
+                opponent_->stats_.hp += player_.EntitySkills(2).attributes_.hp;
+                opponent_status_.setSize(Vector2f(tam_x, 21));
                 cout << "Mage/Knight causou dano" << endl;
+
+                if (opponent_->stats_.hp <= 0)
+                {
+                  opponent_->stats_.hp = 0;
+                }
+                player_.SettaSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
+                DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                animaçao_completa_player_ = 0;
+                frame_p_ = 0;
+                while (frame_p_ < (aux_p.frames - aux_e.frames))
+                {
+                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
+                frame_e_ = 0;
+                while (!animaçao_completa_player_)
+                {
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Draw();
+                }
+                player_.SettaSprite(player_.ReturnSpriteIdle());
+                if (opponent_->stats_.hp > 0)
+                {
+                  opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
+                }
+                stringstream aux;
+                string x;
+
+                aux << opponent_->stats_.hp;
+                aux >> x;
+
+                DrawMessages("   You deals damage \n The enemy has " + x + " of HP.");
+                // DrawMessages("The enemy has " + x + " of HP.");
+
+                float tam_x = 461 * opponent_->stats_.hp / opponent_->stats_.hp_max;
+                if (opponent_->stats_.hp <= 0)
+                {
+                  tam_x = 0;
+                }
+                opponent_status_.setSize(Vector2f(tam_x, 21));
               }
-              // Subtrai o custo de mana da skill (Ou adiciona mana, a depender da skill).
-              player_.stats_.mp -= player_.UserSkills(2).attributes_.mp;
+              player_.stats_.mp -= player_.EntitySkills(0).attributes_.mp;
               for (int i = 0; i < 3; i++)
               {
                 cd_skills_[2][i].setFillColor(Color::Red);
                 player_.skills_cd_[2][i] = false;
               }
-              // Atualiza a barra de mana do player.
               player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
             }
             else
@@ -781,14 +916,12 @@ void Rpg::Run()
           default:
             break;
           }
-          // Execução de uma ação de jogo e renderização
           Game(0, 0, 0, true, 0, 0, 0, true);
           Draw();
         }
-        // Lógica para verificar se o oponente foi derrotado
+
         if (opponent_->stats_.hp <= 0)
         {
-          // Lógica após derrotar o oponente
           player_.Upar(opponent_->stats_.xp);
           inimigos_mortos++;
 
@@ -799,17 +932,17 @@ void Rpg::Run()
           player_.Upar(20);
 
           delete opponent_;
-          // Lógica para criar um novo oponente após derrotar o anterior
-          if (!inimigos_mortos % 7)
-          { // A cada 7 inimigos mortos, o próximo a spawnar é um boss.
+
+          if (!(inimigos_mortos % 5))
+          { // A cada 4 inimigos mortos, o próximo a spawnar é um boss.
             opponent_ = new Boss();
+            turnos_sem_usar_skill = 0;
           }
           else
           {
             opponent_ = new Enemy();
           }
 
-          // Ajusta a barra de vida do player fazendo uma regra de três simples.
           tam_x = 461 * player_.stats_.hp / player_.stats_.hp_max;
           player_status_[0].setSize(Vector2f(tam_x, 21));
 
@@ -822,22 +955,26 @@ void Rpg::Run()
 
           opponent_status_.setSize(Vector2f(461, 21));
         }
-        else if (player_.Def(opponent_->Atk()))
-        { // Lógica quando o jogador não defende o ataque do oponente
-          opponent_->SettaSprite(opponent_->ReturnSpriteAtk());
+        else if (opponent_->name_ == "Is'Abelu" && ((rand() % 100) * turnos_sem_usar_skill >= 130))
+        {
+          player_.stats_.hp += opponent_->EntitySkills(0).attributes_.hp;
+          opponent_->SettaSprite("resources/boss/sprite_boss_skill.png");
 
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
-          DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteAtk());
+          DadosAnimacao aux_e = opponent_->ReturnDadosSprite("resources/boss/sprite_boss_skill.png");
 
           animaçao_completa_enemy_ = 0;
           frame_e_ = 0;
           frame_p_ = 0;
+
           while (frame_e_ < (aux_e.frames - aux_p.frames))
           {
             Game(aux_e.largura, aux_e.altura, aux_e.frames, false, 0, 0, 0, true);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteTomou());
+          aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
+
           while (!animaçao_completa_enemy_)
           {
             Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
@@ -845,6 +982,14 @@ void Rpg::Run()
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
           opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
+          turnos_sem_usar_skill = 0;
+          cout << "Boss castou a skill" << endl;
+
+          if (player_.stats_.hp <= 0)
+          {
+            player_.stats_.hp = 0;
+          }
+
           stringstream aux;
           string x;
 
@@ -853,9 +998,18 @@ void Rpg::Run()
 
           DrawMessages("You has " + x + " of HP.");
 
+          tam_x = 461 * player_.stats_.hp / player_.stats_.hp_max;
+
+          if (tam_x > 461)
+          {
+            tam_x = 461;
+            player_.stats_.hp = player_.stats_.hp_max;
+          }
+
+          player_status_[0].setSize(Vector2f(tam_x, 21));
+
           if (player_.stats_.hp <= 0)
           {
-            // Zera a barra de vida do player.
             player_status_[0].setSize(Vector2f(0, 21));
 
             player_.SettaSprite(player_.ReturnSpriteMorte());
@@ -875,26 +1029,88 @@ void Rpg::Run()
 
             window_->clear();
 
-            DrawMessages("Seu jogador morreu. Game Over.");
+            DrawMessages("Your character die. Game over.");
 
             sleep(seconds(5));
 
             window_->close();
           }
+        }
+        else if (player_.Def(opponent_->Atk()))
+        {
+          opponent_->SettaSprite(opponent_->ReturnSpriteAtk());
 
-          // Ajusta a barra de vida do player fazendo uma regra de três simples.
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
+          DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteAtk());
+
+          animaçao_completa_enemy_ = 0;
+          frame_e_ = 0;
+
+          while (frame_e_ < (aux_e.frames - aux_p.frames))
+          {
+            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, 0, 0, 0, true);
+            Draw();
+          }
+          aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
+          player_.SettaSprite(player_.ReturnSpriteTomou());
+          frame_p_ = 0;
+          while (!animaçao_completa_enemy_)
+          {
+            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+            Draw();
+          }
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
+          turnos_sem_usar_skill++;
+
+          stringstream aux;
+          string x;
+
+          aux << player_.stats_.hp;
+          aux >> x;
+
+          DrawMessages("You has " + x + " of HP.");
+
           tam_x = 461 * player_.stats_.hp / player_.stats_.hp_max;
 
-          if (tam_x > 461) // Evita que a barra de vida fique maior do que pode ficar.
+          if (tam_x > 461)
           {
             tam_x = 461;
             player_.stats_.hp = player_.stats_.hp_max;
           }
 
           player_status_[0].setSize(Vector2f(tam_x, 21));
+
+          if (player_.stats_.hp <= 0)
+          {
+            player_status_[0].setSize(Vector2f(0, 21));
+
+            player_.SettaSprite(player_.ReturnSpriteMorte());
+            DadosAnimacao aux = player_.ReturnDadosSprite(player_.ReturnSpriteMorte());
+
+            animaçao_completa_player_ = 0;
+            frame_p_ = 0;
+
+            while (!animaçao_completa_player_)
+            {
+              Game(0, 0, 0, true, aux.largura, aux.altura, aux.frames, false);
+              Draw();
+            }
+
+            cout << "Seu jogador morreu." << '\n'
+                 << "Game Over =(" << endl;
+
+            window_->clear();
+
+            DrawMessages("Your character die. Game over.");
+
+            sleep(seconds(5));
+
+            window_->close();
+          }
         }
         else
-        { // Lógica quando o jogador não defende o ataque do oponente
+        {
           opponent_->SettaSprite(opponent_->ReturnSpriteAtk());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteAtk());
 
@@ -922,8 +1138,9 @@ void Rpg::Run()
           player_.SettaSprite(player_.ReturnSpriteIdle());
           opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
           cout << "Inimigo errou o golpe." << endl;
+          turnos_sem_usar_skill++;
 
-          DrawMessages("Enemy miss");
+          DrawMessages("Opponent miss");
         }
       }
       Draw();

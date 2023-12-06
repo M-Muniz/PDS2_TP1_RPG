@@ -13,7 +13,12 @@ Entity::~Entity(){};
  * @brief Retorna o valor de ataque da entidade.
  * @return Valor de ataque da entidade.
  */
-int Entity::Atk() { return stats_.atk; }
+int Entity::Atk(){  
+  float variancia = rand() % 41; //gera um numero entre 0 e 40
+  variancia += 80; //faz com que esse numero esteja entre 80 e 120
+  variancia /= 100; //numero agr esta entre 0.8 e 1.2;
+  return (stats_.atk*variancia);
+  }
 
 /**
  * @brief Simula um ataque e a possível defesa da entidade.
@@ -24,9 +29,8 @@ bool Entity::Def(int atk_opponent)
 {
   int aux = rand() % 100;
 
-  if (aux + stats_.agi < 75)
-  { ///< o golpe atingiu o inimigo
-
+  if(aux+stats_.agi < 80){  /* o golpe atingiu o inimigo */
+   
     stats_.hp -= atk_opponent - stats_.def;
 
     if (stats_.hp < 0)
@@ -60,13 +64,6 @@ void Entity::BuffaInimigo(int inimigos_mortos)
 }
 
 Status Entity::ReturnStatus() { return stats_; };
-
-/**
- * @brief Retorna uma habilidade da entidade com base no índice.
- * @param index Índice da habilidade desejada.
- * @return Habilidade da entidade.
- */
-Skill Entity::EntitySkills(int index) { return skills_[index]; };
 
 /**
  * @brief Retorna o caminho do sprite de morte da entidade.

@@ -22,8 +22,8 @@ Skill::Skill(int classe, int index)
              * @param mp Custo de mana da skill (positivo para comparação).
              * @param hp Aumento de HP do jogador.
              */
-            attributes_.mp = 15;
-            attributes_.hp = 20;
+            attributes_.mp = 40; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.hp = 20;  // Aumenta HP do jogador
             // img_skill_texture_.loadFromFile("resources/knight/knight_hp.png");
         }
         else if (index == 1)
@@ -35,9 +35,9 @@ Skill::Skill(int classe, int index)
              * @param agi Aumento de agilidade do jogador.
              * @param hp Diminuição de HP do inimigo.
              */
-            attributes_.mp = 15;
-            attributes_.agi = 10;
-            attributes_.hp = -15;
+            attributes_.mp = 30; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.agi = 7;  // Aumenta a agilidade do jogador
+            attributes_.hp = -25;  // Diminui a vida do inimigo 
             // img_skill_texture_.loadFromFile("resources/knight/Run+Attack.png");
         }
         else if (index == 2)
@@ -48,8 +48,8 @@ Skill::Skill(int classe, int index)
              * @param mp Custo de mana da skill (positivo para comparação).
              * @param hp Diminuição de HP do inimigo mais que na segunda skill.
              */
-            attributes_.mp = 15;
-            attributes_.hp = -30;
+            attributes_.mp = 30; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.hp = -40;  // Diminui mais que na segunda skill
             // img_skill_texture_.loadFromFile("resources/knight/Attack_2.png"); //a ideia é que seja uma sprite do attack1 + attack2
         }
     }
@@ -63,8 +63,8 @@ Skill::Skill(int classe, int index)
              * @param mp Custo de mana da skill (positivo para comparação).
              * @param def Aumento de defesa do jogador.
              */
-            attributes_.mp = 15;
-            attributes_.def = 10;
+            attributes_.mp = 30; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.def = 10;  // Aumenta a defesa do jogador
             // img_skill_texture_.loadFromFile("resources/mage/Attack_1.png");
         }
         else if (index == 1)
@@ -75,8 +75,9 @@ Skill::Skill(int classe, int index)
              * @param mp Custo de mana da skill (positivo para comparação).
              * @param hp Diminuição de HP do inimigo.
              */
-            attributes_.mp = 15; 
-            attributes_.hp = -15;
+            attributes_.mp = 40; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.atk = 10;
+            attributes_.hp = -15;  // Diminui a vida do inimigo
             // img_skill_texture_.loadFromFile("resources/mage/Attack_2.png"); //é pra ser com a Charge 1
         }
         else if (index == 2)
@@ -87,8 +88,8 @@ Skill::Skill(int classe, int index)
              * @param mp Custo de mana da skill (positivo para comparação).
              * @param hp Diminuição de HP do inimigo.
              */
-            attributes_.mp = 15;
-            attributes_.hp = -20;
+            attributes_.mp = 25; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.hp = -40;  // Diminui a vida do inimigo mais que na segunda skill
             // img_skill_texture_.loadFromFile("resources/mage/Attack_2.png"); // é pra ser com a Charge 2
         }
     }
@@ -101,7 +102,7 @@ Skill::Skill(int classe, int index)
              * Aumenta o MP do jogador.
              * @param mp Aumento de MP do jogador.
              */
-            attributes_.mp = 15;
+            attributes_.mp = 40;  // Aumenta o MP do jogador
             // img_skill_texture_.loadFromFile("resources/samurai/samurai_mana.png");
         }
         else if (index == 1)
@@ -112,8 +113,9 @@ Skill::Skill(int classe, int index)
              * @param mp Custo de mana da skill (positivo para comparação).
              * @param hp Diminuição de HP do inimigo.
              */
-            attributes_.mp = 15; 
-            attributes_.hp = -20;
+            attributes_.mp = 70; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.atk=0;
+            attributes_.hp = -70;  // Diminui a vida do inimigo
             // img_skill_texture_.loadFromFile("resources/samurai/Attack_1.png");
         }
         else if (index == 2)
@@ -125,9 +127,9 @@ Skill::Skill(int classe, int index)
              * @param hp Diminuição de HP do inimigo.
              * @param def Diminuição de defesa do inimigo.
              */
-            attributes_.mp = 15;
-            attributes_.hp = -5;
-            attributes_.def = -10;
+            attributes_.mp = 35; // Custo de mana da skill (tem que ser positivo pra comparação)
+            attributes_.hp = -10;
+            attributes_.def = -20;  // Diminui a defesa do inimigo
             // img_skill_texture_.loadFromFile("resources/samurai/Attack_2.png"); //a ideia é que seja attack 2 + attack 3
         }
     }
