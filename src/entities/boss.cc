@@ -6,7 +6,10 @@
 #include "../../include/boss.h"
 #include "../../include/entity.h"
 
-
+/**
+ * @brief Construtor da classe Boss.
+ * Inicializa os atributos de status, nome e textura do Boss, bem como adiciona uma habilidade ao vetor de habilidades.
+ */
 Boss::Boss() : Entity(){
   stats_.hp_max = 400;
   stats_.hp = stats_.hp_max;
@@ -21,35 +24,70 @@ Boss::Boss() : Entity(){
   img_entity_.setTexture(img_entity_texture_);
   img_entity_.setScale(-5.8,5.8);
     
+  // Adiciona uma habilidade ao vetor de habilidades
   Skill aux(4, 0);
   skills_.push_back(aux);
 }
 
+/**
+ * @brief Retorna a habilidade do Boss com base no índice.
+ * @param index O índice da habilidade desejada.
+ * @return Objeto Skill representando a habilidade.
+ */
 Skill Boss::EntitySkills(int index){ return skills_[index]; }
 
+/**
+ * @brief Retorna o caminho relativo da animação de morte do Boss.
+ * @return O caminho relativo da animação de morte.
+ */
 string Boss::ReturnSpriteMorte(){
   return "resources/boss/sprite_boss_dead.png";
 }
 
+/**
+ * @brief Retorna o caminho relativo da animação de ataque do Boss.
+ * @return O caminho relativo da animação de ataque.
+ */
 string Boss::ReturnSpriteAtk(){
   return "resources/boss/sprite_boss_atk.png";
 } 
 
+/**
+ * @brief Retorna o caminho relativo da animação de dano recebido pelo Boss.
+ * @return O caminho relativo da animação de dano.
+ */
 string Boss::ReturnSpriteTomou(){
   return "resources/boss/sprite_boss_hurt.png";
 }
 
+/**
+ * @brief Retorna o caminho relativo da animação de defesa do Boss.
+ * @return O caminho relativo da animação de defesa.
+ */
 string Boss::ReturnSpriteDef(){
 return "resources/boss/sprite_boss_protect.png";
 }
 
+/**
+ * @brief Retorna o caminho relativo da animação de repouso (idle) do Boss.
+ * @return O caminho relativo da animação de repouso.
+ */
 string Boss::ReturnSpriteIdle(){
   return "resources/boss/sprite_boss_default.png";
 }
+
+/**
+ * @brief Retorna o caminho relativo da animação da habilidade do Boss.
+ * @return O caminho relativo da animação da habilidade.
+ */
 string Boss::ReturnSpriteSkill(){
   return "resources/boss/sprite_boss_skill.png";
 }
 
+/**
+ * @brief Define a textura do Boss com base no caminho relativo fornecido.
+ * @param png O caminho relativo da imagem do sprite.
+ */
 void Boss::SettaSprite(string png){
   if(!img_entity_texture_.loadFromFile(png)){
     throw ErroLoadFromFile{};
@@ -58,6 +96,11 @@ void Boss::SettaSprite(string png){
   img_entity_.setScale(-5.8,5.8);
 }
 
+/**
+ * @brief Retorna dados específicos para facilitar a animação com base no caminho relativo da imagem do sprite.
+ * @param png O caminho relativo da imagem do sprite.
+ * @return Os dados daquele sprite específico.
+ */
 //Boss c o Y aumenta 
 DadosAnimacao Boss::ReturnDadosSprite(string png){
   DadosAnimacao aux{0,0,0};

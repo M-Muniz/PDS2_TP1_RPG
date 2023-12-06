@@ -6,6 +6,7 @@
 
 Rpg::Rpg(Player jogador)
 {
+  // Inicialização dos membros da classe
   player_ = jogador;
   mouse_coord_ = {0, 0};
   pos_mouse_ = {0, 0};
@@ -20,6 +21,7 @@ Rpg::Rpg(Player jogador)
   frame_e_ = 0;
   frame_p_ = 0;
 
+// Carregamento da textura de fundo
   if(!bg.loadFromFile("resources/bgs/bg_temp.png")){
     throw ErroLoadFromFile{};
   }
@@ -27,6 +29,7 @@ Rpg::Rpg(Player jogador)
   background->setTexture(bg);
   background->setScale(2.35, 2.35);
 
+  // Inicialização e configuração dos botões clicáveis
   buttons_.resize(4);
   buttons_[0].setSize(Vector2f(141, 141));
   buttons_[0].setPosition(Vector2f(122, 692));
@@ -109,6 +112,16 @@ void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p
   SetAnimeEnemy(x_e, y_e, z_e, idle_e);
 }
 
+/**
+ * @brief Função principal para o controle da animação do inimigo no jogo.
+ *
+ * Esta função é responsável por controlar a animação do inimigo com base nos parâmetros fornecidos.
+ *
+ * @param largura Largura da textura do inimigo.
+ * @param altura Altura da textura do inimigo.
+ * @param frame Quantidade de frames na animação.
+ * @param idle Indica se o inimigo está em estado de repouso.
+ */
 void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
 {
   if (idle == false)
@@ -188,6 +201,12 @@ void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
   }
 }
 
+/**
+ * @brief Função para desenhar a animação de um item drop após a derrota de um inimigo.
+ * 
+ * A função cria um item aleatório, soma seus status ao jogador e exibe a animação do item caindo
+ * na tela. A animação continua até que o ciclo esteja completo.
+ */
 void Rpg::ItemDraw()
 {
   item_drop_ = new Item(rand() % 6);
@@ -213,6 +232,18 @@ void Rpg::ItemDraw()
   }
   delete item_drop_;
 }
+
+/**
+ * @brief Função para configurar a animação do jogador com base nos parâmetros fornecidos.
+ * 
+ * Esta função configura a animação do jogador com base nos parâmetros de largura, altura, número de frames
+ * e se o jogador está em estado de repouso.
+ * 
+ * @param largura Largura da textura do jogador.
+ * @param altura Altura da textura do jogador.
+ * @param frame Quantidade de frames na animação.
+ * @param idle Indica se o jogador está em estado de repouso.
+ */
 void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
 {
   if (idle == false)
@@ -271,6 +302,14 @@ void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
   }
 }
 
+/**
+ * @brief Função para lidar com eventos do jogo.
+ * 
+ * Esta função captura eventos do teclado e mouse, permitindo ao jogador interagir com o jogo.
+ * Os eventos incluem clique do mouse e teclas específicas para realizar ações como ataque e uso de habilidades.
+ * 
+ * @return Um inteiro indicando a ação solicitada pelo jogador (0 para nenhum, 1 para ataque básico, 2-4 para habilidades).
+ */
 int Rpg::Events()
 {
   Event event;
@@ -325,6 +364,14 @@ int Rpg::Events()
   return 0;
 }
 
+/**
+ * @brief Função para desenhar mensagens na tela.
+ * 
+ * Esta função desenha mensagens na janela do jogo, incluindo mensagens padrão e mensagens específicas
+ * para o fim do jogo, como a contagem de oponentes derrotados.
+ * 
+ * @param message A mensagem a ser exibida na tela.
+ */
 void Rpg::DrawMessages(string message)
 {
   Text text_message;
@@ -363,6 +410,11 @@ void Rpg::DrawMessages(string message)
   sleep(milliseconds(250));
 }
 
+/**
+ * @brief Função para desenhar textos informativos na tela.
+ * 
+ * Esta função desenha informações sobre o jogador, como o nome, atributos e oponente atual na tela do jogo.
+ */
 void Rpg::DrawTexts()
 {
   player_name_.setString(player_.name_);
@@ -440,6 +492,9 @@ void Rpg::DrawTexts()
   }
 }
 
+/**
+ * @brief Draws the game interface including player, opponent, buttons, and status bars.
+ */
 void Rpg::Draw()
 {
   window_->clear(Color::Black);
@@ -473,6 +528,9 @@ void Rpg::Draw()
   window_->display();
 }
 
+/**
+ * @brief Runs the main game loop.
+ */
 void Rpg::Run()
 {
   float tam_x;
