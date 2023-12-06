@@ -10,35 +10,15 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "skill.h"
+#include "entity.h"
 
 using namespace std;
 using namespace sf;
 
 /**
- * @brief Estrutura de dados para a animaçao
- */
-
-struct DadosAnimacao{
-  int largura;
-  int altura;
-  int frames;
-};
-/**
- * @brief Estrutura de dados para armezenas os status do objeto.
- */
-struct Status {
-  int hp_max; /**< Vida máxima do objeto. */
-  int hp;   /**< Vida do objeto. */
-  int atk;  /**< Valor de ataque do objeto. */
-  int def;  /**< Valor de defesa do objeto. */
-  int mp; /**< Valore de mana do usuário. */
-  int xp;   /**< Valor de experiência do objeto. */
-  int agi;  /**< Valor de possível esquiva do objeto. */
-};
-/**
  * @brief Classe que representa um chefe (boss) no jogo.
  */
-class Boss {
+class Boss : public Entity {
 friend class Rpg;
 public:
   /**
@@ -47,38 +27,60 @@ public:
   Boss();
 
   /**
-   * @brief Retorna o valor de ataque do chefe (boss).
-   * @return O valor de ataque do chefe (boss).
+   * @brief Retorna a habilidade do Boss.
+   * @param index Indexador da Skill a ser chamada (sempre 0 para o Boss).
+   * @return A habilidade do Boss.
    */
-  int Atk();
+  Skill EntitySkills(int index);
 
   /**
-   * @brief Recebe o valor de ataque do jogador e subtrai da vida com base na defesa e esquiva do chefe (boss).
-   * @param atk_player O valor de ataque do jogador.
+   * @brief Retorna path relativo da animaçao de morte.
+   * @return O path relativo da animaçao de morte.
    */
-  bool Def(int atk_player);
+  string ReturnSpriteMorte();
+
+    /**
+   * @brief Retorna path relativo da animaçao de ataque.
+   * @return O path relativo da animaçao de ataque.
+   */
+  string ReturnSpriteAtk();
+
+   /**
+   * @brief Retorna path relativo da animaçao de idle.
+   * @return O path relativo da animaçao de idle.
+   */
+  string ReturnSpriteIdle();
+
+    /**
+   * @brief Retorna path relativo da animaçao de defesa.
+   * @return O path relativo da animaçao de defesa.
+   */
+  string ReturnSpriteDef();
+
+    /**
+   * @brief Retorna path relativo da animaçao de hurt.
+   * @return O path relativo da animaçao de hurt.
+   */
+  string ReturnSpriteTomou();
+      /**
+   * @brief Retorna path relativo da animaçao de skill.
+   * @return O path relativo da animaçao de skill.
+   */
+  string ReturnSpriteSkill();
 
   /**
-   * @brief Retorna a struct de dados do chefe (boss).
-   * @return A struct de dados do chefe (boss).
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
    */
-  Status ReturnStatus();
+  DadosAnimacao ReturnDadosSprite(string png);
 
   /**
-   * @brief Retorna uma das habilidades do chefe (boss) com base no índice.
-   * @param Index O índice da habilidade desejada.
-   * @return A habilidade do chefe (boss) correspondente ao índice.
+   * @brief Retorna dados do sprite pra facilitar as animaçoes.
+   * @return Os dados daquele sprite especifico.
    */
-  Skill BossSkills(int index);
+  void SettaSprite(string Png);
 
 private:
-  /**
-   * @brief Estrutura de dados que armazena os status do chefe (boss).
-   */
-  Status stats_;
-  string name_; /**< Nome do chefe (boss). */
-  Texture img_boss_texture_; /**< Textura para importar para o Sprite*/
-  Sprite img_boss_; /**< Imagem do chefe (boss) para a interface gráfica. */
   vector<Skill> skills_; /**< Vetor de habilidades do chefe (boss). */
 };
 

@@ -30,7 +30,7 @@ public:
   Texture bg; /**< Textura para importar para o backgroud da tela. */
   shared_ptr<Sprite> background; /**< Background da tela. */
     
-  RectangleShape enemy_status_; /**< Barra de vida do inimigo. */    
+  RectangleShape opponent_status_; /**< Barra de vida do inimigo. */    
   vector<RectangleShape> buttons_; /**< Vetor para os botões clicáveis. */
   vector<RectangleShape> player_status_; /**< Barras de mana e vida do Player. */
   vector<vector<RectangleShape>> cd_skills_; /**< Mostradores para o cooldown das skills do player. */
@@ -40,12 +40,17 @@ public:
   Font font_; /**< Variável para armazenar a fonte para os textos. */
 
   Player player_; /**< Jogador. */
-  vector<Enemy> enemys_; /**< Lista de Enemys para o jogo. */
-  vector<Boss> boss_; /**< Lista de Boss's para o jogo. */
-  Enemy* inimigo1_;
+  Entity* opponent_; /**< Enemy/Boss a ser enfrentado. */
+  Item* item_drop_; /**< Item dropado por cada enemy/boss vencido. */
+
   Vector2i pos_mouse_;
   Vector2f mouse_coord_;
-  Item* item_drop_;
+
+
+  int animaçao_completa_enemy_; /**< Aramazena dados da animação do enemy. */
+  int animaçao_completa_player_; /**< Aramazena dados da animação do player. */
+
+  int inimigos_mortos; /**< Aramazena a quantidade de inimigos mortos pelo Player. */
 
   float frame_e_,frame_p_; /**< Variáveis para armazenar a contagem de frames das animações. */
 
@@ -54,7 +59,14 @@ public:
    * @brief Construtor da classe Rpg.
    */
   Rpg(Player jogador);
-    
+  
+  /**
+   * @brief Destrutor da classe Rpg.
+   */
+  ~Rpg(){
+    delete opponent_;
+  };
+
   /**
    * @brief Inicia o jogo de RPG.
    */
@@ -69,7 +81,7 @@ public:
   /**
    * @brief Anima os objetos Player do jogo.
    */
-  void SetAnimePlayer();
+  void SetAnimePlayer(int largura,int altura,int frame,bool idle);
 
   /**
    * @brief Anima os objetos Enemy do jogo.
@@ -101,7 +113,9 @@ public:
   /**
    * @brief Anima a janela do jogo.
    */
-  void Game();
+
+  void Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p);
+
   /**
    * @brief Desenha os itens na tela
    */

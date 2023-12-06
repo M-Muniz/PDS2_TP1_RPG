@@ -8,8 +8,9 @@
 #include "../include/skill.h"
 
 int main(){
-  srand(time(NULL));
 
+  srand(time(NULL));
+  try{
   Menu* menu = new Menu();
 
   menu->RunMenu();
@@ -18,15 +19,17 @@ int main(){
 
   Rpg* jogo = new Rpg(jogador);
   
-  jogo->Run();
-  
-  menu->~Menu();
   delete menu;
 
+  jogo->Run();
+  
   delete jogo;
 
   menu = nullptr;
   jogo = nullptr;
-
+  }catch(ErroLoadFromFile){
+    cout << "Erro ao carregar alguma imagem ou fonte" << endl;
+    cout << "Confira os arquivos da pasta resources" << endl;
+  }
   return 0;
 }
