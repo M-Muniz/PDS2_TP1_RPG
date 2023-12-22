@@ -104,12 +104,12 @@ Rpg::Rpg(Player jogador)
   }
 }
 
-void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p, bool idle_p)
+void Rpg::Game(int x_e, int y_e, int z_e, int x_p, int y_p, int z_p)
 {
   frame_p_ += 0.035;
   frame_e_ += 0.035;
-  SetAnimePlayer(x_p, y_p, z_p, idle_p);
-  SetAnimeEnemy(x_e, y_e, z_e, idle_e);
+  SetAnimePlayer(x_p, y_p, z_p);
+  SetAnimeEnemy(x_e, y_e, z_e);
 }
 
 /**
@@ -122,20 +122,10 @@ void Rpg::Game(int x_e, int y_e, int z_e, bool idle_e, int x_p, int y_p, int z_p
  * @param frame Quantidade de frames na animação.
  * @param idle Indica se o inimigo está em estado de repouso.
  */
-void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
+void Rpg::SetAnimeEnemy(int largura, int altura, int frame)
 {
-  if (idle == false)
-  {
+    if(frame !=0){
     largura /= frame;
-  }
-  if (opponent_->name_ == "Sword Skeleton")
-  {
-    if (idle == true)
-    {
-      frame = 7;
-      largura = 67;
-      altura = 59;
-      opponent_->img_entity_.setPosition(1050, 320);
     }
     opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
     if (frame_e_ > frame)
@@ -143,62 +133,6 @@ void Rpg::SetAnimeEnemy(int largura, int altura, int frame, bool idle)
       frame_e_ -= frame;
       animaçao_completa_enemy_ = 1;
     }
-  }
-  else if (opponent_->name_ == "Small Werewolf" || opponent_->name_ == "Big Werewolf")
-  {
-    if (idle == true)
-    {
-      frame = 8;
-      largura = 80;
-      altura = 59;
-      if (opponent_->name_ == "Small Werewolf")
-      {
-        opponent_->img_entity_.setPosition(1050, 450);
-      }
-      if (opponent_->name_ == "Big Werewolf")
-      {
-        opponent_->img_entity_.setPosition(1200, 270);
-      }
-    }
-    opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
-    if (frame_e_ > frame)
-    {
-      frame_e_ -= frame;
-      animaçao_completa_enemy_ = 1;
-    }
-  }
-  else if (opponent_->name_ == "Spear Skeleton")
-  {
-    if (idle == true)
-    {
-      altura = 84;
-      largura = 67;
-      frame = 7;
-      opponent_->img_entity_.setPosition(1100, 215);
-    }
-    opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
-    if (frame_e_ > frame)
-    {
-      frame_e_ -= frame;
-      animaçao_completa_enemy_ = 1;
-    }
-  }
-  else if (opponent_->name_ == "Is'Abelu")
-  {
-    if (idle == true)
-    {
-      largura = 110;
-      altura = 111;
-      frame = 8;
-      opponent_->img_entity_.setPosition(1300, 0);
-    }
-    opponent_->img_entity_.setTextureRect(IntRect(largura * (int)frame_e_, 0, largura, altura));
-    if (frame_e_ > frame)
-    {
-      frame_e_ -= frame;
-      animaçao_completa_enemy_ = 1;
-    }
-  }
 }
 
 /**
@@ -215,13 +149,14 @@ void Rpg::ItemDraw()
 
   opponent_->SettaSprite(opponent_->ReturnSpriteMorte());
   DadosAnimacao aux = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteMorte());
-
+  player_.SettaSprite(player_.ReturnSpriteIdle());
+  DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteIdle());
   frame_e_ = 0;
   animaçao_completa_enemy_ = 0;
 
   while (!animaçao_completa_enemy_)
   {
-    Game(aux.largura, aux.altura, aux.frames, false, 0, 0, 0, true);
+    Game(aux.largura, aux.altura, aux.frames,aux_p.largura,aux_p.altura,aux_p.frames);
     Draw();
 
     FloatRect rect = item_drop_->img_item_.getLocalBounds();
@@ -244,20 +179,10 @@ void Rpg::ItemDraw()
  * @param frame Quantidade de frames na animação.
  * @param idle Indica se o jogador está em estado de repouso.
  */
-void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
+void Rpg::SetAnimePlayer(int largura, int altura, int frame)
 {
-  if (idle == false)
-  {
+    if(frame !=0){
     largura /= frame;
-  }
-  if (player_.classe_ == 0)
-  {
-    if (idle == true)
-    {
-      largura = 67;
-      altura = 64;
-      frame = 4;
-      player_.img_entity_.setPosition(150, 300);
     }
     player_.img_entity_.setTextureRect(IntRect(largura * (int)frame_p_, 0, largura, altura));
     if (frame_p_ > frame)
@@ -265,41 +190,6 @@ void Rpg::SetAnimePlayer(int largura, int altura, int frame, bool idle)
       frame_p_ -= frame;
       animaçao_completa_player_ = 1;
     }
-  }
-  else if (player_.classe_ == 1)
-  {
-    if (idle == true)
-    {
-      largura = 67;
-      altura = 67;
-      frame = 8;
-      player_.img_entity_.setPosition(125, 285);
-    }
-    player_.img_entity_.setTextureRect(IntRect(largura * (int)frame_p_, 0, largura, altura));
-    if (frame_p_ > frame)
-    {
-      frame_p_ -= frame;
-      animaçao_completa_player_ = 1;
-    }
-
-    player_.img_entity_.setTextureRect(IntRect(largura * (int)frame_p_, 0, largura, altura));
-  }
-  else if (player_.classe_ == 2)
-  {
-    if (idle == true)
-    {
-      largura = 67;
-      altura = 70;
-      frame = 6;
-      player_.img_entity_.setPosition(110, 265);
-    }
-    player_.img_entity_.setTextureRect(IntRect(largura * (int)frame_p_, 0, largura, altura));
-    if (frame_p_ > frame)
-    {
-      frame_p_ -= frame;
-      animaçao_completa_player_ = 1;
-    }
-  }
 }
 
 /**
@@ -540,7 +430,11 @@ void Rpg::Run()
   {
     for (int turno = 1; player_.stats_.hp > 0 && window_->isOpen(); turno++)
     {
-      Game(0, 0, 0, true, 0, 0, 0, true);
+      player_.SettaSprite(player_.ReturnSpriteIdle());
+      DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteIdle());
+      player_.SettaSprite(player_.ReturnSpriteIdle());
+      DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
+      Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_p.largura,aux_p.altura,aux_p.frames);
       Draw();
       if (turno % 2)
       {
@@ -597,23 +491,23 @@ void Rpg::Run()
               player_.SettaSprite(player_.ReturnSpriteAtk());
               DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteAtk());
               DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+              DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
+              opponent_->SettaSprite(opponent_->ReturnSpriteIdle());
 
               animaçao_completa_player_ = 0;
               frame_p_ = 0;
 
               while (frame_p_ < (aux_p.frames - aux_e.frames))
               {
-                Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Game(aux_I.largura, aux_I.altura, aux_I.frames,aux_p.largura,aux_p.altura,aux_p.frames);
                 Draw();
               }
               opponent_->SettaSprite(opponent_->ReturnSpriteTomou());
-
               aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
               frame_e_ = 0;
-
               while (!animaçao_completa_player_)
               {
-                Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                 Draw();
               }
               player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -650,7 +544,7 @@ void Rpg::Run()
 
               while (!animaçao_completa_player_)
               {
-                Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_p.largura, aux_p.altura, aux_p.frames);
                 Draw();
               }
 
@@ -690,11 +584,12 @@ void Rpg::Run()
                 player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
                 player_.SettaSprite(player_.ReturnSpriteSkill(0));
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
+                DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
                 while (!animaçao_completa_player_)
                 {
-                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -725,11 +620,12 @@ void Rpg::Run()
               player_status_[1].setSize(Vector2f(409 * player_.stats_.mp / 100, 9.4));
               player_.SettaSprite(player_.ReturnSpriteSkill(0));
               DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(0));
+              DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
               animaçao_completa_player_ = 0;
               frame_p_ = 0;
               while (!animaçao_completa_player_)
               {
-                Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                 Draw();
               }
               player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -758,12 +654,13 @@ void Rpg::Run()
                 player_.SettaSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
 
                 while (frame_p_ < (aux_p.frames - aux_e.frames))
                 {
-                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_I.largura, aux_I.altura, aux_I.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -772,7 +669,7 @@ void Rpg::Run()
 
                 while (!animaçao_completa_player_)
                 {
-                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -805,12 +702,13 @@ void Rpg::Run()
                 player_.SettaSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(1));
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
 
                 while (frame_p_ < (aux_p.frames - aux_e.frames))
                 {
-                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_I.largura, aux_I.altura, aux_I.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -819,7 +717,7 @@ void Rpg::Run()
 
                 while (!animaçao_completa_player_)
                 {
-                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -883,11 +781,12 @@ void Rpg::Run()
                 player_.SettaSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
                 while (frame_p_ < (aux_p.frames - aux_e.frames))
                 {
-                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_I.largura, aux_I.altura, aux_I.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -895,7 +794,7 @@ void Rpg::Run()
                 frame_e_ = 0;
                 while (!animaçao_completa_player_)
                 {
-                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -918,11 +817,12 @@ void Rpg::Run()
                 player_.SettaSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteSkill(2));
                 DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
+                DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
                 animaçao_completa_player_ = 0;
                 frame_p_ = 0;
                 while (frame_p_ < (aux_p.frames - aux_e.frames))
                 {
-                  Game(0, 0, 0, true, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_I.largura, aux_I.altura, aux_I.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteTomou());
@@ -930,7 +830,7 @@ void Rpg::Run()
                 frame_e_ = 0;
                 while (!animaçao_completa_player_)
                 {
-                  Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+                  Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
                   Draw();
                 }
                 player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -979,10 +879,13 @@ void Rpg::Run()
           default:
             break;
           }
-          Game(0, 0, 0, true, 0, 0, 0, true);
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteIdle());
+          player_.SettaSprite(player_.ReturnSpriteIdle());
+          DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
+          Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_p.largura,aux_p.altura,aux_p.frames);
           Draw();
         }
-
         if (opponent_->stats_.hp <= 0)
         {
           player_.Upar(opponent_->stats_.xp);
@@ -1025,6 +928,7 @@ void Rpg::Run()
 
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite("resources/boss/sprite_boss_skill.png");
+          DadosAnimacao aux_I = player_.ReturnDadosSprite(player_.ReturnSpriteIdle());
 
           animaçao_completa_enemy_ = 0;
           frame_e_ = 0;
@@ -1032,7 +936,7 @@ void Rpg::Run()
 
           while (frame_e_ < (aux_e.frames - aux_p.frames))
           {
-            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, 0, 0, 0, true);
+            Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_I.largura, aux_I.altura, aux_I.frames);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteTomou());
@@ -1040,7 +944,7 @@ void Rpg::Run()
 
           while (!animaçao_completa_enemy_)
           {
-            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+            Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -1077,13 +981,14 @@ void Rpg::Run()
 
             player_.SettaSprite(player_.ReturnSpriteMorte());
             DadosAnimacao aux = player_.ReturnDadosSprite(player_.ReturnSpriteMorte());
+            DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
 
             animaçao_completa_player_ = 0;
             frame_p_ = 0;
 
             while (!animaçao_completa_player_)
             {
-              Game(0, 0, 0, true, aux.largura, aux.altura, aux.frames, false);
+              Game( aux_I.largura, aux_I.altura, aux_I.frames, aux.largura, aux.altura, aux.frames);
               Draw();
             }
 
@@ -1105,13 +1010,14 @@ void Rpg::Run()
 
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
           DadosAnimacao aux_e = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteAtk());
+          DadosAnimacao aux_I = player_.ReturnDadosSprite(player_.ReturnSpriteIdle());
 
           animaçao_completa_enemy_ = 0;
           frame_e_ = 0;
 
           while (frame_e_ < (aux_e.frames - aux_p.frames))
           {
-            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, 0, 0, 0, true);
+            Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_I.largura, aux_I.altura, aux_I.frames);
             Draw();
           }
           aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteTomou());
@@ -1119,7 +1025,7 @@ void Rpg::Run()
           frame_p_ = 0;
           while (!animaçao_completa_enemy_)
           {
-            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+            Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
             Draw();
           }
           player_.SettaSprite(player_.ReturnSpriteIdle());
@@ -1150,13 +1056,14 @@ void Rpg::Run()
 
             player_.SettaSprite(player_.ReturnSpriteMorte());
             DadosAnimacao aux = player_.ReturnDadosSprite(player_.ReturnSpriteMorte());
+            DadosAnimacao aux_I = opponent_->ReturnDadosSprite(opponent_->ReturnSpriteIdle());
 
             animaçao_completa_player_ = 0;
             frame_p_ = 0;
 
             while (!animaçao_completa_player_)
             {
-              Game(0, 0, 0, true, aux.largura, aux.altura, aux.frames, false);
+              Game( aux_I.largura, aux_I.altura, aux_I.frames, aux.largura, aux.altura, aux.frames);
               Draw();
             }
 
@@ -1182,10 +1089,11 @@ void Rpg::Run()
           frame_p_ = 0;
 
           DadosAnimacao aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
+          DadosAnimacao aux_I = player_.ReturnDadosSprite(player_.ReturnSpriteIdle());
 
           while (frame_e_ < (aux_e.frames - aux_p.frames))
           {
-            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, 0, 0, 0, true);
+            Game(aux_e.largura, aux_e.altura, aux_e.frames,aux_I.largura, aux_I.altura, aux_I.frames);
             Draw();
           }
           aux_p = player_.ReturnDadosSprite(player_.ReturnSpriteDef());
@@ -1193,10 +1101,10 @@ void Rpg::Run()
 
           while (!animaçao_completa_enemy_)
           {
-            Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+            Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
             Draw();
           }
-          Game(aux_e.largura, aux_e.altura, aux_e.frames, false, aux_p.largura, aux_p.altura, aux_p.frames, false);
+          Game(aux_e.largura, aux_e.altura, aux_e.frames, aux_p.largura, aux_p.altura, aux_p.frames);
 
           player_.SettaSprite(player_.ReturnSpriteIdle());
           opponent_->SettaSprite(opponent_->ReturnSpriteIdle());

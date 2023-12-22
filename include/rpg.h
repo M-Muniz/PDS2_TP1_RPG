@@ -85,12 +85,12 @@ public:
   /**
    * @brief Anima os objetos Player do jogo.
    */
-  void SetAnimePlayer(int largura,int altura,int frame,bool idle);
+  void SetAnimePlayer(int largura,int altura,int frame);
 
   /**
    * @brief Anima os objetos Enemy do jogo.
    */
-  void SetAnimeEnemy(int largura,int altura,int frame,bool idle);
+  void SetAnimeEnemy(int largura,int altura,int frame);
 
   /**
    * @brief Gerencia eventos do jogo que acontecem na interface gráfica.
@@ -118,7 +118,7 @@ public:
    * @brief Anima a janela do jogo.
    */
 
-  void Game(int x_e,int y_e, int z_e,bool idle_e,int x_p,int y_p,int z_p,bool idle_p);
+  void Game(int x_e,int y_e, int z_e,int x_p,int y_p,int z_p);
 
   /**
    * @brief Desenha os itens na tela
